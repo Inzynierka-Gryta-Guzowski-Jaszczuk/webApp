@@ -1,20 +1,25 @@
 const mongoose = require('mongoose')
-const outfitSchema = require('./Outfit')
-const Clothes = require('./Clothes')
+const Recipe = require('./Recipe')
 const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    firstName: { type: String, required: false },
+    lastName: { type: String, required: false },
     userName: { type: String, required: true },
     password: { type: String, required: true },
-    clothes: [{
+    email: {type: String, required: true},
+    my_recipes: [{
         type: mongoose.Schema.ObjectId,
         require: false,
-        ref: Clothes,
+        ref: Recipe,
         requred: false
     }],
-    outfits: [outfitSchema]
+    saved_recipes: [{
+        type: mongoose.Schema.ObjectId,
+        require: false,
+        ref: Recipe,
+        requred: false
+    }],
 })
 
 userSchema.methods.generateAuthToken = function () {
