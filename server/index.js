@@ -11,12 +11,12 @@ connectDB()
 app.use(cors())
 app.use(express.json())
 
-app.use('/outfits', outfitRouter)
+// app.use('/outfits', outfitRouter)
 app.use('/user', userRouter)
-app.use('/clothes', clothesRouter)
+// app.use('/clothes', clothesRouter)
 
-app.get('/powitansko', (req, res) => {
-    res.send("Witaj kochanie")
+app.get('/tester', (req, res) => {
+    res.send("hello")
 })
 
 app.listen(8080, () => console.log('Nasluchiwanie na porcie', 8080))

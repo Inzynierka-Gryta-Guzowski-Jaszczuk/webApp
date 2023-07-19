@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 
-const connect = () => {
+const connect = async () => {
     const connectionParams = {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }
-    const url = "mongodb+srv://admin:tak@cluster0.jiclvwj.mongodb.net/?retryWrites=true&w=majority"
+    const url = "mongodb://127.0.0.1/cooking_app"
     try {
-        mongoose.connect(url, connectionParams)
+        await mongoose.connect(url, connectionParams)
         console.log('Connected to database')
     } catch(error) {
         console.log(error)

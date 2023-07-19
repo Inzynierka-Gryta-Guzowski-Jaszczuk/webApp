@@ -1,0 +1,8 @@
+POST http://localhost:8080/user/myProfile HTTP/1.1
+content-type: application/json
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGI4MDY4OWNmZDljZmZiMGE2OGQ2NjgiLCJpYXQiOjE2ODk3ODI5OTEsImV4cCI6MTY4OTg2OTM5MX0.ATTr5aUb_LYHQ_JK5fBT_8s7d0aC0AMwVWBgHsXoCSU
+
+{
+
+}
+    

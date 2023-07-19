@@ -2,7 +2,7 @@ const User = require('./../models/User')
 
 module.exports = async (req, res) => {
     try {
-        const user = await User.findOne({_id: req.user}).populate('clothes')
+        const user = await User.findOne({_id: req.user})
         if(!user) {
             res.status(400).send("user not found")
         }
