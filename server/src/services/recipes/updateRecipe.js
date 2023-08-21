@@ -1,5 +1,5 @@
 const Recipe = require('../../models/Recipe');
-const validate = require('../../validators/addRecipeValidator')
+const validate = require('../../validators/updateRecipeValidator')
 const User = require('../../models/User')
 
 const addRecipe = async (req, res) => {
@@ -16,13 +16,9 @@ const addRecipe = async (req, res) => {
             console.log(error)
             return res.status(400).send({message: error.details[0].message})
         }
-        
-        console.log({...req.body, saved_count: 0, rating: []})
-        let recipe = new Recipe({...req.body, saved_count: 0, rating: [], author: user._id})
-        await recipe.save()
-        await user.my_recipes.push(recipe)
-        await user.save()
-        res.send("udało się dodać")
+        const {id, ...rest} = req.body
+        const updated = await Recipe.findByIdAndUpdate(id, rest, {new: true})
+        res.status(200).send(updated)
     } catch(error) {
         console.log(error)
         res.status(500).send("Internal server error")
