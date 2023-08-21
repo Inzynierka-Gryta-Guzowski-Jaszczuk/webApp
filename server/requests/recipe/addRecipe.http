@@ -7,12 +7,18 @@ token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxY
     "description": "test3",
     "ingredients": [
         {
-            "name": "tes5t",
+            "name": "maka",
             "amount": 1,
             "unit": "test"
         },
          {
-            "name": "składnik2",
+            "name": "mleko",
+            "amount": 5,
+            "unit": "kg"
+        },
+        
+         {
+            "name": "piwo",
             "amount": 5,
             "unit": "kg"
         }

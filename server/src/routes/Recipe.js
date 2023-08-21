@@ -8,9 +8,16 @@ const getAllRecipesService = require('./../services/recipes/getAllRecipes')
 const getRecipeService = require('./../services/recipes/getRecipe')
 const deleteRecipeService = require('./../services/recipes/deleteRecipe')
 const updateRecipeService = require('./../services/recipes/updateRecipe')
+const getFilteredRecipesService = require('./../services/recipes/getFilteredRecipes')
 //for not authorized users
 router.get('/public/', (req, res) => {
     getAllRecipesService(req, res)
+})
+
+//search by ingredients
+router.get('/public/search', (req, res) => {
+    console.log("search")
+    getFilteredRecipesService(req, res)
 })
 
 router.get('/public/:id', (req, res) => {
@@ -20,6 +27,8 @@ router.get('/public/:id', (req, res) => {
 router.get('/public/user/:id', (req, res) => {
     getUserRecipesService(req, res)
 })
+
+
 
 //for authorized users
 router.get('/all', authenticate, (req, res) => {
