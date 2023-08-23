@@ -7,11 +7,8 @@ const darkTheme = extendTheme({
       body:{
         bg: "#2d2f31",  
       },
-      nav:{
-        
-        
+      nav:{ 
         bgGradient: 'linear(to-b, #0D0D0D, #404040)',
-        
       }
     }
   },
