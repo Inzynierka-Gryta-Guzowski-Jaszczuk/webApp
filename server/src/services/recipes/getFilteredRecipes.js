@@ -1,0 +1,44 @@
+const Recipe = require('../../models/Recipe')
+
+
+// ingredients.forEach((element, index) => {
+//     ingredients[index] = element.toLowerCase()
+// });
+// //delete white spaces
+// ingredients.forEach((element, index) => {
+//     ingredients[index] = element.trim()
+// });
+// //delete duplicates
+// ingredients.forEach((element, index) => {
+//     if(ingredients.indexOf(element) !== index) {
+//         ingredients.splice(index, 1)
+//     }
+// });
+const getFiltered = async (req, res) => {
+    try {
+        //array of strings
+        const selected = req.body.selected
+        // let recipes = await Recipe.find({'ingredients.name': {$in: ingredients}})
+        selected.forEach((element, index) => {
+            selected[index] = element.toLowerCase()
+        });
+        //delete white spaces
+        selected.forEach((element, index) => {
+            selected[index] = element.trim()
+        });
+        //delete duplicates
+        selected.forEach((element, index) => {
+            if(selected.indexOf(element) !== index) {
+                selected.splice(index, 1)
+            }
+        });
+        let recipes = await Recipe.find({$nor:[{'ingredients':{$elemMatch:{ 'name': {$nin:selected}}}}]},{_id:0})
+        res.send(recipes)
+    } catch(error) {
+        console.log(error)
+        res.status(500).send("Internal server error")
+    }
+    
+}
+
+module.exports = getFiltered

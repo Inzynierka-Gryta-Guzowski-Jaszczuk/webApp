@@ -1,0 +1,6 @@
+get http://localhost:8080/recipe/public/64e349235a0a92d95c660685 HTTP/1.1
+content-type: application/json
+
+{
+}
+    
