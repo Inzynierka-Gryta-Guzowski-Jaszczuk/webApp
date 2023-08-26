@@ -23,15 +23,15 @@ function Nav() {
                         </>
                     ) : (
                         <>
-                            <Link href="/" color={theme.colors.primary} _hover={{ color: theme.colors.hover }} mr={4} >Książka Kucharska</Link>
-                            <Link href="/" color={theme.colors.primary} _hover={{ color: theme.colors.hover }} mr={4}>Twoje przepisy</Link>
+                            <Link href="/" mr={4} >Książka Kucharska</Link>
+                            <Link href="/" mr={4}>Twoje przepisy</Link>
                         </>
                     )}
-                    <Link href="/" color={theme.colors.primary} _hover={{ color: theme.colors.hover }} mr={4}>Twoja lodówka</Link>
-                    <Link href="/" color={theme.colors.primary} _hover={{ color: theme.colors.hover }} mr={4}>Ranking przepisów</Link>
-                    <Link href="/" color={theme.colors.primary} _hover={{ color: theme.colors.hover }} mr={4}>Kategorie</Link>
+                    <Link href="/"  mr={4}>Twoja lodówka</Link>
+                    <Link href="/" mr={4}>Ranking przepisów</Link>
+                    <Link href="/" mr={4}>Kategorie</Link>
                     {token === null ? (
-                        <Link href="/login" color={theme.colors.primary} _hover={{ color: theme.colors.hover }} mr={4}>Zaloguj</Link>
+                        <Link href="/login" mr={4}>Zaloguj</Link>
 
                     ) : (
                         <>

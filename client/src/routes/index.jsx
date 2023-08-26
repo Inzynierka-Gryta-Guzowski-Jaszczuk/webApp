@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-
+import Login from '../components/login';
 
 const UserRoutes = () => {
     const token = localStorage.getItem("token");
@@ -12,7 +12,7 @@ const UserRoutes = () => {
                 {token === null ? (
                     <>
                         <Route path="/register" element={<h2>Zarejestruj</h2>}></Route>
-                        <Route path="/login" element={<h2>Zaloguj</h2>} ></Route>
+                        <Route path="/login" element={<Login></Login>} ></Route>
                     </>
                 ) : (
                     <>
