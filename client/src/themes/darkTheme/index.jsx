@@ -1,7 +1,13 @@
 import { extendTheme } from "@chakra-ui/react";
+import Button from "./Button";
+import Link from "./Link";
 
 
 const darkTheme = extendTheme({
+  components: {
+    Button,
+    Link,
+  },
   styles:{
     global:{
       body:{
@@ -16,8 +22,11 @@ const darkTheme = extendTheme({
     
     primary: "#9b9d97",
     hover: "#e2eceb",
-    secondary: "#3366FF", 
+    secondary: "#232422", 
   },
+  cardStyle: {
+    boxShadow: "1px 1px 10px 1px  #070707",
+  }
 });
 
 export default darkTheme;
