@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link } from "@chakra-ui/react";
 import axios from "axios";
 
-function Login() {
+function Register() {
     const theme = useTheme();
     const [data, setData] = useState({ email: "", password: "" });
     const [errors, setErrors] = useState({ email: false, password: false });
@@ -22,9 +22,9 @@ function Login() {
         e.preventDefault()
         debugger;
         try {
-            const url = "/login"
+            const url = "/register"
             const { data: res } = await axios.post(url, data)
-            // localStorage.setItem("token", res.data)
+            localStorage.setItem("token", res.data)
             window.location = "/"
         } catch (error) {
             if (
@@ -37,10 +37,10 @@ function Login() {
         }
     }
     return (
-        <Flex justify='center' textAlign='center' mb={100}>
-            <Card display='flex' align='center' size='md' mt={100} px={60} mx={40} pb={20} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} borderColor={theme.colors.secondary} boxShadow={theme.cardStyle.boxShadow}>
+        <Flex justify='center' textAlign='center'>
+            <Card display='flex' align='center' size='lg' mt={100} px={60} mx={40} pb={20} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} borderColor={theme.colors.secondary} boxShadow={theme.cardStyle.boxShadow}>
                 <CardHeader>
-                    <Heading>Zaloguj</Heading>
+                    <Heading>Zarejestruj</Heading>
                 </CardHeader>
                 <CardBody mb={10} border='solid' borderColor={theme.colors.primary} borderRadius='20' px={40}>
                     <form onSubmit={handleSubmit}>  
@@ -68,7 +68,7 @@ function Login() {
 
                 </CardBody>
                 <CardFooter>
-                    <Text fontSize='2xl'>Nie masz konta? Kliknij <Link href="/register" variant='underline'> Zarejestruj</Link></Text> 
+                    <Text fontSize='2xl'>Nie masz konta? Kliknij <Link href="/login" variant='underline'> Zaloguj</Link></Text> 
                     
                 </CardFooter>
 
@@ -79,4 +79,4 @@ function Login() {
 
     )
 }
-export default Login;
+export default Register;
