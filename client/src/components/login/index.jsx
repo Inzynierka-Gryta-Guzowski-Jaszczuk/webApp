@@ -4,8 +4,10 @@ import axios from "axios";
 
 function Login() {
     const theme = useTheme();
-    const [data, setData] = useState({ email: "", password: "" });
-    const [errors, setErrors] = useState({ email: false, password: false });
+    const [data, setData] = useState({ userName: "", password: "" });
+    const [errors, setErrors] = useState({ userName: false, password: false });
+    const [message, setMessage] = useState("");
+    const [formDisabled,setFormDisabled] = useState(false);
     const handleChange = ({ currentTarget: input }) => {
         setData({ ...data, [input.name]: input.value });
         if (input.value === '') {
@@ -22,17 +24,21 @@ function Login() {
         e.preventDefault()
         debugger;
         try {
-            const url = "/login"
+            const url = "/api/user/login"
             const { data: res } = await axios.post(url, data)
-            // localStorage.setItem("token", res.data)
-            window.location = "/"
+            localStorage.setItem("token", res.data)
+            setMessage(res.message);
+            setFormDisabled(true);
+            setTimeout(function() {
+                window.location = "/";
+            },3000);
         } catch (error) {
             if (
                 error.response &&
                 error.response.status >= 400 &&
                 error.response.status <= 500
             ) {
-                // setError(error.response.data.message)
+                setMessage(error.message);
             }
         }
     }
@@ -44,10 +50,10 @@ function Login() {
                 </CardHeader>
                 <CardBody mb={10} border='solid' borderColor={theme.colors.primary} borderRadius='20' px={40}>
                     <form onSubmit={handleSubmit}>  
-                        <FormControl isInvalid={errors.email} px={10}>
-                            <FormLabel>Email</FormLabel>
-                            <Input name='email' type='email' width='md' value={data.email} onChange={handleChange} />
-                            {!errors.email ? (
+                        <FormControl isInvalid={errors.userName} px={10}>
+                            <FormLabel>Nazwa użytkownika</FormLabel>
+                            <Input name='userName'  width='md' value={data.userName} onChange={handleChange} />
+                            {!errors.userName ? (
                                 <div><br></br></div>
                             ) : (
                                 <FormErrorMessage>Email jest wymagany</FormErrorMessage>
@@ -62,8 +68,12 @@ function Login() {
                                 <FormErrorMessage >Hasło jest wymagane</FormErrorMessage>
                             )}
                         </FormControl>
-                        <Button mt={4} type="submit">Zaloguj</Button>
-
+                        <Button mt={4} type="submit" isDisabled={formDisabled}>Zaloguj</Button>
+                        {message !== '' ?(
+                            <Text>{message}</Text>
+                        ): ( 
+                            <div><br></br></div>
+                        )}
                     </form>
 
                 </CardBody>

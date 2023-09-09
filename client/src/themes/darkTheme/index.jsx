@@ -1,12 +1,14 @@
 import { extendTheme } from "@chakra-ui/react";
 import Button from "./Button";
 import Link from "./Link";
+import MenuItem from "./MenuItem";
 
 
 const darkTheme = extendTheme({
   components: {
     Button,
     Link,
+    MenuItem,
   },
   styles:{
     global:{

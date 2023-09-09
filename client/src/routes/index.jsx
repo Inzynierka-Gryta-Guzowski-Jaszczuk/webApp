@@ -17,7 +17,7 @@ const UserRoutes = () => {
                     </>
                 ) : (
                     <>
-                        <Route path="/logout" ></Route>
+                        <Route path="/logout" element={localStorage.removeItem("token")}></Route>
                     </>
                 )}
             </Routes>
