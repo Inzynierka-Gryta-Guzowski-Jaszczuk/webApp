@@ -52,7 +52,7 @@ function Register() {
                 error.response.status >= 400 &&
                 error.response.status <= 500
             ) {
-                setMessage(error.message);
+                setMessage(error.response.data.message);
             }
         }
     }

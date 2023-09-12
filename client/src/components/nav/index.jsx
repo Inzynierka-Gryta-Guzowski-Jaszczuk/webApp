@@ -35,12 +35,16 @@ function Nav() {
 
                     ) : (
                         <Menu>
-                            <MenuButton as={Avatar} size='sm'></MenuButton>
-                            <MenuList>
-                                <MenuItem>
-                                <Link href="/logout" mr={4}>Wyloguj</Link>
+                            <MenuButton as={Avatar} size='sm' bg="#2d2f31"></MenuButton>
+                            <MenuList bg="#2d2f31" borderColor={theme.colors.primary} m={0} p={0} borderRadius={0}>
+                                <MenuItem justifyContent='center' bgGradient='linear(to-b, #0D0D0D, #404040)' borderBottom="1px solid" borderColor={theme.colors.primary}>
+                                    <Link href="/logout" >Wyloguj</Link>
+                                </MenuItem>
+                                <MenuItem justifyContent='center' bgGradient='linear(to-b, #0D0D0D, #404040)'>
+                                    <Link href="/logout" >Wyloguj</Link>
                                 </MenuItem>
                             </MenuList>
+                            
                         </Menu>
                         
                     )}
