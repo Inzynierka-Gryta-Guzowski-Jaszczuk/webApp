@@ -1,4 +1,4 @@
-get http://localhost:8080/recipe/all HTTP/1.1
+get http://localhost:5000/recipe/all HTTP/1.1
 content-type: application/json
 token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTI2MTkyNDUsImV4cCI6MTY5MjcwNTY0NX0.cuTKPgNSdgVszGRh3aviQkpxQBJKpP1bAudHYPGt19I
 
