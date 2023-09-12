@@ -5,6 +5,7 @@ const getAllUsersService = require('./../services/getAllUsers')
 const addUserService = require('./../services/addUser')
 const loginUserService = require('./../services/loginUser')
 const getUser = require('./../services/getUser')
+const refreshToken = require('./../services/refreshToken')
 //middlewares
 const authenticate = require('./../middlewares/AuthorizationJWT')
 
@@ -33,6 +34,11 @@ router.get('/myProfile', authenticate, (req, res) => {
 //send request to this path to check if user can see forms and sites without special user data
 router.get('/authenticate', authenticate, (req, res) => {
     res.sendStatus(200)
+})
+
+router.get("/token", async (req, res) => {
+    console.log("token")
+    await refreshToken(req, res)
 })
 
 module.exports = router

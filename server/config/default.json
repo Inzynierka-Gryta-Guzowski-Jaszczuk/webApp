@@ -1,0 +1,14 @@
+{
+    "jwt" : {
+        "secret" : "test123",
+        "expiresIn" : "1d",
+        "issuer" : "mojaKochnia",
+        "salt": "0"
+    },
+    "jwt_refresh" : {
+        "secret" : "test123",
+        "expiresIn" : "30d",
+        "issuer" : "mojaKochnia",
+        "salt": "0"
+    }
+}

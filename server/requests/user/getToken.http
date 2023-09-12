@@ -1,0 +1,6 @@
+GET http://localhost:8080/user/token HTTP/1.1
+content-type: application/json
+refresh: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTQ1MzYxODMsImV4cCI6MTY5NzEyODE4M30.HDdCF0bz0JbOQzRp9wXd0o-Mz8Aqg7jihxVNGzHSnV4
+
+{
+}

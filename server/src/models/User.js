@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 const Recipe = require('./Recipe')
 const jwt = require('jsonwebtoken')
+const config = require('config')
+const secret = config.get('jwt.secret')
+const expiresIn = config.get('jwt.expiresIn')
+const refreshSecret = config.get('jwt_refresh.secret')
+const refreshExpiresIn = config.get('jwt_refresh.expiresIn')
 
 const userSchema = new mongoose.Schema({
     firstName: { type: String, required: false },
@@ -23,8 +28,15 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateAuthToken = function () {
-    const token = jwt.sign({ _id: this._id }, 'abcdefg', {
-        expiresIn: "1d",
+    const token = jwt.sign({ _id: this._id }, secret, {
+        expiresIn: expiresIn,
+    })
+    return token
+}
+
+userSchema.methods.generateRefreshToken = function () {
+    const token = jwt.sign({ _id: this._id }, refreshSecret, {
+        expiresIn: refreshExpiresIn,
     })
     return token
 }
