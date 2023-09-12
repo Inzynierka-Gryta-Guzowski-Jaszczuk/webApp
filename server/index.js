@@ -19,4 +19,4 @@ app.get('/tester', (req, res) => {
     res.send("hello")
 })
 
-app.listen(8080, () => console.log('Nasluchiwanie na porcie', 8080))
+app.listen(5000, () => console.log('Nasluchiwanie na porcie', 5000))

@@ -7,6 +7,7 @@ const darkTheme = extendTheme({
   components: {
     Button,
     Link,
+
   },
   styles:{
     global:{

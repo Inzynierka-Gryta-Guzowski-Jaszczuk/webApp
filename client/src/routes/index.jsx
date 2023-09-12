@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Login from '../components/login';
+import Register from '../components/register';
 
 const UserRoutes = () => {
     const token = localStorage.getItem("token");
@@ -11,12 +12,12 @@ const UserRoutes = () => {
 
                 {token === null ? (
                     <>
-                        <Route path="/register" element={<h2>Zarejestruj</h2>}></Route>
+                        <Route path="/register" element={<Register></Register>}></Route>
                         <Route path="/login" element={<Login></Login>} ></Route>
                     </>
                 ) : (
                     <>
-                        <Route path="/logout" ></Route>
+                        <Route path="/logout" element={localStorage.removeItem("token")}></Route>
                     </>
                 )}
             </Routes>
