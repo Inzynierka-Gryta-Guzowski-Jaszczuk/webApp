@@ -1,4 +1,4 @@
-import { Box, Flex, InputGroup, InputLeftElement, Input, Link, useTheme } from "@chakra-ui/react";
+import { Box, Flex, InputGroup, InputLeftElement, Input, Link, useTheme, Menu, MenuButton, Avatar, MenuList, MenuItem } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
 function Nav() {
@@ -34,8 +34,19 @@ function Nav() {
                         <Link href="/login" mr={4}>Zaloguj</Link>
 
                     ) : (
-                        <>
-                        </>
+                        <Menu>
+                            <MenuButton as={Avatar} size='sm' bg="#2d2f31"></MenuButton>
+                            <MenuList bg="#2d2f31" borderColor={theme.colors.primary} m={0} p={0} borderRadius={0}>
+                                <MenuItem justifyContent='center' bgGradient='linear(to-b, #0D0D0D, #404040)' borderBottom="1px solid" borderColor={theme.colors.primary}>
+                                    <Link href="/logout" >Wyloguj</Link>
+                                </MenuItem>
+                                <MenuItem justifyContent='center' bgGradient='linear(to-b, #0D0D0D, #404040)'>
+                                    <Link href="/logout" >Wyloguj</Link>
+                                </MenuItem>
+                            </MenuList>
+                            
+                        </Menu>
+                        
                     )}
                 </Flex>
             </Flex>
