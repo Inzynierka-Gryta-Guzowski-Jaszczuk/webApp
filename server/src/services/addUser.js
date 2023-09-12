@@ -3,18 +3,20 @@ const User = require('./../models/User')
 const bcrypt = require('bcrypt')
 const addUser = async (req, res) => {
     try {
-        // res.send("test123")
-        console.log("asdasd")
         const { error } = validate(req.body)
-        console.log("test123")
         if (error) {
             return res.status(400).send({ message: error.details[0].message })
         }
         console.log(req.body)
-        const user = await User.findOne({ userName: req.body.userName })
+        let user = await User.findOne({ userName: req.body.userName })
         if (user) {
             return res.status(409).send({ message: "user with given username already exist!!" })
         }
+        user = await User.findOne({ email: req.body.email })
+        if (user) {
+            return res.status(409).send({ message: "user with given email already exist!!" })
+        }
+        
         const salt = await bcrypt.genSalt(Number("10"))
         const hashPassword = await bcrypt.hash(req.body.password, salt)
         newUser = new User({ ...req.body, password: hashPassword })

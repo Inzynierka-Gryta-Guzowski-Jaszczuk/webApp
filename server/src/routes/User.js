@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
 })
 
 //get user from token (for showing profile)
-router.post('/myProfile', authenticate, (req, res) => {
+router.get('/myProfile', authenticate, (req, res) => {
     getUser(req, res)
 })
 
