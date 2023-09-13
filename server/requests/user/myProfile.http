@@ -1,4 +1,4 @@
-GET http://localhost:8080/user/myProfile HTTP/1.1
+GET http://localhost:5000/user/myProfile HTTP/1.1
 content-type: application/json
 token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTQ1MzU3MzksImV4cCI6MTY5NDYyMjEzOX0.M5fGUNGR2sdvy1cQeCYpHGtbtNHJbcixcjLc98AXMEk
 

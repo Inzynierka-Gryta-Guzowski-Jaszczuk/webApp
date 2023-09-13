@@ -14,7 +14,7 @@ const recipeSchema = new mongoose.Schema({
         {type: String, required: true}
     ],
     difficulty: {type: String, enum: ['easy', 'medium', 'hard'], required: true},
-    type: {type: String, enum: ['breakfast', 'lunch', 'dinner', 'dessert', 'snack'], required: true},
+    type: {type: String, enum: ['breakfast', 'lunch', 'dinner', 'dessert', 'snack'], required: true}, //change to tags, so can add multiple tags
     calories: {type: Number, required: false},
     portions: {type: Number, required: true},
     comments: [commentSchema],

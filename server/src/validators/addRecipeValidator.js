@@ -11,13 +11,13 @@ const validate = (data) => {
     
     const schema = joi.object({
         name: joi.string().required().label("Name"),
-        description: joi.string().required().label("Description"),
+        description: joi.string().label("Description"), //not required
         ingredients: joi.array().items(ingredientSchema).required().label("Ingredients"),
         instructions: joi.array().items(joi.string()).required().label("Instructions"),
         type: joi.string().required().label("Type"),
-        difficulty: joi.string().required().label("Difficulty"),
-        calories: joi.number().required().label("Calories"),
-        portions: joi.number().required().label("Portions")
+        difficulty: joi.string().label("Difficulty"),
+        calories: joi.number().label("Calories"),
+        portions: joi.number().label("Portions")
     })
     return schema.validate(data)}
 
