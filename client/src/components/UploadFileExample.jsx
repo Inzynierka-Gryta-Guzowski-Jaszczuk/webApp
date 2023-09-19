@@ -8,9 +8,9 @@ const UploadFileExample = () => {
         const formData = new FormData();
 
         formData.append('file', file);
-        const url = "http://localhost:8080/image/user/7s"
+        const url = "http://localhost:5000/image/user"
         const { data: res } = await axios.post(url, formData, {
-            headers: {'Content-Type': 'multipart/form-data' }
+            headers: {'Content-Type': 'multipart/form-data', 'token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTUxNDI5NTQsImV4cCI6MTY5NTIyOTM1NH0.vJeFl1YRXBtUU8P7Ibcv_gedLneizXnfgteuirQKA6w' }
             })
     }
 
