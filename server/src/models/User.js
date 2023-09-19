@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
     userName: { type: String, required: true },
     password: { type: String, required: true },
     email: {type: String, required: true},
+    image: {type: String, required: false}, //image url
     my_recipes: [{
         type: mongoose.Schema.ObjectId,
         require: false,

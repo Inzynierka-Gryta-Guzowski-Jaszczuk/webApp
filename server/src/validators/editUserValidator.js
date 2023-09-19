@@ -6,11 +6,11 @@ const joiPassword = joi.extend(joiPasswordExtendCore);
 
 const validate = (data) => {
     const schema = joi.object({
-        firstName: joi.string().required().label("First Name"),
+        firstName: joi.string().label("First Name"),
         lastName: joi.string().label("Last Name"),
-        userName: joi.string().required().label("Username"),
-        email: joi.string().email().required().label("Email"),
-        password: joiPassword.string().min(8).minOfLowercase(1).minOfUppercase(1).minOfNumeric(1).minOfSpecialCharacters(1).required().label("hasło").messages({
+        userName: joi.string().label("Username"),
+        email: joi.string().email().label("Email"),
+        password: joiPassword.string().min(8).minOfLowercase(1).minOfUppercase(1).minOfNumeric(1).minOfSpecialCharacters(1).label("hasło").messages({
             'password.minOfUppercase': 'hasło powinno zawierać conajmniej jedną wielką literę',
             'password.minOfSpecialCharacters':
                   'hasło powinno zawierać conajmniej jeden specjalny znak',

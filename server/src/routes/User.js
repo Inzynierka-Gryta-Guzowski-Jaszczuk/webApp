@@ -4,6 +4,7 @@ router = express.Router()
 const getAllUsersService = require('./../services/getAllUsers')
 const addUserService = require('./../services/addUser')
 const loginUserService = require('./../services/loginUser')
+const editUserService = require('./../services/editUser')
 const getUser = require('./../services/getUser')
 const refreshToken = require('./../services/refreshToken')
 //middlewares
@@ -29,6 +30,10 @@ router.post('/login', async (req, res) => {
 //get user from token (for showing profile)
 router.get('/myProfile', authenticate, (req, res) => {
     getUser(req, res)
+})
+
+router.post('/myProfile', authenticate, (req, res) => {
+    editUserService(req, res)
 })
 
 //send request to this path to check if user can see forms and sites without special user data

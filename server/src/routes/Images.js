@@ -8,6 +8,9 @@ const upload = multer({ dest: './images' });
 const path = require("path");
 const fs = require("fs");
 
+const userAddImageService = require('./../services/images/userAddImage')
+
+const recipeAddImageService = require('./../services/images/recipeAddImage')
 //get image for recipe
 router.get('/recipe/:id', (req, res) => {
     res.send("get image for recipe")
@@ -19,45 +22,13 @@ router.get('/user/:id', (req, res) => {
 })
 
 //add image for recipe
-router.post('/recipe/:id', authenticate, (req, res) => {
-    res.send("add image for recipe")
+router.post('/recipe/:id', authenticate, upload.single('file'), (req, res) => {
+  recipeAddImageService(req, res)
 })
 
 //add image for user
-router.post('/user/:id', upload.single('file'), (req, res) => {
-    const title = req.body.title;
-    const file = req.file;
-
-    console.log("title", title);
-    console.log("file", file);
-    
-    const tempPath = req.file.path
-    console.log(tempPath)
-
-    let targetPath = path.join(__dirname, "./../../images/image");
-    console.log(targetPath)
-    const fileType = path.extname(req.file.originalname).toLowerCase()
-    if (fileType === ".png" || fileType === ".jpg" || fileType === ".jpeg") {
-        targetPath = targetPath + fileType
-        fs.rename(tempPath, targetPath, err => {
-          if (err) return handleError(err, res);
-  
-          res
-            .status(200)
-            .contentType("text/plain")
-            .end("File uploaded!");
-        });
-      } else {
-        fs.unlink(tempPath, err => {
-          if (err) return handleError(err, res);
-  
-          res
-            .status(403)
-            .contentType("text/plain")
-            .end("Only .png files are allowed!");
-        });
-      }
-
+router.post('/user', authenticate, upload.single('file'), (req, res) => {
+  userAddImageService(req, res)
 })
 
 //delete image for recipe

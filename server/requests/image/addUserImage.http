@@ -1,5 +1,5 @@
-POST http://localhost:8080/image/user/7 HTTP/1.1
+POST http://localhost:5000/image/user HTTP/1.1
 content-type: image/jpeg
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTQ1NDMxNzEsImV4cCI6MTY5NDYyOTU3MX0.cDwEd65bXFpWqOYkEjmtIDrO2u-XcSCVZYXqdLY1inI
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTUxNDI5NTQsImV4cCI6MTY5NTIyOTM1NH0.vJeFl1YRXBtUU8P7Ibcv_gedLneizXnfgteuirQKA6w
 
 < ./download.jpg
