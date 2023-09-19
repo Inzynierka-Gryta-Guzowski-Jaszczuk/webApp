@@ -1,7 +1,8 @@
-get http://localhost:5000/recipe/all HTTP/1.1
+GET http://localhost:5000/recipe/saved HTTP/1.1
 content-type: application/json
 token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTQ2MjY1OTksImV4cCI6MTY5NDcxMjk5OX0.Tp9LEjTU_yWzfJ9b2ouTzrgYpvrLhPhq1oSa6UmBdtE
 
 {
+    "recipeId": "64e352748abe1c57f97efcce"
 }
     

@@ -10,11 +10,11 @@ const addUser = async (req, res) => {
         console.log(req.body)
         let user = await User.findOne({ userName: req.body.userName })
         if (user) {
-            return res.status(409).send({ message: "user with given username already exist!!" })
+            return res.status(409).send({ message: "nazwa użytkownika jest zajęta" })
         }
         user = await User.findOne({ email: req.body.email })
         if (user) {
-            return res.status(409).send({ message: "user with given email already exist!!" })
+            return res.status(409).send({ message: "adres email jest już użyty" })
         }
         
         const salt = await bcrypt.genSalt(Number("10"))

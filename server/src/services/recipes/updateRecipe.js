@@ -2,7 +2,7 @@ const Recipe = require('../../models/Recipe');
 const validate = require('../../validators/updateRecipeValidator')
 const User = require('../../models/User')
 
-const addRecipe = async (req, res) => {
+const updateRecipe = async (req, res) => {
     try {
         let user = await User.findOne({_id: req.user})
         console.log("user: ", user)
@@ -26,4 +26,4 @@ const addRecipe = async (req, res) => {
     
 }
 
-module.exports = addRecipe
+module.exports = updateRecipe

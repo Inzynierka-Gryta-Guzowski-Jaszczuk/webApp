@@ -1,6 +1,6 @@
 put http://localhost:5000/recipe/ HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTI2MTkyNDUsImV4cCI6MTY5MjcwNTY0NX0.cuTKPgNSdgVszGRh3aviQkpxQBJKpP1bAudHYPGt19I
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTQ2MjUxMTAsImV4cCI6MTY5NDcxMTUxMH0.ey16MeNfkOnaKAD1NJykmUvv_QVD9aZ9Mytums7A7QI
 
 {
     "id": "64e352748abe1c57f97efcce",
