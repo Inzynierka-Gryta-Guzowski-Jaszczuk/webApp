@@ -6,7 +6,7 @@ const TAGS = ["ciasta", "zapiekanki", "pizzy", "makarony", "sushi", "sałatki", 
 const recipeSchema = new mongoose.Schema({
     author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     name: {type: String, required: true},
-    image: {type: String, required: false},
+    image: {type: String, required: true},
     ingredients: [{
         name:{type: String, required: true}, 
         amount: {type: Number, required: true},

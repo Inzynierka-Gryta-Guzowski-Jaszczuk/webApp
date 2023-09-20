@@ -19,6 +19,7 @@ const addRecipe = async (req, res) => {
         
         console.log({...req.body, saved_count: 0, rating: []})
         let recipe = new Recipe({...req.body, saved_count: 0, rating: [], author: user._id})
+        recipe.image = "http://localhost:5000/static/defaultRecipe.png"
         await recipe.save()
         await user.my_recipes.push(recipe)
         await user.save()

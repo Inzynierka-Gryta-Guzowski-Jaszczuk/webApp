@@ -1,6 +1,6 @@
 POST http://localhost:5000/recipe/add HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTI2MTkyNDUsImV4cCI6MTY5MjcwNTY0NX0.cuTKPgNSdgVszGRh3aviQkpxQBJKpP1bAudHYPGt19I
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBhZjAwYzJkMWUwMWJjOTYyYmNkMTciLCJpYXQiOjE2OTUyMTU2NTUsImV4cCI6MTY5NTMwMjA1NX0.moIYdyoqQgBgH0ImbqSfkp6ZkGmzz93db0YaMflVJGw
 
 {
     "name": "testw2",
@@ -24,16 +24,11 @@ token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxY
         }
     ],
     "instructions": [
-        {
-            "description": "test"
-        }
-    ],
-    "instructions": [
         "st2ep1",
         "ste5p2",
         "step3"
     ],
-    "type": "breakfast",
+    "tags": ["ciasta", "kebaby"],
     "difficulty": "easy",
     "calories": 100,
     "portions": 1

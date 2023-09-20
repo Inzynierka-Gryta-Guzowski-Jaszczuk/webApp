@@ -20,6 +20,7 @@ const addUser = async (req, res) => {
         const salt = await bcrypt.genSalt(Number("10"))
         const hashPassword = await bcrypt.hash(req.body.password, salt)
         newUser = new User({ ...req.body, password: hashPassword })
+        newUser.image = "http://localhost:5000/static/defaultUser.png"
         await newUser.save()
         res.status(201).send({ message: "User created succesfully" })
     } catch (error) {

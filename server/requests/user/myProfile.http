@@ -1,6 +1,6 @@
 GET http://localhost:5000/user/myProfile HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTUxNDIzNTYsImV4cCI6MTY5NTIyODc1Nn0.cWxYdsRUoojFtN3cmPhzCCiNVxPUmTLDKMBr9688XBY
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBhZjAwYzJkMWUwMWJjOTYyYmNkMTciLCJpYXQiOjE2OTUyMTU2NTUsImV4cCI6MTY5NTMwMjA1NX0.moIYdyoqQgBgH0ImbqSfkp6ZkGmzz93db0YaMflVJGw
 
 {
 

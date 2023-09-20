@@ -2,9 +2,9 @@ POST http://localhost:5000/user/register HTTP/1.1
 content-type: application/json
 
 {
-    "firstName": "John2",
+    "firstName": "John",
     "lastName": "Johnson",
-    "userName": "Johnsonws",
-    "email": "test2@test.pl",
+    "userName": "Johnsonwss",
+    "email": "test2@test2.pl",
     "password": "awdawdasS1!"
 }

@@ -8,7 +8,8 @@ module.exports = async (req, res) => {
         }
         console.log("uzytkownik znaleziony")
         console.log(user)
-        res.json(user)
+        const {password, ...rest} = user._doc
+        res.json(rest)
     }catch (error) {
         console.log(error)
     }

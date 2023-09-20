@@ -15,7 +15,7 @@ const validate = (data) => {
         description: joi.string().label("opis"),
         ingredients: joi.array().items(ingredientSchema).required().label("składniki"),
         instructions: joi.array().items(joi.string()).required().label("kroki"),
-        tags: joi.array().items(joi.string()).valid(...TAGS).label("tagi"),
+        tags: joi.array().items(joi.string().valid(...TAGS)).label("tags"),
         difficulty: joi.string().label("truność"),
         calories: joi.number().label("kalorie"),
         portions: joi.number().label("porcje")
