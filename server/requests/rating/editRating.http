@@ -1,0 +1,7 @@
+PUT http://localhost:5000/comment/recipe/650af30f372599d74e10c214/comment/650c83b973284c0181fec8c0 HTTP/1.1
+content-type: application/json
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDkzOWNmMWIzMDkwZWMxN2JkNmIiLCJpYXQiOjE2OTUzMTYwMTEsImV4cCI6MTY5NTQwMjQxMX0.uSza2KHHGVvmPDqyXXyheVnxfAJIYy8KcPZK1IQlb3U
+
+{
+    "comment": "4"
+}

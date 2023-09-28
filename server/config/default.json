@@ -10,5 +10,13 @@
         "expiresIn" : "30d",
         "issuer" : "mojaKochnia",
         "salt": "0"
+    },
+    "api": {
+        "port": 5000,
+        "url": "http://localhost"    
+    },
+    "gmail": {
+        "userName": "guzgrytjasz.inz@gmail.com",
+        "password": "qmsv sjey cifi aaia"
     }
 }

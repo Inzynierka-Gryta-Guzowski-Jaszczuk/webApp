@@ -18,7 +18,8 @@ const validate = (data) => {
         tags: joi.array().items(joi.string().valid(...TAGS)).label("tags"),
         difficulty: joi.string().label("truność"),
         calories: joi.number().label("kalorie"),
-        portions: joi.number().label("porcje")
+        portions: joi.number().label("porcje"),
+        time: joi.number().label("czas"),
     })
     return schema.validate(data)}
 

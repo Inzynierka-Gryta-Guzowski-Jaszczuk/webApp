@@ -1,0 +1,6 @@
+DELETE http://localhost:5000/comment/recipe/650af30f372599d74e10c214/comment/650c82ab641e7c62508663a0 HTTP/1.1
+content-type: application/json
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDkzOWNmMWIzMDkwZWMxN2JkNmIiLCJpYXQiOjE2OTUzMTYwMTEsImV4cCI6MTY5NTQwMjQxMX0.uSza2KHHGVvmPDqyXXyheVnxfAJIYy8KcPZK1IQlb3U
+
+{
+}

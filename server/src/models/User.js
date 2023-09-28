@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Recipe = require('./Recipe')
 const jwt = require('jsonwebtoken')
+var crypto = require('crypto');
 const config = require('config')
 const secret = config.get('jwt.secret')
 const expiresIn = config.get('jwt.expiresIn')
@@ -26,6 +27,9 @@ const userSchema = new mongoose.Schema({
         ref: Recipe,
         requred: false
     }],
+    activated: { type: Boolean, required: true },
+    activation_token: { type: String, required: false },
+    reset_password_token: { type: String, required: false },
 })
 
 userSchema.methods.generateAuthToken = function () {
@@ -42,6 +46,27 @@ userSchema.methods.generateRefreshToken = function () {
     return token
 }
 
+userSchema.methods.generateActivationToken = async function () {
+    console.log("this in generate", this)
+    const buffer = crypto.randomBytes(32)
+    const token = buffer.toString('hex')
+    this.activation_token = token
+    await this.save()
+    return token
+}
+
+userSchema.methods.generateResetPasswordToken = async function () {
+    await crypto.randomBytes(32, async (err, buffer) => {
+        if (err) {
+            console.log(err)
+        }
+        const token = buffer.toString('hex')
+        this.reset_password_token = token
+        await this.save()
+        return token
+    }
+    )
+}
 
 const User = mongoose.model('User', userSchema)
 

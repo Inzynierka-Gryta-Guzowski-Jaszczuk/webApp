@@ -7,15 +7,19 @@ const loginUser = async (req, res) => {
         const { error } = validate(req.body);
         if (error)
             return res.status(400).send({ message: error.details[0].message })
+        console.log(req.body.userName)
+        
         const user = await User.findOne({ userName: req.body.userName })
+        // const allUsers = await User.find()
+        // console.log(allUsers)
         if (!user)
-            return res.status(401).send({ message: "Invalid Email or Password" })
+            return res.status(401).send({ message: "Invalid Email or Password 1" })
         const validPassword = await bcrypt.compare(
             req.body.password,
             user.password
         )
         if (!validPassword)
-            return res.status(401).send({ message: "Invalid Email or Password" })
+            return res.status(401).send({ message: "Invalid Email or Password 2" })
         const token = user.generateAuthToken();
         const refresh = user.generateRefreshToken();
         res.status(200).send({ token: token, refresh: refresh, message: "logged in successfully" })

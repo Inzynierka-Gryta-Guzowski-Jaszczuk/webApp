@@ -8,6 +8,7 @@ const Recipe = require('../../models/Recipe')
 // ingredients.forEach((element, index) => {
 //     ingredients[index] = element.trim()
 // });
+
 // //delete duplicates
 // ingredients.forEach((element, index) => {
 //     if(ingredients.indexOf(element) !== index) {

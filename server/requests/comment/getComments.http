@@ -1,0 +1,5 @@
+GET http://localhost:5000/comment/recipe/650af30f372599d74e10c214 HTTP/1.1
+content-type: application/json
+
+{
+}

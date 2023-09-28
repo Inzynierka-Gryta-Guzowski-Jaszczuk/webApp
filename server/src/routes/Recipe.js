@@ -64,7 +64,7 @@ router.put('/',authenticate, (req, res) => {
 
 //get tags
 router.get('/tags', (req, res) => {
-    res.send(Recipe.getPossibleTags())
+    res.send(Recipe.getCategorizedTags())
 })
 
 //saved recipes

@@ -7,6 +7,8 @@ const loginUserService = require('./../services/loginUser')
 const editUserService = require('./../services/editUser')
 const getUser = require('./../services/getUser')
 const refreshToken = require('./../services/refreshToken')
+const deleteUserService = require('./../services/deleteUser')
+const activateUserService = require('./../services/activateUser')
 //middlewares
 const authenticate = require('./../middlewares/AuthorizationJWT')
 
@@ -44,6 +46,15 @@ router.get('/authenticate', authenticate, (req, res) => {
 router.get("/token", async (req, res) => {
     console.log("token")
     await refreshToken(req, res)
+})
+
+router.delete('/delete', authenticate, async (req, res) => {
+    deleteUserService(req, res)
+})
+
+router.get('/activate/:token', async (req, res) => {
+    console.log("test123")
+    activateUserService(req, res)
 })
 
 module.exports = router

@@ -1,6 +1,7 @@
 const validate = require('../validators/addUserValidator')
 const User = require('./../models/User')
 const bcrypt = require('bcrypt')
+const sendConfirmationEmail = require('./email/sendConfirmationEmail')
 const addUser = async (req, res) => {
     try {
         const { error } = validate(req.body)
@@ -19,8 +20,12 @@ const addUser = async (req, res) => {
         
         const salt = await bcrypt.genSalt(Number("10"))
         const hashPassword = await bcrypt.hash(req.body.password, salt)
-        newUser = new User({ ...req.body, password: hashPassword })
+        newUser = await new User({ ...req.body, password: hashPassword, activated: false })
         newUser.image = "http://localhost:5000/static/defaultUser.png"
+        const activationToken = await newUser.generateActivationToken()
+        console.log("newUser: ---------------",newUser)
+        console.log("activationToken: ---------------",activationToken)
+        sendConfirmationEmail(newUser.email, newUser.userName, activationToken)
         await newUser.save()
         res.status(201).send({ message: "User created succesfully" })
     } catch (error) {

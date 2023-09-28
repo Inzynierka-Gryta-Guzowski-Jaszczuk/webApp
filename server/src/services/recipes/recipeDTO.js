@@ -1,0 +1,24 @@
+
+const recipeToDTO = (recipe) => {
+  const averageRating = 0
+  if(recipe.rating.length !== 0) {
+    const sum = recipe.ratings.reduce((total, rating) => total + rating, 0);
+    averageRating = sum / recipe.ratings.length;
+  }
+  return {
+      recipe_id: recipe._id,
+      name: recipe.name,
+      tags: recipe.tags,
+      ingredients: recipe.ingredients,
+      description: recipe.description,
+      instructions: recipe.instructions,
+      difficulty: recipe.difficulty,
+      type: recipe.type,  
+      calories: recipe.calories,
+      portions: recipe.portions,
+      saved_count: recipe.saved_count,
+      rating: averageRating,
+  }
+}
+
+module.exports = recipeToDTO;
