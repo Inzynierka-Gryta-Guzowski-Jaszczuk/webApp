@@ -1,11 +1,11 @@
 POST http://localhost:5000/recipe/add HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBhZjAwYzJkMWUwMWJjOTYyYmNkMTciLCJpYXQiOjE2OTUyMTU2NTUsImV4cCI6MTY5NTMwMjA1NX0.moIYdyoqQgBgH0ImbqSfkp6ZkGmzz93db0YaMflVJGw
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDkzOWNmMWIzMDkwZWMxN2JkNmIiLCJpYXQiOjE2OTYwMDgwMzksImV4cCI6MTY5NjA5NDQzOX0.acslyPqsxoQ0QpuybdwKIuughCeNbSQuAx6NqWF_43M
 
 {
-    "name": "testw2",   //required
+    "name": "test ze zdjęciem",   
     "description": "test3",
-    "ingredients": [    //required
+    "ingredients": [    
         {
             "name": "maka",
             "amount": 1,
@@ -23,7 +23,7 @@ token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBhZjAwYzJkMWUwM
             "unit": "kg"
         }
     ],
-    "instructions": [   //required
+    "instructions": [  
         "st2ep1",
         "ste5p2",
         "step3"

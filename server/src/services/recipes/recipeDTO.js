@@ -9,6 +9,7 @@ const recipeToDTO = (recipe) => {
       recipe_id: recipe._id,
       name: recipe.name,
       tags: recipe.tags,
+      image: recipe.image,
       ingredients: recipe.ingredients,
       description: recipe.description,
       instructions: recipe.instructions,
