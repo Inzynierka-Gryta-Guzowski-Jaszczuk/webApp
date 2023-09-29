@@ -1,6 +1,6 @@
 const User = require('../../models/User')
 const Recipe = require('../../models/Recipe')
-
+const recipeToDTO = require('./recipeDTO')
 const getRecipe = async (req, res) => {
     try {
         if(req.params.id === undefined || req.params.id === null || req.params.id.length < 12 ) {
@@ -12,7 +12,8 @@ const getRecipe = async (req, res) => {
             res.status(404).send("Recipe not found")
             return  
         }
-        res.send(recipe)
+
+        res.send(recipeToDTO(recipe))
     } catch(error) {
         console.log(error)
         res.status(500).send("Internal server error")

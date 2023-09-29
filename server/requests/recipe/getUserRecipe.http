@@ -1,6 +1,6 @@
 get http://localhost:5000/recipe/public/user/64e351e58abe1c57f97efcc1 HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUzNTFlNThhYmUxYzU3Zjk3ZWZjYzEiLCJpYXQiOjE2OTI2MTkyNDUsImV4cCI6MTY5MjcwNTY0NX0.cuTKPgNSdgVszGRh3aviQkpxQBJKpP1bAudHYPGt19I
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDkzOWNmMWIzMDkwZWMxN2JkNmIiLCJpYXQiOjE2OTYwMDg1NjcsImV4cCI6MTY5NjA5NDk2N30.JZEwTXeMjqo8AfOX734epliugBdc1YJoxEan_MM3sPs
 
 {
 

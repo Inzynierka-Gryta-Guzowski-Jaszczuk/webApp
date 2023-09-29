@@ -1,9 +1,11 @@
 
 const recipeToDTO = (recipe) => {
-  const averageRating = 0
+  let averageRating = 0
   if(recipe.rating.length !== 0) {
     const sum = recipe.ratings.reduce((total, rating) => total + rating, 0);
     averageRating = sum / recipe.ratings.length;
+  }else {
+    averageRating = null
   }
   return {
       recipe_id: recipe._id,
