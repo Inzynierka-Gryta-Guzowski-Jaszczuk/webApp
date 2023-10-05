@@ -1,34 +1,21 @@
 POST http://localhost:5000/recipe/add HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDkzOWNmMWIzMDkwZWMxN2JkNmIiLCJpYXQiOjE2OTYwMDgwMzksImV4cCI6MTY5NjA5NDQzOX0.acslyPqsxoQ0QpuybdwKIuughCeNbSQuAx6NqWF_43M
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFlYzZjOTJhNGMyNzBhYWQ0ZGNjYzEiLCJpYXQiOjE2OTY1MTYwMjAsImV4cCI6MTY5NjYwMjQyMH0.NX4R2pRWJys-nxXTlCL8PS3UWQY1LCnuvVy6xyeTAVs
 
 {
-    "name": "test ze zdjęciem",   
-    "description": "test3",
+    "name": "lody torty",   
+    "description": "test4",
     "ingredients": [    
         {
             "name": "maka",
             "amount": 1,
             "unit": "test"
-        },
-         {
-            "name": "mleko",
-            "amount": 5,
-            "unit": "kg"
-        },
-        
-         {
-            "name": "piwo",
-            "amount": 5,
-            "unit": "kg"
         }
     ],
     "instructions": [  
-        "st2ep1",
-        "ste5p2",
-        "step3"
+        "st2ep1"
     ],
-    "tags": ["ciasta", "kebaby"],
+    "tags": ["lody", "torty"],
     "difficulty": "easy",
     "calories": 100,
     "portions": 1

@@ -1,6 +1,6 @@
 DELETE http://localhost:5000/user/delete HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDNkMDIwMGZlOTY1YTIwMGNhNDAiLCJpYXQiOjE2OTUyMjE3NjIsImV4cCI6MTY5NTMwODE2Mn0.gl7oinDKf7xES8PO7ob68uDvxpIQvGbtBvD7Da0xLh0
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBiMDkzOWNmMWIzMDkwZWMxN2JkNmIiLCJpYXQiOjE2OTY1MTU3NTEsImV4cCI6MTY5NjYwMjE1MX0.wcK9wmCwLjMO_B6cbFwhSecvHGxfjuzKHc3GiqY7v14
 
 {
 }

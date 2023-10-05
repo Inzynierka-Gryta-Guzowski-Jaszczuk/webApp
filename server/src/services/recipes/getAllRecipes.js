@@ -1,9 +1,10 @@
 const User = require('../../models/User')
 const Recipe = require('../../models/Recipe')
 const recipeToDTO = require('./recipeDTO')
-const addRecipe = async (req, res) => {
+const getAllRecipes = async (req, res) => {
     try {
         let recipes = await Recipe.find({})
+        console.log(recipes)
         let recipesDTO = recipes.map(recipe => {
             return recipeToDTO(recipe)
         })
@@ -15,4 +16,4 @@ const addRecipe = async (req, res) => {
     
 }
 
-module.exports = addRecipe
+module.exports = getAllRecipes

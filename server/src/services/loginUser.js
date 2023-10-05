@@ -13,7 +13,12 @@ const loginUser = async (req, res) => {
         // const allUsers = await User.find()
         // console.log(allUsers)
         if (!user)
-            return res.status(401).send({ message: "Invalid Email or Password 1" })
+            return res.status(401).send({ message: "Niepoprawne dane logowania" })
+
+        //check if user is activated
+        if (!user.activated)
+            return res.status(401).send({ message: "Konto użytkownika nie jest aktywowane" })
+        
         const validPassword = await bcrypt.compare(
             req.body.password,
             user.password

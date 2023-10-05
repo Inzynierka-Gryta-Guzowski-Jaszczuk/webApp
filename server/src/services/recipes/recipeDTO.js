@@ -8,6 +8,7 @@ const recipeToDTO = (recipe) => {
     averageRating = null
   }
   return {
+      author: recipe.author,
       recipe_id: recipe._id,
       name: recipe.name,
       tags: recipe.tags,
