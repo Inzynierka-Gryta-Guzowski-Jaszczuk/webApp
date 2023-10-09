@@ -23,7 +23,7 @@ const addRecipe = async (req, res) => {
         await recipe.save()
         await user.my_recipes.push(recipe)
         await user.save()
-        res.send("udało się dodać")
+        res.status(200).send(recipe._id)
     } catch(error) {
         console.log(error)
         res.status(500).send("Internal server error")

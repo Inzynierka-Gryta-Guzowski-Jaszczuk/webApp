@@ -27,12 +27,11 @@ const addImage = async (req, res) => {
         await fs.rename(tempPath, targetPath, async err => {
             if (err) return handleError(err, res);
             console.log("target path",targetPath)
-            recipe.image = `/static/${req.user._id}.png`
+            recipe.image = `http://localhost:5000/static/${req.user._id}.png`
             await recipe.save()
             res
                 .status(200)
-                .contentType("text/plain")
-                .end("File uploaded!");
+                .send(`http://localhost:5000/static/${req.user._id}.png`);
         });
       } else {
         fs.unlink(tempPath, err => {
@@ -41,7 +40,7 @@ const addImage = async (req, res) => {
           res
             .status(403)
             .contentType("text/plain")
-            .end("Only .png files are allowed!");
+            .end("Only .png and .jpg files are allowed!");
         });
       }
     }
