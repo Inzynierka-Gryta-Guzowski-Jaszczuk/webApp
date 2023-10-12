@@ -2,6 +2,13 @@ const User = require('./../../models/User')
 const path = require("path");
 const fs = require("fs");
 
+const handleError = (err, res) => {
+    console.log("error", err)
+    res
+      .status(500)
+      .send("internal server error")
+}
+
 const addImage = async (req, res) => {
     const file = req.file;
     const user = await User.findOne({_id: req.user})
@@ -20,6 +27,7 @@ const addImage = async (req, res) => {
     
     if (fileType === ".png" || fileType === ".jpg" || fileType === ".jpeg") {
         await fs.rename(tempPath, targetPath, async err => {
+          // handle error doesnt exist
             if (err) return handleError(err, res);
             console.log("target path",targetPath)
             user.image = `http://localhost:5000/static/${req.user._id}.png`

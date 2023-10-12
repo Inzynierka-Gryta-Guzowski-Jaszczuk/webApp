@@ -6,7 +6,7 @@ const fs = require("fs");
 const addImage = async (req, res) => {
     const file = req.file;
     const user = await User.findOne({_id: req.user})
-    const recipe = await Recipe.findOne({_id: req.query.id})
+    const recipe = await Recipe.findOne({_id: req.params.id})
     if(!user) {
         res.status(400).send("user not found")
     }
@@ -27,11 +27,11 @@ const addImage = async (req, res) => {
         await fs.rename(tempPath, targetPath, async err => {
             if (err) return handleError(err, res);
             console.log("target path",targetPath)
-            recipe.image = `http://localhost:5000/static/${req.user._id}.png`
+            recipe.image = `http://localhost:5000/static/${recipe._id}.png`
             await recipe.save()
             res
                 .status(200)
-                .send(`http://localhost:5000/static/${req.user._id}.png`);
+                .send(`http://localhost:5000/static/${recipe._id}.png`);
         });
       } else {
         fs.unlink(tempPath, err => {
