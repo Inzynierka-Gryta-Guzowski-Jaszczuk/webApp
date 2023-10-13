@@ -1,4 +1,4 @@
-import { Box, Flex, InputGroup, InputLeftElement, Input, Link, useTheme, Menu, MenuButton, Avatar, MenuList, MenuItem } from "@chakra-ui/react";
+import { Box, Flex, InputGroup, InputLeftElement, Input, Link, useTheme, Menu, MenuButton, Avatar, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
 function Nav() {
@@ -7,16 +7,7 @@ function Nav() {
 
     return (
         <nav>
-
-            <Flex justify='end'>
-                <Box justifyContent='center' m={3}>
-                    <InputGroup size='sm'>
-                        <InputLeftElement pointerEvents='none'>
-                            <SearchIcon color={theme.colors.primary}></SearchIcon>
-                        </InputLeftElement>
-                        <Input type="text" placeholder="Wyszukaj" color={theme.colors.primary} border='none'></Input>
-                    </InputGroup>
-                </Box>
+            <Flex justify='end'>    
                 <Flex pr={4} m={4} ml='auto' justifyContent='center' flexWrap='nowrap'>
                     {token === null ? (
                         <>
@@ -28,7 +19,7 @@ function Nav() {
                         </>
                     )}
                     <Link href="/"  mr={4}>Twoja lodówka</Link>
-                    <Link href="/" mr={4}>Ranking przepisów</Link>
+                    <Link href="/recipes" mr={4}>Ranking przepisów</Link>
                     <Link href="/" mr={4}>Kategorie</Link>
                     {token === null ? (
                         <Link href="/login" mr={4}>Zaloguj</Link>
@@ -38,11 +29,12 @@ function Nav() {
                             <MenuButton as={Avatar} size='sm' bg="#2d2f31"></MenuButton>
                             <MenuList bg="#2d2f31" borderColor={theme.colors.primary} m={0} p={0} borderRadius={0}>
                                 <MenuItem justifyContent='center' bgGradient='linear(to-b, #0D0D0D, #404040)' borderBottom="1px solid" borderColor={theme.colors.primary}>
-                                    <Link href="/logout" >Wyloguj</Link>
+                                    <Link as={Button} onClick={() => {
+                                        localStorage.removeItem('token')
+                                        window.location.href = '/login'
+                                    }} >Wyloguj</Link>
                                 </MenuItem>
-                                <MenuItem justifyContent='center' bgGradient='linear(to-b, #0D0D0D, #404040)'>
-                                    <Link href="/logout" >Wyloguj</Link>
-                                </MenuItem>
+                               
                             </MenuList>
                             
                         </Menu>

@@ -1,7 +1,8 @@
 import { React, useState } from 'react';
 import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link } from "@chakra-ui/react";
 import {Link as ReactRouterLink} from 'react-router-dom';
-import axios from "axios";
+import AxiosApi from '../../services/axios.config';
+
 
 function Register() {
     const theme = useTheme();
@@ -39,9 +40,8 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const url = "/api/user/register";
-            const { data: res } = await axios.post(url, data);
-            // localStorage.setItem("token", res.data);
+            const url = "user/register";
+            const { data: res } = await AxiosApi.post(url, data);
             setMessage(res.message);
             setFormDisabled(true);
             setTimeout(function() {
@@ -59,7 +59,7 @@ function Register() {
     }
     return (
         <Flex justify='center' textAlign='center'>
-            <Card display='flex' align='center' size='lg' mt={100} px={60} mx={40} pb={20} mb={100} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} borderColor={theme.colors.secondary} boxShadow={theme.cardStyle.boxShadow}>
+            <Card display='flex' align='center' size='lg' mt={100} px={60} mx={40} pb={20} mb={100} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} boxShadow={theme.cardStyle.boxShadow}>
                 <CardHeader>
                     <Heading>Zarejestruj</Heading>
                 </CardHeader>

@@ -6,7 +6,7 @@ import UserRoutes from './routes';
 
 function App() {
   return (
-    <>
+    
       <ChakraProvider theme={darkTheme}>
         <BrowserRouter>
           <Nav></Nav>
@@ -15,7 +15,7 @@ function App() {
 
       </ChakraProvider>
 
-    </>
+    
 
 
 
