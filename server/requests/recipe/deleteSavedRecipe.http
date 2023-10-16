@@ -1,0 +1,8 @@
+POST http://localhost:5000/recipe/saved HTTP/1.1
+content-type: application/json
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFlYzZjOTJhNGMyNzBhYWQ0ZGNjYzEiLCJpYXQiOjE2OTc0NTQ2NjMsImV4cCI6MTY5NzU0MTA2M30.vFRUoajjFV5OjEAMGS7BGtF2TR3R2WHWHXSwlgs9_wo
+
+{
+    "recipeId": "64e349235a0a92d95c660685"
+}
+    

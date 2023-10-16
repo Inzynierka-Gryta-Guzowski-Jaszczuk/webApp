@@ -22,6 +22,7 @@ const recipeToDTO = (recipe) => {
       portions: recipe.portions,
       saved_count: recipe.saved_count,
       rating: averageRating,
+      time: recipe.time
   }
 }
 

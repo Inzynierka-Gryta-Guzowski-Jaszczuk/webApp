@@ -1,6 +1,6 @@
 POST http://localhost:5000/recipe/add HTTP/1.1
 content-type: application/json
-token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFlYzZjOTJhNGMyNzBhYWQ0ZGNjYzEiLCJpYXQiOjE2OTY1MTYwMjAsImV4cCI6MTY5NjYwMjQyMH0.NX4R2pRWJys-nxXTlCL8PS3UWQY1LCnuvVy6xyeTAVs
+token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTJkMWM3OTFkODBkYmQ5OTUzNzc4ODYiLCJpYXQiOjE2OTc0NTUyNjEsImV4cCI6MTY5NzU0MTY2MX0.UNwkhdHZ0SjYwh0qBnj4UrlBxlRJtziHhUVGonL4-VA
 
 {
     "name": "lody torty",   
@@ -18,7 +18,8 @@ token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTFlYzZjOTJhNGMyN
     "tags": ["lody", "torty"],
     "difficulty": "easy",
     "calories": 100,
-    "portions": 1
+    "portions": 1,
+    "time": 130
     
 }
     

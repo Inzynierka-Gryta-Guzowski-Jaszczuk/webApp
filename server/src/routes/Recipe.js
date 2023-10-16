@@ -13,7 +13,7 @@ const getFilteredRecipesService = require('./../services/recipes/getFilteredReci
 const addRecipeToSavedService = require('./../services/recipes/addRecipeToSaved')
 const deleteRecipeFromSavedService = require('./../services/recipes/deleteRecipeFromSaved')
 const getSavedRecipesService = require('./../services/recipes/getSavedRecipes')
-
+const isRecipeSavedService = require('./../services/recipes/isRecipeSaved')
 const Recipe = require('../models/Recipe')
 //for not authorized users
 router.get('/public/', (req, res) => {
@@ -69,6 +69,10 @@ router.get('/tags', (req, res) => {
 
 //saved recipes
 
+router.get('/saved/:id', authenticate, (req, res) => {
+    isRecipeSavedService(req, res)
+})
+
 //get all saved recipes of logged user
 router.get('/saved', authenticate, (req, res) => {
     getSavedRecipesService(req, res)
@@ -83,5 +87,7 @@ router.post('/saved', authenticate, (req, res) => {
 router.delete('/saved', authenticate, (req, res) => {
     deleteRecipeFromSavedService(req, res)
 })
+
+
 
 module.exports = router

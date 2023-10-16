@@ -39,7 +39,7 @@ const getFilteredFridge = async (req, res) => {
                 selected.splice(index, 1)
             }
         });
-        let recipes = await Recipe.find({$nor:[{'ingredients':{$elemMatch:{ 'name': {$nin:selected}}}}]},{_id:0})
+        let recipes = await Recipe.find({$nor:[{'ingredients':{$elemMatch:{ 'name': {$nin:selected}}}}]})
 
         const recipesDTO = recipes.map(recipe => recipeToDTO(recipe))
         res.send(recipesDTO)

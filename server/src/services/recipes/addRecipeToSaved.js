@@ -5,26 +5,29 @@ const User = require('../../models/User')
 const addRecipeToSaved = async (req, res) => {
     try {
         let user = await User.findOne({_id: req.user})
-        console.log("user: ", user)
+        console.log("user->>>>>>>>>>>>>>>>: ", user)
         if(!user) {
             res.sendStatus(303)
+            return 
         }
+
         const recipeId = req.body.recipeId
+        console.log("recipeId: ", recipeId)
         if(!recipeId) {
-            return res.status(400).send({message: "recipeId jest wymagane"})
+            res.status(400).send({message: "recipeId jest wymagane"})
+            return 
         }
 
         let recipe = await Recipe.findOne({_id: recipeId})
         if(!recipe) {
-            return res.status(400).send({message: "przepis nie znaleziony"})
+            res.status(400).send({message: "przepis nie znaleziony"})
+            return
         }
-        console.log("recipe: ", recipe.author._id)
+        console.log("recipe: ", recipe)
         console.log("user: ", req.user._id)
-        if(recipe.author._id == req.user._id) {
-            return res.status(400).send({message: "nie możesz dodać własnego przepisu do ulubionych"})
-        }
         if(user.saved_recipes.includes(recipeId)) {
-            return res.status(400).send({message: "przepis już jest w ulubionych"})
+            res.status(400).send({message: "przepis już jest w ulubionych"})
+            return
         }
         user.saved_recipes.push(recipeId)
         await user.save()
