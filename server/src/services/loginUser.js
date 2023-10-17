@@ -37,3 +37,51 @@ const loginUser = async (req, res) => {
 }
 
 module.exports = loginUser
+
+
+/**
+*@swagger
+*paths:
+*  /user/login:
+*    post:
+*      tags: [Users]
+*      summary: Log in a user
+*      description: This endpoint allows a user to log in by providing their username and password.
+*      requestBody:
+*        required: true
+*        content:
+*          application/json:
+*            schema:
+*              type: object
+*              properties:
+*                userName:
+*                  type: string
+*                  description: The username of the user.
+*                  example: Johnson123
+*                password:
+*                  type: string
+*                  description: The password of the user.
+*      responses:
+*        200:
+*          description: The user was successfully logged in.
+*          content:
+*            application/json:
+*              schema:
+*                type: object
+*                properties:
+*                  token:
+*                    type: string
+*                    description: The authentication token.
+*                  refresh:
+*                    type: string
+*                    description: The refresh token.
+*                  message:
+*                    type: string
+*                    description: A message indicating the user was logged in successfully.
+*        400:
+*          description: Bad request. The request body is invalid.
+*        401:
+*          description: Unauthorized. The username or password is incorrect, or the user account is not activated.
+*        500:
+*          description: Internal server error.
+*/

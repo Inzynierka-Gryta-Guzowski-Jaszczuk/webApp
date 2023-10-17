@@ -35,3 +35,71 @@ const addUser = async (req, res) => {
 }
 
 module.exports = addUser
+
+/**
+*@swagger
+*components:
+*  schemas:
+*    Register:
+*      type: object
+*      properties:
+*        firstName:
+*          type: string
+*          description: The first name of the user.
+*          example: John
+*        lastName:
+*          type: string
+*          description: The last name of the user.
+*          example: Johnson
+*        userName:
+*          type: string
+*          description: The username of the user.
+*          example: Johnson123
+*        email:
+*          type: string
+*          description: The email address of the user.
+*          example: user@gmail.com
+*        password:
+*          type: string
+*          description: The password of the user.
+*          example: !234Qwer
+*      required:
+*        - firstName
+*        - lastName
+*        - userName
+*        - email
+*        - password
+ */
+
+/**
+*@swagger
+*paths:
+*  /user/register:
+*    post:
+*      tags: [Users]
+*      summary: Add a new user
+*      description: This endpoint allows for the creation of a new user.
+*      requestBody:
+*        required: true
+*        content:
+*          application/json:
+*            schema:
+*              $ref: '#/components/schemas/Register'
+*      responses:
+*        201:
+*          description: The user was successfully created.
+*          content:
+*            application/json:
+*              schema:
+*                type: object
+*                properties:
+*                  message:
+*                    type: string
+*                    description: A message indicating the user was created successfully.
+*        400:
+*          description: Bad request. The request body is invalid.
+*        409:
+*          description: Conflict. The username or email is already in use.
+*        500:
+*          description: Internal server error.
+*/

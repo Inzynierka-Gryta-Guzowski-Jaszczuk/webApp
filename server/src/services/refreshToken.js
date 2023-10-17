@@ -21,3 +21,43 @@ module.exports = async (req, res) => {
         
     })
 }
+
+/**
+*@swagger
+*paths:
+*    /user/token:
+*        get:
+*            tags: [Users]
+*            summary: Refresh the authentication token
+*            description: This endpoint refreshes the authentication token using a refresh token.
+*            parameters:
+*                  - in: header
+*                    name: refresh
+*                    schema:
+*                        type: string
+*                    required: true
+*                    description: The refresh token.
+*            responses:
+*                200:
+*                    description: The token was successfully refreshed.
+*                    content:
+*                        application/json:
+*                            schema:
+*                                type: object
+*                                properties:
+*                                    token:
+*                                        type: string
+*                                        description: The new authentication token.
+*                                    refresh:
+*                                        type: string
+*                                        description: The new refresh token.
+*                                    message:
+*                                        type: string
+*                                        description: A message indicating the token was refreshed successfully.
+*                401:
+*                    description: No refresh token provided.
+*                403:
+*                    description: Invalid refresh token.
+*                500:
+*                    description: Internal server error. 
+ */

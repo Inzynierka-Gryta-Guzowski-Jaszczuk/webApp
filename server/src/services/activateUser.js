@@ -1,7 +1,5 @@
-const validate = require('../validators/addUserValidator')
 const User = require('./../models/User')
-const bcrypt = require('bcrypt')
-const sendConfirmationEmail = require('./email/sendConfirmationEmail')
+
 const addUser = async (req, res) => {
     try {
         const token = req.params.token
@@ -22,3 +20,35 @@ const addUser = async (req, res) => {
 }
 
 module.exports = addUser
+
+/**
+*@swagger
+*paths:
+*  /user/activate/{token}:
+*    get:
+*      tags: [Users]
+*      summary: Activate a user
+*      description: This endpoint allows a user to activate their account using a token.
+*      parameters:
+*        - in: path
+*          name: token
+*          schema:
+*            type: string
+*          required: true
+*          description: The activation token.
+*      responses:
+*        200:
+*          description: The user was successfully activated.
+*          content:
+*            application/json:
+*              schema:
+*                type: object
+*                properties:
+*                  message:
+*                    type: string
+*                    description: A message indicating the user was activated successfully.
+*        404:
+*          description: User not found. The provided activation token does not match any user.
+*        500:
+*          description: Internal server error.
+ */

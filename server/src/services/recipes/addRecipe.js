@@ -32,3 +32,68 @@ const addRecipe = async (req, res) => {
 }
 
 module.exports = addRecipe
+
+/**
+*@swagger
+*paths:
+*    /recipes:
+*        post:
+*            summary: Add a new recipe
+*            description: This endpoint allows for the addition of a new recipe.
+*            requestBody:
+*                required: true
+*                content:
+*                    application/json:
+*                        schema:
+*                            type: object
+*                            properties:
+*                                name:
+*                                    type: string
+*                                    description: The name of the recipe.
+*                                description:
+*                                    type: string
+*                                    description: The description of the recipe.
+*                                ingredients:
+*                                    type: array
+*                                    items:
+*                                        type: object
+*                                        properties:
+*                                            name:
+*                                                type: string
+*                                                description: The name of the ingredient.
+*                                            amount:
+*                                                type: integer
+*                                                description: The amount of the ingredient.
+*                                            unit:
+*                                                type: string
+*                                                description: The unit of the ingredient.
+*                                instructions:
+*                                    type: array
+*                                    items:
+*                                        type: string
+*                                        description: The instructions for the recipe.
+*                                tags:
+*                                    type: array
+*                                    items:
+*                                        type: string
+*                                        description: The tags associated with the recipe.
+*                                difficulty:
+*                                    type: string
+*                                    description: The difficulty level of the recipe.
+*                                calories:
+*                                    type: integer
+*                                    description: The calories in the recipe.
+*                                portions:
+*                                    type: integer
+*                                    description: The number of portions the recipe makes.
+*                                time:
+*                                    type: integer
+*                                    description: The time required to prepare the recipe.
+*            responses:
+*                201:
+*                    description: The recipe was successfully created.
+*                400:
+*                    description: Bad request. The request body is invalid.
+*                500:
+*                    description: Internal server error.
+*/

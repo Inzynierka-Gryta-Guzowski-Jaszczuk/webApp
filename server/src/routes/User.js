@@ -58,3 +58,22 @@ router.get('/activate/:token', async (req, res) => {
 })
 
 module.exports = router
+
+/**
+*@swagger
+*paths:
+*    /user/authenticate:
+*        get:
+*            tags: [Users]
+*            summary: Authenticate a user
+*            description: This endpoint checks if a user can see forms and sites without special user data.
+*            security:
+*               - token: []
+*            responses:
+*                200:
+*                    description: The user is authenticated.
+*                401:
+*                    description: Unauthorized. The user is not authenticated.
+*                500:
+*                    description: Internal server error.
+*/

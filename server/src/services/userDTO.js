@@ -1,18 +1,52 @@
+/**
+*  @swagger
+*  components:
+*    schemas:
+*      User:
+*        type: object
+*        properties:
+*          userId:
+*            type: string
+*            description: The unique identifier of the user.
+*            example: 60d0fe4f532529001f4ee5a6
+*          userName:
+*            type: string
+*            description: The username of the user.
+*            example: johndoe
+*          firstName:
+*            type: string
+*            description: The first name of the user.
+*            example: John
+*          lastName:
+*            type: string
+*            description: The last name of the user.
+*            example: Doe
+*          email:
+*            type: string
+*            description: The email address of the user.
+*            example: johndoe@example.com
+*          image:
+*            type: string
+*            description: The image URL of the user.
+*            example: https://example.com/images/johndoe.jpg
+*          my_recipes:
+*            type: array
+*            items:
+*              type: string
+*            description: The list of recipes created by the user.
+*          saved_recipes:
+*            type: array
+*            items:
+*              type: string
+*            description: The list of recipes saved by the user.
+*/
 
-// {
-//     "_id": "650b0939cf1b3090ec17bd6b",
-//     "firstName": "John",
-//     "lastName": "Johnson",
-//     "userName": "Johnson123",
-//     "password": "$2b$10$ceKcy1VguU34w67zAMEyx.2l2ZUtT7m.buyw3nUSBdVrArPrEDYWi",
-//     "email": "jangryta9@gmail.com",
-//     "my_recipes": [],
-//     "saved_recipes": [],
-//     "activated": true,
-//     "image": "http://localhost:5000/static/defaultUser.png",
-//     "activation_token": "",
-//     "__v": 0
-//   }
+/**
+ * @swagger
+ * tags:
+ *  name: Users
+ *  description: User management
+ */
 
   const userToDTO = (user) => {
     return {
