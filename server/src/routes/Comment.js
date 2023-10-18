@@ -16,6 +16,7 @@ const commentsToDTO = (comments) => {
 } 
 
 router.get('/recipe/:id', async (req, res) => {
+    // #swagger.tags = ['Comments']
     const recipe = await Recipe.findById(req.params.id).populate('comments.user')
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")
@@ -26,7 +27,7 @@ router.get('/recipe/:id', async (req, res) => {
 })
 
 router.post('/recipe/:id', authenticate, async (req, res) => {
-    
+    // #swagger.tags = ['Comments']
     const recipe = await Recipe.findById(req.params.id).populate('comments.user')
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")
@@ -48,6 +49,7 @@ router.post('/recipe/:id', authenticate, async (req, res) => {
 })
 
 router.put('/recipe/:id/comment/:comment_id', authenticate, async (req, res) => {
+    // #swagger.tags = ['Comments']
     const recipe = await Recipe.findById(req.params.id).populate('comments.user')
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")
@@ -71,6 +73,7 @@ router.put('/recipe/:id/comment/:comment_id', authenticate, async (req, res) => 
 })
 
 router.delete('/recipe/:id/comment/:comment_id', authenticate, async (req, res) => {
+    // #swagger.tags = ['Comments']
     const recipe = await Recipe.findById(req.params.id).populate('comments.user')
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")
