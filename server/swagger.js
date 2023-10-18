@@ -34,7 +34,14 @@ const doc = {
       },
       // { ... }
     ],
-    securityDefinitions: {},  // by default: empty object
+    securityDefinitions: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT'
+    }
+
+    },  // by default: empty object
     definitions: {},          // by default: empty object (Swagger 2.0)
     components: {}            // by default: empty object (OpenAPI 3.x)
   };
@@ -43,4 +50,4 @@ const doc = {
 const outputFile = './swagger_output.json'
 const endpointsFiles = ['./index.js']
 
-swaggerAutogen(outputFile, endpointsFiles)
+swaggerAutogen(outputFile, endpointsFiles, doc)
