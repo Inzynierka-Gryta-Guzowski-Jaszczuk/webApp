@@ -20,6 +20,9 @@ router.get('/recipe/:id', async (req, res) => {
     /* #swagger.security = [{
                "bearerAuth": []
         }] */
+    if(!req.params.id){
+        return res.status(400).send("Brak id przepisu")
+    }
     const recipe = await Recipe.findById(req.params.id).populate('comments.user')
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")

@@ -32,9 +32,9 @@
   "schemes": [],
   "securityDefinitions": {
     "bearerAuth": {
-      "type": "http",
-      "scheme": "bearer",
-      "bearerFormat": "JWT"
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
     }
   },
   "paths": {
@@ -887,6 +887,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found"
