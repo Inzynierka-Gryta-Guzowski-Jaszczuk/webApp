@@ -121,7 +121,7 @@ function Register() {
 
                 </CardBody>
                 <CardFooter>
-                    <Text fontSize='2xl'>Masz juz konto? Kliknij <Link as={ReactRouterLink} to="/login" variant='underline'> Zaloguj</Link></Text>
+                    <Text fontSize='2xl'>Masz juz konto? Kliknij <Link as={ReactRouterLink} to="/zaloguj" variant='underline'> Zaloguj</Link></Text>
 
                 </CardFooter>
 

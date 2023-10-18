@@ -70,7 +70,7 @@ function Login() {
 
                 </CardBody>
                 <CardFooter>
-                    <Text fontSize='2xl'>Nie masz konta? Kliknij <Link href="/register" variant='underline'> Zarejestruj</Link></Text> 
+                    <Text fontSize='2xl'>Nie masz konta? Kliknij <Link href="/zarejestruj" variant='underline'> Zarejestruj</Link></Text> 
                     
                 </CardFooter>
 
