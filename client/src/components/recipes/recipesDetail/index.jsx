@@ -92,7 +92,7 @@ function RecipesDetails() {
                 mx={10}
                 templateRows='repeat(12, 1fr)'
                 templateColumns='repeat(12, 1fr)'
-                gap={4}
+                gap={6}
               
 
             >
@@ -100,7 +100,7 @@ function RecipesDetails() {
                 <GridItem
                     as={Card}
                     colSpan={4}
-                    rowSpan={4}
+                    rowSpan={5}
 
                     variant='outline'
                     bg={theme.colors.secondary}
@@ -170,8 +170,31 @@ function RecipesDetails() {
                 </GridItem>
                 <GridItem
                     as={Card}
+                    colSpan={2}
+                    rowSpan={1}
+                    variant='outline'
+                    bg={theme.colors.secondary}
+                    color={theme.colors.primary}
+                    boxShadow={theme.cardStyle.boxShadow}>
+                    <Text fontSize='2xl' py={2} textAlign='center'>Kalorie: {recipe.calories}</Text>
+
+                </GridItem>
+                <GridItem
+                    as={Card}
+                    colSpan={2}
+                    rowSpan={1}
+                    variant='outline'
+                    bg={theme.colors.secondary}
+                    color={theme.colors.primary}
+                    boxShadow={theme.cardStyle.boxShadow}>
+                    <Text fontSize='2xl' py={2} textAlign='center'>Zapisano: #{recipe.saved_count}</Text>
+
+                </GridItem>
+                
+                <GridItem
+                    as={Card}
                     colSpan={4}
-                    rowSpan={6}
+                    rowSpan={7}
                     variant='outline'
                     bg={theme.colors.secondary}
                     color={theme.colors.primary}
@@ -195,30 +218,20 @@ function RecipesDetails() {
                     </CardBody>
 
                 </GridItem>
-
-
                 <GridItem
                     as={Card}
-                    colSpan={2}
+                    colSpan={4}
                     rowSpan={1}
                     variant='outline'
                     bg={theme.colors.secondary}
                     color={theme.colors.primary}
                     boxShadow={theme.cardStyle.boxShadow}>
-                    <Text fontSize='2xl' py={2} textAlign='center'>Kalorie: {recipe.calories}</Text>
+                    <Text fontSize='2xl' py={2} textAlign='center'>Gwiazdki tu będą</Text>
 
                 </GridItem>
-                <GridItem
-                    as={Card}
-                    colSpan={2}
-                    rowSpan={1}
-                    variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
-                    <Text fontSize='2xl' py={2} textAlign='center'>Zapisano: #{recipe.saved_count}</Text>
 
-                </GridItem>
+
+                
 
             </Grid>
 
