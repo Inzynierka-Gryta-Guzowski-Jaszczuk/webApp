@@ -4,6 +4,7 @@ import Register from '../components/register';
 import UploadFileExample from '../components/UploadFileExample';
 import Recipes from '../components/recipes';
 import RecipesDetails from '../components/recipes/recipesDetail';
+import Categories from '../components/recipes/categories';
 const UserRoutes = () => {
     const token = localStorage.getItem("token");
 
@@ -11,14 +12,15 @@ const UserRoutes = () => {
         <div>
             <Routes>
             <Route path='/file' element={<UploadFileExample/>}></Route>
-            <Route path='/recipes' element={<Recipes></Recipes>}></Route>
-            <Route path='/recipes/:id' element={<RecipesDetails></RecipesDetails>}></Route>
+            <Route path='/przepisy' element={<Recipes></Recipes>}></Route>
+            <Route path='/przepisy/:id' element={<RecipesDetails></RecipesDetails>}></Route>
+            <Route path='/kategorie/:id' element={<Categories></Categories>}></Route>
                 <Route path="*" element={<h2>Alee</h2>}></Route>
 
                 {token === null ? (
                     <>
-                        <Route path="/register" element={<Register></Register>}></Route>
-                        <Route path="/login" element={<Login></Login>} ></Route>
+                        <Route path="/zarejestruj" element={<Register></Register>}></Route>
+                        <Route path="/zaloguj" element={<Login></Login>} ></Route>
                     </>
                 ) : (
                     <>
