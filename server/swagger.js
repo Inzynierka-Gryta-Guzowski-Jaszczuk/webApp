@@ -60,13 +60,11 @@ const doc = {
               "$ref": "#/components/schemas/Recipe"
             }
           ],
-          "saved_recipes": {
-            "type": "array",
-            "items": {
+          "saved_recipes": [
+            {
               "$ref": "#/components/schemas/Recipe"
-            },
-            "description": "The recipes saved by the user."
-          }
+            }
+          ]
         
       }
 
