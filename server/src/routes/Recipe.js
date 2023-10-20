@@ -26,6 +26,7 @@ router.get('/public/', (req, res) => {
 router.get('/public/search/fridge', (req, res) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Search by ingredients'
+    // #swagger.description = 'write ingredients after comas'
     getFilteredRecipesFridgeService(req, res)
 })
 
@@ -62,6 +63,15 @@ router.get('/all', authenticate, (req, res) => {
 router.post('/add', authenticate, (req, res) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Add recipe'
+   /* #swagger.requestBody = {
+              required: true,
+              content: {
+                  "application/json": {
+                      schema: { $ref: "#/definitions/AddRecipe" },
+                  }
+              }
+          }
+        */
     addRecipeService(req, res)
 })
 
@@ -76,6 +86,15 @@ router.delete('/',authenticate, (req, res) => {
 router.put('/',authenticate, (req, res) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Edit recipe'
+     /* #swagger.requestBody = {
+              required: true,
+              content: {
+                  "application/json": {
+                      schema: { $ref: "#/definitions/EditRecipe" },
+                  }
+              }
+          }
+        */
     updateRecipeService(req, res)
 })
 

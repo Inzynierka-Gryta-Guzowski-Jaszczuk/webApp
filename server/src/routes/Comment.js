@@ -18,6 +18,10 @@ const commentsToDTO = (comments) => {
 router.get('/recipe/:id', async (req, res) => {
     // #swagger.tags = ['Comments']
     // #swagger.summary = 'Get comments for recipe'
+    /* #swagger.responses[200] = {
+                description: 'Some description...',
+                schema: [{ $ref: '#/definitions/Comment' }]
+        } */
     if(!req.params.id){
         return res.status(400).send("Brak id przepisu")
     }

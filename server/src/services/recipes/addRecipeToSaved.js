@@ -33,7 +33,7 @@ const addRecipeToSaved = async (req, res) => {
         await user.save()
         recipe.saved_count += 1
         await recipe.save()
-        res.send("udało się dodać")
+        res.send({message: "udało się dodać"})
     } catch(error) {
         console.log(error)
         res.status(500).send("Internal server error")

@@ -45,8 +45,50 @@ const doc = {
     },  // by default: empty object
     definitions: {
       "Recipe": {
-        "id": "awdawdawdawdawd",
-          "name": "User1",
+        "author": "userID",
+        "recipe_id": "awdawdawdawdawd",
+        "name": "Recipe1",
+        "tags": [],
+        "image": "http://localhost:5000/static/defaultRecipe.png",
+        "ingredients": [],
+        "description": "This is description",
+        "instructions": [],
+        "difficulty": "easy",
+        "calories": 100,
+        "portions": 4,
+        "time": 30,
+        "saved_count": 0,
+        "rating": 0,
+      },
+      AddRecipe: {
+        $name: "Recipe1",
+        description: "This is description",
+        $ingredients: [{
+          "name": "maka",
+          "amount": 1,
+          "unit": "test"
+      }],
+        $instructions: [],
+        tags: [],
+        difficulty: "easy",
+        calories: 100,
+        portions: 4,
+        time: 30,
+      },
+      EditRecipe: {
+        name: "Recipe1",
+        description: "This is description",
+        ingredients: [{
+          "name": "maka",
+          "amount": 1,
+          "unit": "test"
+      }],
+        instructions: [],
+        tags: [],
+        difficulty: "easy",
+        calories: 100,
+        portions: 4,
+        time: 30,
       },
       "User": {
           "userId": "awdawdawdawdawd",
@@ -65,10 +107,20 @@ const doc = {
               "$ref": "#/components/schemas/Recipe"
             }
           ]
-        
+      },
+      "Register": {
+        "$userName": "User1",
+        "$firstName": "Kamil",
+        "$lastName": "Kowalczyk",
+        "$email": "example@example.com",
+        "$password": "password123"
+      },
+      Comment: {
+        commentId: "awdawdawdawdawd",
+        comment: "This is comment",
+        user: "user1",
+        userId: "awdawdawdawdawd",
       }
-
-
     },          // by default: empty object (Swagger 2.0)
     components: {}            // by default: empty object (OpenAPI 3.x)
   };

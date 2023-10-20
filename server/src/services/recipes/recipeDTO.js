@@ -17,7 +17,6 @@ const recipeToDTO = (recipe) => {
       description: recipe.description,
       instructions: recipe.instructions,
       difficulty: recipe.difficulty,
-      type: recipe.type,  
       calories: recipe.calories,
       portions: recipe.portions,
       saved_count: recipe.saved_count,

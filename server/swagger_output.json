@@ -359,7 +359,7 @@
           "Recipes"
         ],
         "summary": "Search by ingredients",
-        "description": "",
+        "description": "write ingredients after comas",
         "parameters": [
           {
             "name": "ingredients",
@@ -551,7 +551,17 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddRecipe"
+              }
+            }
+          }
+        }
       }
     },
     "/recipe/": {
@@ -648,18 +658,11 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "example": "any"
-                  },
-                  "rest": {
-                    "example": "any"
-                  }
-                }
+                "$ref": "#/components/schemas/EditRecipe"
               }
             }
           }
@@ -982,7 +985,31 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Some description...",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad Request"
@@ -1177,14 +1204,197 @@
       "Recipe": {
         "type": "object",
         "properties": {
-          "id": {
+          "author": {
+            "type": "string",
+            "example": "userID"
+          },
+          "recipe_id": {
             "type": "string",
             "example": "awdawdawdawdawd"
           },
           "name": {
             "type": "string",
-            "example": "User1"
+            "example": "Recipe1"
+          },
+          "tags": {
+            "type": "array",
+            "example": [],
+            "items": {}
+          },
+          "image": {
+            "type": "string",
+            "example": "http://localhost:5000/static/defaultRecipe.png"
+          },
+          "ingredients": {
+            "type": "array",
+            "example": [],
+            "items": {}
+          },
+          "description": {
+            "type": "string",
+            "example": "This is description"
+          },
+          "instructions": {
+            "type": "array",
+            "example": [],
+            "items": {}
+          },
+          "difficulty": {
+            "type": "string",
+            "example": "easy"
+          },
+          "calories": {
+            "type": "number",
+            "example": 100
+          },
+          "portions": {
+            "type": "number",
+            "example": 4
+          },
+          "time": {
+            "type": "number",
+            "example": 30
+          },
+          "saved_count": {
+            "type": "number",
+            "example": 0
+          },
+          "rating": {
+            "type": "number",
+            "example": 0
           }
+        },
+        "xml": {
+          "name": "Recipe"
+        }
+      },
+      "AddRecipe": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Recipe1"
+          },
+          "description": {
+            "type": "string",
+            "example": "This is description"
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "maka"
+                },
+                "amount": {
+                  "type": "number",
+                  "example": 1
+                },
+                "unit": {
+                  "type": "string",
+                  "example": "test"
+                }
+              }
+            }
+          },
+          "instructions": {
+            "type": "array",
+            "example": [],
+            "items": {}
+          },
+          "tags": {
+            "type": "array",
+            "example": [],
+            "items": {}
+          },
+          "difficulty": {
+            "type": "string",
+            "example": "easy"
+          },
+          "calories": {
+            "type": "number",
+            "example": 100
+          },
+          "portions": {
+            "type": "number",
+            "example": 4
+          },
+          "time": {
+            "type": "number",
+            "example": 30
+          }
+        },
+        "required": [
+          "name",
+          "ingredients",
+          "instructions"
+        ],
+        "xml": {
+          "name": "AddRecipe"
+        }
+      },
+      "EditRecipe": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Recipe1"
+          },
+          "description": {
+            "type": "string",
+            "example": "This is description"
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "maka"
+                },
+                "amount": {
+                  "type": "number",
+                  "example": 1
+                },
+                "unit": {
+                  "type": "string",
+                  "example": "test"
+                }
+              }
+            }
+          },
+          "instructions": {
+            "type": "array",
+            "example": [],
+            "items": {}
+          },
+          "tags": {
+            "type": "array",
+            "example": [],
+            "items": {}
+          },
+          "difficulty": {
+            "type": "string",
+            "example": "easy"
+          },
+          "calories": {
+            "type": "number",
+            "example": 100
+          },
+          "portions": {
+            "type": "number",
+            "example": 4
+          },
+          "time": {
+            "type": "number",
+            "example": 30
+          }
+        },
+        "xml": {
+          "name": "EditRecipe"
         }
       },
       "User": {
@@ -1217,25 +1427,83 @@
           "my_recipes": {
             "type": "array",
             "items": {
+              "xml": {
+                "name": "recipe"
+              },
               "$ref": "#/components/schemas/Recipe"
             }
           },
           "saved_recipes": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "array"
+            "type": "array",
+            "items": {
+              "xml": {
+                "name": "recipe"
               },
-              "items": {
-                "$ref": "#/components/schemas/Recipe"
-              },
-              "description": {
-                "type": "string",
-                "example": "The recipes saved by the user."
-              }
+              "$ref": "#/components/schemas/Recipe"
             }
           }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Register": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "example": "User1"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Kamil"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Kowalczyk"
+          },
+          "email": {
+            "type": "string",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          }
+        },
+        "required": [
+          "userName",
+          "firstName",
+          "lastName",
+          "email",
+          "password"
+        ],
+        "xml": {
+          "name": "Register"
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "commentId": {
+            "type": "string",
+            "example": "awdawdawdawdawd"
+          },
+          "comment": {
+            "type": "string",
+            "example": "This is comment"
+          },
+          "user": {
+            "type": "string",
+            "example": "user1"
+          },
+          "userId": {
+            "type": "string",
+            "example": "awdawdawdawdawd"
+          }
+        },
+        "xml": {
+          "name": "Comment"
         }
       }
     },
