@@ -15,6 +15,7 @@ const authenticate = require('./../middlewares/AuthorizationJWT')
 //get all users
 router.get('/', async (req, res) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = 'Get all users'
     users = await getAllUsersService()
     console.log(users)
     res.json(users)
@@ -23,11 +24,13 @@ router.get('/', async (req, res) => {
 //create new user (during registration)
 router.post('/register', async (req, res) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = Create new user (during registration)
     await addUserService(req, res)
 })
 
 router.post('/login', async (req, res) => {
     // #swagger.tags = ['Auth']
+    // #swagger.summary = Login user
     console.log("login")
     await loginUserService(req, res)
 })
@@ -35,34 +38,40 @@ router.post('/login', async (req, res) => {
 //get user from token (for showing profile)
 router.get('/myProfile', authenticate, (req, res) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = Get user from token (for showing profile)
     getUser(req, res)
 })
 
 //edit user
 router.put('/myProfile', authenticate, (req, res) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = Edit user
     editUserService(req, res)
 })
 
 //send request to this path to check if user can see forms and sites without special user data
 router.get('/authenticate', authenticate, (req, res) => {
     // #swagger.tags = ['Auth']
+    // #swagger.summary = Send request to this path to check if user can see forms and sites without special user data
     res.sendStatus(200)
 })
 
 router.get("/token", async (req, res) => {
     // #swagger.tags = ['Auth']
+    // #swagger.summary = Get new token
     console.log("token")
     await refreshToken(req, res)
 })
 
 router.delete('/delete', authenticate, async (req, res) => {
     // #swagger.tags = ['Users']
+    // #swagger.summary = Delete user
     deleteUserService(req, res)
 })
 
 router.get('/activate/:token', async (req, res) => {
     // #swagger.tags = ['Auth']
+    // #swagger.summary = Activate user
     console.log("test123")
     activateUserService(req, res)
 })

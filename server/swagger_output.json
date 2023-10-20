@@ -1,11 +1,15 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:5000",
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
   "basePath": "",
   "tags": [
     {
@@ -29,30 +33,13 @@
       "description": ""
     }
   ],
-  "schemes": [],
-  "securityDefinitions": {
-    "bearerAuth": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header"
-    }
-  },
   "paths": {
-    "/tester": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/user/": {
       "get": {
         "tags": [
           "Users"
         ],
+        "summary": "Get all users",
         "description": "",
         "responses": {
           "200": {
@@ -66,27 +53,8 @@
         "tags": [
           "Users"
         ],
+        "summary": "Create new user (during registration)",
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -100,6 +68,26 @@
           "500": {
             "description": "Internal Server Error"
           }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userName": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -108,21 +96,54 @@
         "tags": [
           "Auth"
         ],
+        "summary": "Login user",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userName": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/myProfile": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user from token (for showing profile)",
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
+            "name": "authorization",
+            "in": "header",
             "schema": {
-              "type": "object",
-              "properties": {
-                "userName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -136,50 +157,29 @@
           "401": {
             "description": "Unauthorized"
           },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/user/myProfile": {
-      "get": {
-        "tags": [
-          "Users"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
           "403": {
             "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "put": {
         "tags": [
           "Users"
         ],
+        "summary": "Edit user",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -198,7 +198,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/user/authenticate": {
@@ -206,12 +211,15 @@
         "tags": [
           "Auth"
         ],
+        "summary": "Send request to this path to check if user can see forms and sites without special user data",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -224,7 +232,12 @@
           "403": {
             "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/user/token": {
@@ -232,12 +245,15 @@
         "tags": [
           "Auth"
         ],
+        "summary": "Get new token",
         "description": "",
         "parameters": [
           {
             "name": "refresh",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -258,12 +274,15 @@
         "tags": [
           "Users"
         ],
+        "summary": "Delete user",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -279,7 +298,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/user/activate/{token}": {
@@ -287,13 +311,16 @@
         "tags": [
           "Auth"
         ],
+        "summary": "Activate user",
         "description": "",
         "parameters": [
           {
             "name": "token",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -311,6 +338,10 @@
     },
     "/recipe/public/": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get all recipes",
         "description": "",
         "responses": {
           "200": {
@@ -324,12 +355,18 @@
     },
     "/recipe/public/search/fridge": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Search by ingredients",
         "description": "",
         "parameters": [
           {
             "name": "ingredients",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -347,12 +384,18 @@
     },
     "/recipe/public/search": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Search by name and tags",
         "description": "",
         "parameters": [
           {
             "name": "name",
             "in": "query",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -370,13 +413,19 @@
     },
     "/recipe/public/{id}": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get specific recipe by id",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -397,13 +446,19 @@
     },
     "/recipe/public/user/{id}": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get all recipes of specific user",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -418,12 +473,18 @@
     },
     "/recipe/all": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get all recipes of logged user",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -442,17 +503,28 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/recipe/add": {
       "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Add recipe",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -474,28 +546,27 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/recipe/": {
       "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Delete recipe",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -515,29 +586,39 @@
           "500": {
             "description": "Internal Server Error"
           }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
         }
       },
       "put": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Edit recipe",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                },
-                "rest": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -559,12 +640,38 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "example": "any"
+                  },
+                  "rest": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/recipe/tags": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get tags",
         "description": "",
         "responses": {
           "200": {
@@ -575,18 +682,26 @@
     },
     "/recipe/saved/{id}": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Check if recipe is saved",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           },
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -608,17 +723,28 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/recipe/saved": {
       "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get all saved recipes of logged user",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -637,26 +763,25 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Add recipe to saved",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "recipeId": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -678,27 +803,40 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipeId": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Delete recipe from saved",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "recipeId": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
             }
           }
         ],
@@ -720,40 +858,51 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipeId": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/image/recipe/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "post": {
+        "tags": [
+          "Images"
+        ],
+        "summary": "Add image for recipe",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           },
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -769,89 +918,28 @@
           "403": {
             "description": "Forbidden"
           }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
+        },
+        "security": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string"
+            "bearerAuth": []
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
-      }
-    },
-    "/image/user/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        }
+        ]
       }
     },
     "/image/user": {
       "post": {
+        "tags": [
+          "Images"
+        ],
+        "summary": "Add image for user",
         "description": "",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -867,7 +955,12 @@
           "403": {
             "description": "Forbidden"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/comment/recipe/{id}": {
@@ -875,13 +968,16 @@
         "tags": [
           "Comments"
         ],
+        "summary": "Get comments for recipe",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -894,40 +990,28 @@
           "404": {
             "description": "Not Found"
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
           "Comments"
         ],
+        "summary": "Add comment to recipe",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "comment": {
-                  "example": "any"
-                }
-              }
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -937,6 +1021,138 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comment/recipe/{id}/comment/{comment_id}": {
+      "put": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "Edit comment for recipe",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comment": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "Delete comment for recipe",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
@@ -954,107 +1170,80 @@
           }
         ]
       }
-    },
-    "/comment/recipe/{id}/comment/{comment_id}": {
-      "put": {
-        "tags": [
-          "Comments"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+    }
+  },
+  "components": {
+    "schemas": {
+      "Recipe": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "awdawdawdawdawd"
           },
-          {
-            "name": "comment_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+          "name": {
+            "type": "string",
+            "example": "User1"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "example": "awdawdawdawdawd"
           },
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string"
+          "userName": {
+            "type": "string",
+            "example": "User1"
           },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "comment": {
-                  "example": "any"
-                }
+          "firstName": {
+            "type": "string",
+            "example": "Kamil"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Kowalczyk"
+          },
+          "email": {
+            "type": "string",
+            "example": "email@email.com"
+          },
+          "image": {
+            "type": "string",
+            "example": "http://localhost:5000/static/defaultUser.png"
+          },
+          "my_recipes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recipe"
+            }
+          },
+          "saved_recipes": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "array"
+              },
+              "items": {
+                "$ref": "#/components/schemas/Recipe"
+              },
+              "description": {
+                "type": "string",
+                "example": "The recipes saved by the user."
               }
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Comments"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "comment_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

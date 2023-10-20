@@ -23,10 +23,5 @@ app.use('/user', userRouter)
 app.use('/recipe', recipeRouter)
 app.use("/image", imagesRouter)
 app.use('/comment', commentRouter)
-// app.use('/clothes', clothesRouter)
-
-app.get('/tester', (req, res) => {
-    res.send("hello")
-})
 
 app.listen(5000, () => console.log('Nasluchiwanie na porcie', 5000))

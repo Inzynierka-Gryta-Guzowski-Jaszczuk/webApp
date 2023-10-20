@@ -1,4 +1,4 @@
-const swaggerAutogen = require('swagger-autogen')()
+const swaggerAutogen = require('swagger-autogen')({openapi: '3.0.0'})
 
 const doc = {
     info: {
@@ -33,16 +33,45 @@ const doc = {
         description: '',  // Tag description
       },
       // { ... }
+
     ],
     securityDefinitions: {
       bearerAuth: {
-        type: 'apiKey',
-        name: 'Authorization',
-        in: 'header'
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT'
     }
 
     },  // by default: empty object
-    definitions: {},          // by default: empty object (Swagger 2.0)
+    definitions: {
+      "Recipe": {
+        "id": "awdawdawdawdawd",
+          "name": "User1",
+      },
+      "User": {
+          "userId": "awdawdawdawdawd",
+          "userName": "User1",
+          "firstName": "Kamil",
+          "lastName": "Kowalczyk",
+          "email": "email@email.com",
+          "image": "http://localhost:5000/static/defaultUser.png",
+          "my_recipes": [
+            {
+              "$ref": "#/components/schemas/Recipe"
+            }
+          ],
+          "saved_recipes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recipe"
+            },
+            "description": "The recipes saved by the user."
+          }
+        
+      }
+
+
+    },          // by default: empty object (Swagger 2.0)
     components: {}            // by default: empty object (OpenAPI 3.x)
   };
   
