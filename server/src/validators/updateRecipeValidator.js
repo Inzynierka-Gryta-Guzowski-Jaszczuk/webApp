@@ -1,6 +1,7 @@
 const joi = require('joi')
+const Recipe = require('../models/Recipe')
 
-
+const TAGS = Recipe.getPossibleTags()
 
 const validate = (data) => {
     
@@ -16,10 +17,11 @@ const validate = (data) => {
         description: joi.string() .label("Description"),
         ingredients: joi.array().items(ingredientSchema) .label("Ingredients"),
         instructions: joi.array().items(joi.string()) .label("Instructions"),
-        type: joi.string() .label("Type"),
+        tags: joi.array().items(joi.string().valid(...TAGS)).label("tags"),
         difficulty: joi.string() .label("Difficulty"),
         calories: joi.number() .label("Calories"),
-        portions: joi.number() .label("Portions")
+        portions: joi.number() .label("Portions"),
+        time: joi.number().label("czas"),
     })
     return schema.validate(data)}
 

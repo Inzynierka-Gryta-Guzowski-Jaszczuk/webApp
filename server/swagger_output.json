@@ -31,6 +31,10 @@
     {
       "name": "Users",
       "description": ""
+    },
+    {
+      "name": "Rating",
+      "description": ""
     }
   ],
   "paths": {
@@ -203,7 +207,17 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditUser"
+              }
+            }
+          }
+        }
       }
     },
     "/user/authenticate": {
@@ -564,7 +578,7 @@
         }
       }
     },
-    "/recipe/": {
+    "/recipe/{id}": {
       "delete": {
         "tags": [
           "Recipes"
@@ -572,6 +586,14 @@
         "summary": "Delete recipe",
         "description": "",
         "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -601,22 +623,10 @@
           {
             "bearerAuth": []
           }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+        ]
+      }
+    },
+    "/recipe/": {
       "put": {
         "tags": [
           "Recipes"
@@ -732,6 +742,55 @@
             "bearerAuth": []
           }
         ]
+      },
+      "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Delete recipe from saved",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "303": {
+            "description": "See Other"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/recipe/saved": {
@@ -778,61 +837,6 @@
           "Recipes"
         ],
         "summary": "Add recipe to saved",
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "303": {
-            "description": "See Other"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "recipeId": {
-                    "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Recipes"
-        ],
-        "summary": "Delete recipe from saved",
         "description": "",
         "parameters": [
           {
@@ -1197,6 +1201,110 @@
           }
         ]
       }
+    },
+    "/rating/recipe/{id}": {
+      "post": {
+        "tags": [
+          "Rating"
+        ],
+        "summary": "Rate recipe, used for changing rate too",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rating"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Rating"
+        ],
+        "summary": "Rate recipe, used for changing rate too",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1482,6 +1590,42 @@
           "name": "Register"
         }
       },
+      "EditUser": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "string",
+            "example": "User1"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Kamil"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Kowalczyk"
+          }
+        },
+        "xml": {
+          "name": "EditUser"
+        }
+      },
+      "ChangePassword": {
+        "type": "object",
+        "properties": {
+          "oldPassword": {
+            "type": "string",
+            "example": "password123"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "password1234"
+          }
+        },
+        "xml": {
+          "name": "ChangePassword"
+        }
+      },
       "Comment": {
         "type": "object",
         "properties": {
@@ -1504,6 +1648,18 @@
         },
         "xml": {
           "name": "Comment"
+        }
+      },
+      "Rating": {
+        "type": "object",
+        "properties": {
+          "rate": {
+            "type": "number",
+            "example": 5
+          }
+        },
+        "xml": {
+          "name": "Rating"
         }
       }
     },

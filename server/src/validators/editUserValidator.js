@@ -9,7 +9,6 @@ const validate = (data) => {
         firstName: joi.string().label("First Name"),
         lastName: joi.string().label("Last Name"),
         userName: joi.string().label("Username"),
-        email: joi.string().email().label("Email"),
     })
 
 

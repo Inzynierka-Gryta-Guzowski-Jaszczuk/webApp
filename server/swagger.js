@@ -32,6 +32,10 @@ const doc = {
         name: 'Users',         // Tag name
         description: '',  // Tag description
       },
+      {
+        name: 'Rating',
+        description: ''
+      }
       // { ... }
 
     ],
@@ -115,11 +119,23 @@ const doc = {
         "$email": "example@example.com",
         "$password": "password123"
       },
+      EditUser: {
+        userName: "User1",
+        firstName: "Kamil",
+        lastName: "Kowalczyk",
+      },
+      ChangePassword: {
+        oldPassword: "password123",
+        newPassword: "password1234"
+      },
       Comment: {
         commentId: "awdawdawdawdawd",
         comment: "This is comment",
         user: "user1",
         userId: "awdawdawdawdawd",
+      },
+      Rating: {
+        rate: 5
       }
     },          // by default: empty object (Swagger 2.0)
     components: {}            // by default: empty object (OpenAPI 3.x)

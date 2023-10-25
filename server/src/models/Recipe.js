@@ -38,7 +38,10 @@ const recipeSchema = new mongoose.Schema({
     comments: [commentSchema],
     saved_count: {type: Number, required: true},
     rating: [
-        {rate: {type: Number, required: true}}
+        {
+            rate: {type: Number, required: true},
+            user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}
+        }
     ],
     time: {type: Number, required: false},
 

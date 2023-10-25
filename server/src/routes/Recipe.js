@@ -76,7 +76,7 @@ router.post('/add', authenticate, (req, res) => {
 })
 
 //delete recipe 
-router.delete('/',authenticate, (req, res) => {
+router.delete('/:id',authenticate, (req, res) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Delete recipe'
     deleteRecipeService(req, res)
@@ -128,7 +128,7 @@ router.post('/saved', authenticate, (req, res) => {
 })
 
 //delete recipe from saved
-router.delete('/saved', authenticate, (req, res) => {
+router.delete('/saved/:id', authenticate, (req, res) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Delete recipe from saved'
     deleteRecipeFromSavedService(req, res)

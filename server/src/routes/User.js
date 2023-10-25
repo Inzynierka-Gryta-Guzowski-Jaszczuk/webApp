@@ -46,6 +46,15 @@ router.get('/myProfile', authenticate, (req, res) => {
 router.put('/myProfile', authenticate, (req, res) => {
     // #swagger.tags = ['Users']
     // #swagger.summary = Edit user
+    /* #swagger.requestBody = {
+              required: true,
+              content: {
+                  "application/json": {
+                      schema: { $ref: "#/definitions/EditUser" },
+                  }
+              }
+          }
+        */
     editUserService(req, res)
 })
 

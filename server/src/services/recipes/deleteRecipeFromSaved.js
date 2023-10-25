@@ -8,7 +8,7 @@ const deleteRecipeToSaved = async (req, res) => {
         if(!user) {
             res.sendStatus(303)
         }
-        const recipeId = req.body.recipeId
+        const recipeId = req.params.id
         if(!recipeId) {
             return res.status(400).send({message: "recipeId jest wymagane"})
         }
