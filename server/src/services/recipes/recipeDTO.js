@@ -1,9 +1,10 @@
 
 const recipeToDTO = (recipe) => {
   let averageRating = 0
-  if(recipe.rating.length !== 0) {
-    const sum = recipe.ratings.reduce((total, rating) => total + rating, 0);
-    averageRating = sum / recipe.ratings.length;
+  const rating = recipe.rating
+  if(rating.length !== 0) {
+    const sum = rating.reduce((total, rating) => total + rating.rate, 0);
+    averageRating = sum / rating.length;
   }else {
     averageRating = null
   }
@@ -17,7 +18,6 @@ const recipeToDTO = (recipe) => {
       description: recipe.description,
       instructions: recipe.instructions,
       difficulty: recipe.difficulty,
-      type: recipe.type,  
       calories: recipe.calories,
       portions: recipe.portions,
       saved_count: recipe.saved_count,

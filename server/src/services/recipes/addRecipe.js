@@ -5,15 +5,12 @@ const User = require('../../models/User')
 const addRecipe = async (req, res) => {
     try {
         let user = await User.findOne({_id: req.user})
-        console.log("user: ", user)
         if(!user) {
             res.sendStatus(303)
         }
-
+        console.log(req.body)
         const {error} = validate(req.body)
         if(error) {
-            console.log("validation error")
-            console.log(error)
             return res.status(400).send({message: error.details[0].message})
         }
         

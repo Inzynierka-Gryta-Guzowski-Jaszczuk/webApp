@@ -11,35 +11,46 @@ const fs = require("fs");
 const userAddImageService = require('./../services/images/userAddImage')
 
 const recipeAddImageService = require('./../services/images/recipeAddImage')
-//get image for recipe
-router.get('/recipe/:id', (req, res) => {
-    res.send("get image for recipe")
-})
+// //get image for recipe
+// router.get('/recipe/:id', (req, res) => {
+//   // #swagger.tags = ['Images']
+//   // #swagger.summary = 'Get image for recipe'
+//     res.send("get image for recipe")
+    
+// })
 
-//get image for user
-router.get('/user/:id', (req, res) => {
-    res.send("get image for user")
-})
+// //get image for user
+// router.get('/user/:id', (req, res) => {
+//   // #swagger.tags = ['Images']
+//   // #swagger.summary = 'Get image for user'
+//     res.send("get image for user")
+// })
 
 //add image for recipe
 router.post('/recipe/:id', authenticate, upload.single('file'), (req, res) => {
+  // #swagger.tags = ['Images']
+  // #swagger.summary = 'Add image for recipe'
   recipeAddImageService(req, res)
 })
 
 //add image for user
 router.post('/user', authenticate, upload.single('file'), (req, res) => {
+  // #swagger.tags = ['Images']
+  // #swagger.summary = 'Add image for user'
   userAddImageService(req, res)
 })
 
-//delete image for recipe
-router.delete('/recipe/:id', authenticate, (req, res) => {
-    res.send("delete image for recipe")
-})
+// //delete image for recipe
+// router.delete('/recipe/:id', authenticate, (req, res) => {
+//   // #swagger.tags = ['Images']
+//     res.send("delete image for recipe")
+// })
 
-//delete image for user
-router.delete('/user/:id', authenticate, (req, res) => {
-    res.send("delete image for user")
-})
+// //delete image for user
+// router.delete('/user/:id', authenticate, (req, res) => {
+//   // #swagger.tags = ['Images']
+//     res.send("delete image for user")
+// })
 
 
 module.exports = router
