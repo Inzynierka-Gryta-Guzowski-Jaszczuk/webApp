@@ -23,10 +23,12 @@ const Button = defineStyleConfig({
 
   variants: {
     outline: {
-      border: '2px solid',
-      borderColor: '#9b9d97',
+      // border: '2px solid',
+      // borderColor: '#9b9d97',
+      border: 'none',
       color: '#9b9d97',
-      _hover: { bg: '#e2eceb' },
+      // _hover: { bg: '#e2eceb' },
+      // _hover: 'none',
     },
     solid: {
       bgGradient: 'linear(to-b, #0D0D0D, #404040)',
