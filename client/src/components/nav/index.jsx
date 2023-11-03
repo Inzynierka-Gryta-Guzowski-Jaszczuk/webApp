@@ -12,7 +12,6 @@ function Nav() {
                 const url = "recipe/tags";
                 const { data: res } = await AxiosApi.get(url);
                 setCategories(res);
-                debugger;
             } catch (error) {
                 if (
                     error.response &&
@@ -35,7 +34,7 @@ function Nav() {
                     ) : (
                         <>
                             <Link href="/" mr={4} >Książka Kucharska</Link>
-                            <Link href="/" mr={4}>Twoje przepisy</Link>
+                            <Link href="/twoje_przepisy" mr={4}>Twoje przepisy</Link>
                         </>
                     )}
                     <Link href="/" mr={4}>Twoja lodówka</Link>

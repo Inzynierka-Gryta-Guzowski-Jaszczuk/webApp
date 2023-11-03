@@ -23,6 +23,7 @@ function RecipesDetails() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
+            debugger;
             const url = "comment/recipe/" + id;
             token = localStorage.getItem('token');
             const config = {

@@ -5,6 +5,7 @@ import UploadFileExample from '../components/UploadFileExample';
 import Recipes from '../components/recipes';
 import RecipesDetails from '../components/recipes/recipesDetail';
 import Categories from '../components/recipes/categories';
+import UserRecipes from '../components/recipes/userRecepies';
 const UserRoutes = () => {
     const token = localStorage.getItem("token");
 
@@ -24,6 +25,7 @@ const UserRoutes = () => {
                     </>
                 ) : (
                     <>
+                     <Route path='/twoje_przepisy' element={<UserRecipes></UserRecipes>}></Route>
                         {/* <Route path="/logout" element={localStorage.removeItem("token")}></Route> */}
                     </>
                 )}
