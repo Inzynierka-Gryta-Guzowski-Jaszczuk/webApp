@@ -9,6 +9,7 @@ const getUser = require('./../services/getUser')
 const refreshToken = require('./../services/refreshToken')
 const deleteUserService = require('./../services/deleteUser')
 const activateUserService = require('./../services/activateUser')
+const changePasswordService = require('./../services/changePassword')
 //middlewares
 const authenticate = require('./../middlewares/AuthorizationJWT')
 
@@ -83,6 +84,13 @@ router.get('/activate/:token', async (req, res) => {
     // #swagger.summary = Activate user
     console.log("test123")
     activateUserService(req, res)
+})
+
+router.post('/changePassword', authenticate, async(req, res) => {
+    // #swagger.tags = ['Users']
+    // #swagger.summary = change password 
+    
+    changePasswordService(req, res)
 })
 
 module.exports = router
