@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link } from "@chakra-ui/react";
-import axios from "axios";
 import { useForm } from "react-hook-form";
+import AxiosApi from '../../services/axios.config';
 
 function Login() {
     const theme = useTheme();
@@ -11,14 +11,12 @@ function Login() {
     const {register, handleSubmit, formState: { errors, isSubmitting  }} = useForm({mode: 'onBlur'})
 
     const onSubmit = async (data) => {
-        // e.preventDefault()
-        debugger;
         try {
-            const url = "/api/user/login"
-            const response = await axios.post(url, data)
+            const url = "user/login"
+            const response = await AxiosApi.post(url, data)
             console.log(response.data)
-            localStorage.setItem("token", res.data)
-            setMessage(res.message);
+            localStorage.setItem("token", response.data.token)
+            setMessage(response.data.message);
             setFormDisabled(true);
             setTimeout(function() {
                 window.location = "/";
@@ -36,7 +34,7 @@ function Login() {
     console.log(errors)
     return (
         <Flex justify='center' textAlign='center' mb={100}>
-            <Card display='flex' align='center' size='md' mt={100} px={60} mx={40} pb={20} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} borderColor={theme.colors.secondary} boxShadow={theme.cardStyle.boxShadow}>
+            <Card display='flex' align='center' size='md' mt={100} px={60} mx={40} pb={20} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary}  boxShadow={theme.cardStyle.boxShadow}>
                 <CardHeader>
                     <Heading>Zaloguj</Heading>
                 </CardHeader>
@@ -72,7 +70,7 @@ function Login() {
 
                 </CardBody>
                 <CardFooter>
-                    <Text fontSize='2xl'>Nie masz konta? Kliknij <Link href="/register" variant='underline'> Zarejestruj</Link></Text> 
+                    <Text fontSize='2xl'>Nie masz konta? Kliknij <Link href="/zarejestruj" variant='underline'> Zarejestruj</Link></Text> 
                     
                 </CardFooter>
 
