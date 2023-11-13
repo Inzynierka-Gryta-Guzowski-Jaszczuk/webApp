@@ -63,11 +63,21 @@ router.get('/recipe/:id', authenticate, async (req, res) => {
     const {user, recipe} = await validateRequest(req, res)
     const ratings = recipe.rating
     const userRating = ratings.find(rating => rating.user.equals(user._id))
+
+    let averageRating = 0
+    if(ratings.length !== 0) {
+        const sum = ratings.reduce((total, rating) => total + rating.rate, 0);
+        averageRating = sum / ratings.length;
+    }else {
+        averageRating = null
+    }
+
+
     if(userRating){
-        res.send({rate: userRating.rate})
+        res.send({rate: averageRating, userRate: userRating.rate})
     }
     else{
-        res.send({rate: 0})
+        res.send({rate: averageRating, userRate: 0})
     }
 })
 
