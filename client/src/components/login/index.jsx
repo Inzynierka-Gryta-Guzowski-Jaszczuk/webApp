@@ -2,12 +2,13 @@ import { React, useState } from 'react';
 import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import AxiosApi from '../../services/axios.config';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const theme = useTheme();
     const [message, setMessage] = useState("");
     const [formDisabled,setFormDisabled] = useState(false);
-
+    const navigate = useNavigate()
     const {register, handleSubmit, formState: { errors, isSubmitting  }} = useForm({mode: 'onBlur'})
 
     const onSubmit = async (data) => {
@@ -18,9 +19,8 @@ function Login() {
             localStorage.setItem("token", response.data.token)
             setMessage(response.data.message);
             setFormDisabled(true);
-            setTimeout(function() {
-                window.location = "/";
-            },3000);
+            navigate('/');
+            
         } catch (error) {
             if (
                 error.response &&
@@ -40,14 +40,14 @@ function Login() {
                 </CardHeader>
                 <CardBody mb={10} border='solid' borderColor={theme.colors.primary} borderRadius='20' px={40}>
                     <form onSubmit={handleSubmit(onSubmit)}>  
-                        <FormControl isInvalid={errors.userName} px={10}>
+                        <FormControl isInvalid={errors.userName} px={10} h={100}>
                             <FormLabel>Nazwa użytkownika</FormLabel>
                             <Input id="userName" width='md' {...register('userName', {
                                  required: 'To pole jest wymagane',
                                  minLength: { value: 4, message: 'Minimum length should be 4'}
                             })} />
                                 {!errors.userName ? (
-                                <div><br></br></div>
+                                <></>
                             ) : (
                                 <FormErrorMessage>{errors.userName.message}</FormErrorMessage>
                             )}
@@ -64,7 +64,7 @@ function Login() {
                         {message !== '' ?(
                             <Text>{message}</Text>
                         ): ( 
-                            <div><br></br></div>
+                            <></>
                         )}
                     </form>
 

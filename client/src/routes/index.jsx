@@ -6,6 +6,7 @@ import Recipes from '../components/recipes';
 import RecipesDetails from '../components/recipes/recipesDetail';
 import Categories from '../components/recipes/categories';
 import UserRecipes from '../components/recipes/userRecepies';
+import AddRecipe from '../components/recipes/addRecipe';
 const UserRoutes = () => {
     const token = localStorage.getItem("token");
 
@@ -26,7 +27,8 @@ const UserRoutes = () => {
                 ) : (
                     <>
                      <Route path='/twoje_przepisy' element={<UserRecipes></UserRecipes>}></Route>
-                        {/* <Route path="/logout" element={localStorage.removeItem("token")}></Route> */}
+                     <Route path='/dodaj_przepis' element={<AddRecipe/>}></Route>
+                        
                     </>
                 )}
             </Routes>

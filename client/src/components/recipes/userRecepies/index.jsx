@@ -10,10 +10,11 @@ import {
   MenuButton,
   MenuItem,
   Menu,
-  MenuList
+  MenuList,
+  Link
 
 } from "@chakra-ui/react";
-import { SettingsIcon } from '@chakra-ui/icons'
+import { AddIcon, SettingsIcon } from '@chakra-ui/icons'
 import React from "react";
 
 function UserRecipes() {
@@ -24,32 +25,31 @@ function UserRecipes() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   debugger;
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userUrl = "user/myProfile";
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            'token': `Bearer ${token}`
-          }
-        };
-        const { data: user } = await AxiosApi.get(userUrl, config);
-        const recipesUrl = "recipe/public/user/" + user._id;
-        const { data: res } = await AxiosApi.get(recipesUrl, config);
-        setRecipes(res);
-      } catch (error) {
-        if (
-          error.response &&
-          error.response.status >= 400 &&
-          error.response.status <= 500
-        ) {
+  const fetchData = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'token': `Bearer ${token}`
         }
+      };
+      const recipesUrl = "recipe/all";
+      const { data: res } = await AxiosApi.get(recipesUrl, config);
+      setRecipes(res);
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
       }
-    };
+    }
+  }
+  useEffect(() => {
+
 
     fetchData();
-  }, [recipes]);
+  }, []);
 
   const onDelete = async () => {
     try {
@@ -81,6 +81,9 @@ function UserRecipes() {
   return (
     <>
       <Heading textAlign='center' mt={10} color={theme.colors.primary}>Twoje przepisy</Heading>
+      <Link href="/dodaj_przepis">
+        <AddIcon></AddIcon>
+      </Link>
       <Flex justify='center' textAlign='center' align='center' flexWrap='wrap' mb={100} >
         {recipes.map((recipe) => (
           <Card
