@@ -1,11 +1,13 @@
 import { Flex, Link, useTheme, Menu, MenuButton, Avatar, MenuList, MenuItem, Button, MenuOptionGroup, MenuItemOption, MenuGroup, MenuDivider } from "@chakra-ui/react";
 import AxiosApi from "../../services/axios.config";
 import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 function Nav() {
     const theme = useTheme();
     const token = localStorage.getItem("token");
     const [categories, setCategories] = useState([]);
+    let location = useLocation();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -22,7 +24,7 @@ function Nav() {
             }
         };
         fetchData();
-    }, []);
+    }, [location]);
 
     return (
         <nav>
