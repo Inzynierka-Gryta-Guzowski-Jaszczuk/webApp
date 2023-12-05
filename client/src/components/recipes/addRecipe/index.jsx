@@ -60,7 +60,6 @@ function AddRecipe() {
                 };
                 const recepieUrl = "recipe/public/" + id;
                 const { data: recepie } = await AxiosApi.get(recepieUrl, config);
-                debugger;
                 recepie.instructions = recepie.instructions.map(instruction => ({"name": instruction}));
                 recepie.tags = recepie.tags.map(tag => {
                     return { "value": tag, "label": tag }
@@ -81,7 +80,6 @@ function AddRecipe() {
         }
     }, []);
     const onSubmit = async (data) => {
-        debugger;
         if (data.tags) {
             data.tags = data.tags.map(tag => tag.value);
         }
@@ -97,7 +95,6 @@ function AddRecipe() {
 
 
         try {
-            debugger;
             var token = localStorage.getItem("token");
             var config = {
                 headers: {
