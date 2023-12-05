@@ -8,7 +8,7 @@ token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTJkMWM3OTFkODBkY
     "ingredients": [    
         {
             "name": "maka",
-            "amount": 1,
+            "ammount": 1,
             "unit": "test"
         }
     ],

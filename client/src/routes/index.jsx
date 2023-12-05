@@ -17,7 +17,7 @@ const UserRoutes = () => {
             <Route path='/przepisy' element={<Recipes></Recipes>}></Route>
             <Route path='/przepisy/:id' element={<RecipesDetails></RecipesDetails>}></Route>
             <Route path='/kategorie/:id' element={<Categories></Categories>}></Route>
-                <Route path="*" element={<h2>Alee</h2>}></Route>
+            
 
                 {token === null ? (
                     <>
@@ -28,9 +28,12 @@ const UserRoutes = () => {
                     <>
                      <Route path='/twoje_przepisy' element={<UserRecipes></UserRecipes>}></Route>
                      <Route path='/dodaj_przepis' element={<AddRecipe/>}></Route>
+                     <Route path='/edytuj_przepis/:id' element={<AddRecipe></AddRecipe>}/>
                         
                     </>
                 )}
+
+                <Route path="*" element={<h2>Alee</h2>}></Route>
             </Routes>
         </div>
     )
