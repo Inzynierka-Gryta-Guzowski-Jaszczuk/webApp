@@ -7,7 +7,7 @@ const validate = (data) => {
     
     const ingredientSchema = joi.object({
         name: joi.string() ,
-        amount: joi.number() ,
+        ammount: joi.number() ,
         unit: joi.string() 
       });
     

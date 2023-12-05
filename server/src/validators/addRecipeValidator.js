@@ -6,7 +6,7 @@ const TAGS = Recipe.getPossibleTags()
 const validate = (data) => {
     const ingredientSchema = joi.object({
         name: joi.string().required(),
-        amount: joi.number().required(),
+        ammount: joi.number().required(),
         unit: joi.string().required()
       });
     

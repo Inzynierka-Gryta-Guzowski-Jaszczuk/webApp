@@ -137,7 +137,7 @@ function RecipesDetails() {
                         <UnorderedList fontSize='2xl'>
                             {recipe.ingredients ? (
                                 recipe.ingredients.map((ingredient) => (
-                                    <ListItem>{ingredient.name} {ingredient.amount} {ingredient.unit}</ListItem>
+                                    <ListItem>{ingredient.name} {ingredient.ammount} {ingredient.unit}</ListItem>
                                 ))
                             ) : (
                                 <p>Brak składników.</p>

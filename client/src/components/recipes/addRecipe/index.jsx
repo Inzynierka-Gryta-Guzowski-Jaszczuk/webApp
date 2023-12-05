@@ -1,8 +1,7 @@
 import AxiosApi from "../../../services/axios.config";
-import { useParams } from 'react-router-dom';
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useMemo } from 'react';
 import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link, Textarea, Select as SelectChakra, Box, Center } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import FileUpload from "../../fileUpload";
@@ -11,19 +10,78 @@ function AddRecipe() {
     const theme = useTheme();
     const [message, setMessage] = useState("");
     const [formDisabled, setFormDisabled] = useState(false);
-    const { register, handleSubmit, formState: { errors, isSubmitting }, control } = useForm({ mode: 'onBlur' })
+    const [recipeData, setRecipeData] = useState(null);
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting }, control } = useForm({
+        mode: 'onBlur',
+        defaultValues: useMemo(() => {
+            return recipeData;
+        }, [recipeData])
+    })
+    useEffect(() => {
+        reset(recipeData);
+    }, [recipeData]);
     const { fields, append, remove } = useFieldArray({
         control,
         name: "ingredients",
     });
     const { fields: stepFields, append: instructionAppend, remove: stepRemove } = useFieldArray({
-        control, // control props comes from useForm (optional: if you are using FormContext)
-        name: "instructions", // unique name for your Field Array
+        control,
+        name: "instructions",
     });
-    const [tags, setTags] = useState([])
-    const onSubmit = async (data) => {
-        console.log(data)
+    const [tags, setTags] = useState([]);
+    useEffect(() => {
 
+        const fetchData = async () => {
+            const { data } = await AxiosApi.get('/recipe/tags');
+            var tempTags = []
+            for (const [key, value] of Object.entries(data)) {
+                tempTags = tempTags.concat(value)
+            }
+            tempTags = tempTags.map((element) => {
+                return { "value": element, "label": element }
+            })
+            setTags(tempTags)
+
+        }
+        fetchData()
+    }, [])
+
+    var { id } = useParams();
+    useEffect(() => {
+        const fetchRecipe = async () => {
+
+            try {
+                const token = localStorage.getItem("token");
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `Bearer ${token}`
+                    }
+                };
+                const recepieUrl = "recipe/public/" + id;
+                const { data: recepie } = await AxiosApi.get(recepieUrl, config);
+                debugger;
+                recepie.instructions = recepie.instructions.map(instruction => ({"name": instruction}));
+                recepie.tags = recepie.tags.map(tag => {
+                    return { "value": tag, "label": tag }
+                });
+                setRecipeData(recepie);
+
+            } catch (error) {
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                }
+            }
+        };
+        if (id) {
+            fetchRecipe();
+        }
+    }, []);
+    const onSubmit = async (data) => {
+        debugger;
         if (data.tags) {
             data.tags = data.tags.map(tag => tag.value);
         }
@@ -41,22 +99,33 @@ function AddRecipe() {
         try {
             debugger;
             var token = localStorage.getItem("token");
-            const url = "recipe/add"
-            const config = {
+            var config = {
                 headers: {
                     'Content-Type': 'application/json',
                     'token': `Bearer ${token}`
                 }
             }
-
-            const response = await AxiosApi.post(url, recipeData, config)
-            console.log(response.data)
-
             const imageConfig = {
                 headers: { 'Content-Type': 'multipart/form-data', 'token': `Bearer ${token}` }
             }
-            const imgUrl = `image/recipe/${response.data}`
-            const imgResponse = await AxiosApi.post(imgUrl, formData, imageConfig)
+            if (id) {
+                const url = `recipe`
+
+                const response = await AxiosApi.put(url, {...recipeData, id:id}, config)
+                if (image instanceof File) {
+                    const imgUrl = `image/recipe/${response.data}`
+                    const imgResponse = await AxiosApi.post(imgUrl, formData, imageConfig)
+                }
+            }
+            else {
+                const url = "recipe/add"
+                const response = await AxiosApi.post(url, recipeData, config)
+                if (image instanceof File) {
+                    const imgUrl = `image/recipe/${response.data}`
+                    const imgResponse = await AxiosApi.post(imgUrl, formData, imageConfig)
+                }
+            }
+
 
         } catch (error) {
             if (
@@ -77,28 +146,7 @@ function AddRecipe() {
             remove(0)
         }
     }, [])
-    useEffect(() => {
-        //     const tags = []
-        // subcategories.forEach(subcategory => {
-        //     subcategory.forEach(tag => {
-        //         tags.push(tag)
-        //     })
-        // })
-        // return tags
-        const fetchData = async () => {
-            const { data } = await AxiosApi.get('/recipe/tags');
-            var tempTags = []
-            for (const [key, value] of Object.entries(data)) {
-                tempTags = tempTags.concat(value)
-            }
-            tempTags = tempTags.map((element) => {
-                return { "value": element, "label": element }
-            })
-            setTags(tempTags)
-
-        }
-        fetchData()
-    }, [])
+    
     return (
         <Flex justify='center' mb={100}>
             <Card display='flex' size='md' mt={100} px={10} mx={40} pb={20} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} boxShadow={theme.cardStyle.boxShadow}>
@@ -182,7 +230,6 @@ function AddRecipe() {
                             append({ name: "", ammount: "", unit: "" });
                         }}>Dodaj składnik</Button>
                         {stepFields.map((field, index) => {
-                            console.log(`instructions.${index}.name`)
                             return (
                                 <Flex flexDirection="row" key={field.id} >
                                     <FormControl isInvalid={errors.instructions && errors?.instructions[index]?.name} px={2} py={2} minHeight={100}>
@@ -214,14 +261,12 @@ function AddRecipe() {
                         <Controller
 
                             control={control}
-                            // defaultValue={default_value}
                             name="tags"
                             render={({ field: { onChange, value, name, ref } }) => (
                                 <Select
                                     mt={4}
                                     inputRef={ref}
                                     options={tags}
-                                    // value={tags.find(c => c.value === value)}
                                     onChange={val => {
                                         onChange(val)
                                     }}
@@ -229,14 +274,23 @@ function AddRecipe() {
                                 />
                             )}
                         />
-                        {/* <Select options={tags} isMulti /> */}
+
                         <Text mt={4}>Poziom trudności</Text>
-                        <SelectChakra mt={4}>
-                            <option disabled selected hidden>wybierz</option>
-                            <option value='easy'>Łatwy</option>
-                            <option value='medium'>Średni</option>
-                            <option value='hard'>Trudny</option>
-                        </SelectChakra>
+                        <Controller
+                            name="difficulty"
+                            control={control}
+                            defaultValue=""
+                            render={({ field }) => (
+                                <SelectChakra mt={4} {...field}>
+                                    <option disabled hidden value="">
+                                        wybierz
+                                    </option>
+                                    <option value="easy">Łatwy</option>
+                                    <option value="medium">Średni</option>
+                                    <option value="hard">Trudny</option>
+                                </SelectChakra>
+                            )}
+                        />
                         <FormControl isInvalid={errors.calories} px={2} py={2} h={100}>
                             <FormLabel>Kalorie</FormLabel>
                             <Input id="calories" width='md'  {...register('calories', {
@@ -244,15 +298,6 @@ function AddRecipe() {
                                     value: /^[1-9]\d*$/,
                                     message: 'Wartość musi być dodatnia',
                                 },
-                                // validate: (value) => {
-                                //     const parsedValue = parseFloat(value);
-
-                                //     if (isNaN(parsedValue) || parsedValue < 1) {
-                                //       return 'Wprowadź liczbę większą niż 0';
-                                //     }
-
-                                //     return true; 
-                                // },
 
                             })} />
                             {!errors.calories ? (
@@ -290,7 +335,12 @@ function AddRecipe() {
                             )}
                         </FormControl>
                         <FileUpload name='image' placeholder='Wybierz zdjecie' acceptedFileTypes='image/*' control={control} label='Zdjęcie'></FileUpload>
-                        <Button mt={4} type="submit" isDisabled={formDisabled}>Dodaj</Button>
+                        {id ? (
+                            <Button mt={4} type="submit" isDisabled={formDisabled}>Edytuj</Button>
+                        ): (
+                            <Button mt={4} type="submit" isDisabled={formDisabled}>Dodaj</Button>
+                        )}
+                        
                         {message !== '' ? (
                             <Text>{message}</Text>
                         ) : (

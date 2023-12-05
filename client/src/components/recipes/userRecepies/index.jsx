@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { AddIcon, SettingsIcon } from '@chakra-ui/icons'
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 function UserRecipes() {
   const theme = useTheme();
@@ -24,7 +25,7 @@ function UserRecipes() {
   var token = localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
-  debugger;
+  const navigate = useNavigate()
   const fetchData = async () => {
     try {
       const config = {
@@ -53,16 +54,13 @@ function UserRecipes() {
 
   const onDelete = async () => {
     try {
-      const url = 'recipe';
+      const url = `recipe/${recipeIdToDelete}`;
       token = localStorage.getItem('token');
       const config = {
         headers: {
           'Content-Type': 'application/json',
           'token': `Bearer ${token}`
         },
-        data: {
-          'id': recipeIdToDelete
-        }
       };
       const { data: res } = await AxiosApi.delete(url, config);
 
@@ -107,6 +105,15 @@ function UserRecipes() {
                   
                 </MenuButton>
                 <MenuList>
+                  <MenuItem as={Button}
+                      variant='outline'
+                      onClick={() => {
+                       navigate(`/edytuj_przepis/${recipe.recipe_id}`);
+                      }}
+                    >
+                      Edytuj przepis
+                    
+                  </MenuItem>
                   <MenuItem as={Button}
                       variant='outline'
                       onClick={() => {

@@ -69,7 +69,7 @@ const doc = {
         description: "This is description",
         $ingredients: [{
           "name": "maka",
-          "amount": 1,
+          "ammount": 1,
           "unit": "test"
       }],
         $instructions: [],
@@ -84,7 +84,7 @@ const doc = {
         description: "This is description",
         ingredients: [{
           "name": "maka",
-          "amount": 1,
+          "ammount": 1,
           "unit": "test"
       }],
         instructions: [],
