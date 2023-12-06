@@ -35,7 +35,7 @@ function Nav() {
                         </>
                     ) : (
                         <>
-                            <Link href="/" mr={4} >Książka Kucharska</Link>
+                            <Link href="/ksiazka_kucharska" mr={4} >Książka Kucharska</Link>
                             <Link href="/twoje_przepisy" mr={4}>Twoje przepisy</Link>
                         </>
                     )}

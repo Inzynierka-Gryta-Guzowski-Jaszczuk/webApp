@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import AxiosApi from "../../../services/axios.config";
 import React from "react";
+import Rating from '@mui/material/Rating';
+
 
 function RecipesDetails() {
     const theme = useTheme();
@@ -12,10 +14,11 @@ function RecipesDetails() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const [formDisabled, setFormDisabled] = useState(false);
+    const [ratingValue, setRatingValue] = useState(null);
     const [data, setData] = useState({
         comment: "",
     });
-    var token = localStorage.getItem('token'); 
+    var token = localStorage.getItem('token');
     const handleChange = ({ currentTarget: input }) => {
         setData({ ...data, [input.name]: input.value });
 
@@ -34,7 +37,7 @@ function RecipesDetails() {
             const { data: res } = await AxiosApi.post(url, data, config);
             setFormDisabled(true);
             location.reload();
-            
+
         } catch (error) {
             if (
                 error.response &&
@@ -51,7 +54,7 @@ function RecipesDetails() {
                 const recepieUrl = "recipe/public/" + id;
                 const { data: recepie } = await AxiosApi.get(recepieUrl);
                 setRecipe(recepie);
-                
+
             } catch (error) {
                 if (
                     error.response &&
@@ -71,7 +74,7 @@ function RecipesDetails() {
                 const commentsUrl = "comment/recipe/" + id;
                 const { data: comments } = await AxiosApi.get(commentsUrl);
                 setComments(comments);
-                
+
             } catch (error) {
                 if (
                     error.response &&
@@ -92,7 +95,7 @@ function RecipesDetails() {
                 templateRows='repeat(12, 1fr)'
                 templateColumns='repeat(12, 1fr)'
                 gap={6}
-              
+
 
             >
                 <GridItem rowSpan={4} colSpan={4} align='center'><Image src={recipe.image}></Image></GridItem>
@@ -189,7 +192,7 @@ function RecipesDetails() {
                     <Text fontSize='2xl' py={2} textAlign='center'>Zapisano: #{recipe.saved_count}</Text>
 
                 </GridItem>
-                
+
                 <GridItem
                     as={Card}
                     colSpan={4}
@@ -225,19 +228,26 @@ function RecipesDetails() {
                     bg={theme.colors.secondary}
                     color={theme.colors.primary}
                     boxShadow={theme.cardStyle.boxShadow}>
-                    <Text fontSize='2xl' py={2} textAlign='center'>Gwiazdki tu będą</Text>
+                    {/* <Text fontSize='2xl' py={2} textAlign='center'>Gwiazdki tu będą</Text> */}
+                    {/* <Rating
+                        name="simple-controlled"
+                        value={ratingValue}
+                        onChange={(event, newValue) => {
+                            setRatingValue(newValue);
+                        }}
+                    /> */}
 
                 </GridItem>
                 {token ? (
-                <GridItem
-                    as={Button}
-                    colStart={2}
-                    colSpan={2}
-                    rowSpan={1}
+                    <GridItem
+                        as={Button}
+                        colStart={2}
+                        colSpan={2}
+                        rowSpan={1}
                     >
-                    Zapisz
-                </GridItem>
-                ):(
+                        Zapisz
+                    </GridItem>
+                ) : (
                     <></>
                 )}
             </Grid>
@@ -258,7 +268,7 @@ function RecipesDetails() {
                             {comments ? (
                                 comments.map((comment) => (
                                     <>
-                                        <ListItem>{comment.user}: {comment.comment}</ListItem>    
+                                        <ListItem>{comment.user}: {comment.comment}</ListItem>
                                     </>
 
                                 ))
@@ -272,12 +282,12 @@ function RecipesDetails() {
                 <CardFooter>
                     {token ? (
                         <Button ref={btnRef} onClick={onOpen}>
-                        Dodaj komentarz
-                    </Button>
-                    ): (
+                            Dodaj komentarz
+                        </Button>
+                    ) : (
                         <></>
                     )}
-                    
+
                     <Drawer
                         isOpen={isOpen}
                         placement='bottom'
@@ -301,7 +311,13 @@ function RecipesDetails() {
 
                 </CardFooter>
             </Card>
-
+            {/* <Rating
+                        name="simple-controlled"
+                        value={ratingValue}
+                        onChange={(event, newValue) => {
+                            setRatingValue(newValue);
+                        }}
+                    /> */}
         </>
     )
 
