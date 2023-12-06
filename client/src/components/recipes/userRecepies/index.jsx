@@ -102,27 +102,27 @@ function UserRecipes() {
             <CardHeader display='flex' justifyContent='end' align='end' width='100%'>
               <Menu>
                 <MenuButton as={SettingsIcon}>
-                  
+
                 </MenuButton>
                 <MenuList>
                   <MenuItem as={Button}
-                      variant='outline'
-                      onClick={() => {
-                       navigate(`/edytuj_przepis/${recipe.recipe_id}`);
-                      }}
-                    >
-                      Edytuj przepis
-                    
+                    variant='outline'
+                    onClick={() => {
+                      navigate(`/edytuj_przepis/${recipe.recipe_id}`);
+                    }}
+                  >
+                    Edytuj przepis
+
                   </MenuItem>
                   <MenuItem as={Button}
-                      variant='outline'
-                      onClick={() => {
-                        setRecipeIdToDelete(recipe.recipe_id);
-                        onOpen();
-                      }}
-                    >
-                      Usuń przepis
-                    
+                    variant='outline'
+                    onClick={() => {
+                      setRecipeIdToDelete(recipe.recipe_id);
+                      onOpen();
+                    }}
+                  >
+                    Usuń przepis
+
                   </MenuItem>
                 </MenuList>
               </Menu>
@@ -138,7 +138,7 @@ function UserRecipes() {
               justifyContent='center'
             >
               <LinkOverlay href={`/przepisy/${recipe.recipe_id}`}>
-                <Image src={recipe.image}></Image>
+                <Image src={recipe.image} w='400px' h='200px' mx='auto' objectFit='cover'></Image>
                 <Text fontSize='2xl' mt='50px'>{recipe.name}</Text>
                 <Card
                   mt={4}

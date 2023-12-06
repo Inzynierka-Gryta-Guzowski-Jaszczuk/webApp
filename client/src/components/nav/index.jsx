@@ -39,7 +39,7 @@ function Nav() {
                             <Link href="/twoje_przepisy" mr={4}>Twoje przepisy</Link>
                         </>
                     )}
-                    <Link href="/" mr={4}>Twoja lodówka</Link>
+                    <Link href="/twoja_lodowka" mr={4}>Twoja lodówka</Link>
                     <Link href="/przepisy" mr={4}>Ranking przepisów</Link>
                     <Menu>
                         <MenuButton as={Link} mr={4}>

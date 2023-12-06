@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import AxiosApi from "../../../services/axios.config";
 import React from "react";
-import Rating from '@mui/material/Rating';
+import ReactStars from "react-rating-stars-component";
+
+
 
 
 function RecipesDetails() {
@@ -18,6 +20,9 @@ function RecipesDetails() {
     const [data, setData] = useState({
         comment: "",
     });
+    const ratingChanged = (newRating) => {
+        console.log(newRating);
+    };
     var token = localStorage.getItem('token');
     const handleChange = ({ currentTarget: input }) => {
         setData({ ...data, [input.name]: input.value });
@@ -98,7 +103,7 @@ function RecipesDetails() {
 
 
             >
-                <GridItem rowSpan={4} colSpan={4} align='center'><Image src={recipe.image}></Image></GridItem>
+                <GridItem rowSpan={4} colSpan={4} align='center'><Image src={recipe.image} w='600px' h='400px' mx='auto' objectFit='contain'></Image></GridItem>
                 <GridItem
                     as={Card}
                     colSpan={4}
@@ -229,13 +234,14 @@ function RecipesDetails() {
                     color={theme.colors.primary}
                     boxShadow={theme.cardStyle.boxShadow}>
                     {/* <Text fontSize='2xl' py={2} textAlign='center'>Gwiazdki tu będą</Text> */}
-                    {/* <Rating
-                        name="simple-controlled"
-                        value={ratingValue}
-                        onChange={(event, newValue) => {
-                            setRatingValue(newValue);
-                        }}
-                    /> */}
+                    <ReactStars
+                        count={5}
+                        onChange={ratingChanged}
+                        size={24}
+                        activeColor="#ffd700"
+                        isHalf={true}
+                    
+                    />,
 
                 </GridItem>
                 {token ? (
@@ -311,13 +317,8 @@ function RecipesDetails() {
 
                 </CardFooter>
             </Card>
-            {/* <Rating
-                        name="simple-controlled"
-                        value={ratingValue}
-                        onChange={(event, newValue) => {
-                            setRatingValue(newValue);
-                        }}
-                    /> */}
+
+
         </>
     )
 

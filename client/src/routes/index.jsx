@@ -8,6 +8,7 @@ import Categories from '../components/recipes/categories';
 import UserRecipes from '../components/recipes/userRecepies';
 import AddRecipe from '../components/recipes/addRecipe';
 import SavedRecipes from '../components/recipes/savedRecepies';
+import SearchRecipes from '../components/recipes/searchRecipe';
 const UserRoutes = () => {
     const token = localStorage.getItem("token");
 
@@ -18,6 +19,7 @@ const UserRoutes = () => {
             <Route path='/przepisy' element={<Recipes></Recipes>}></Route>
             <Route path='/przepisy/:id' element={<RecipesDetails></RecipesDetails>}></Route>
             <Route path='/kategorie/:id' element={<Categories></Categories>}></Route>
+            <Route path='/twoja_lodowka' element={<SearchRecipes></SearchRecipes>}></Route>
             
 
                 {token === null ? (

@@ -1,34 +1,34 @@
 import AxiosApi from "../../services/axios.config";
 import { useEffect, useState } from "react";
-import { Card, Flex, useTheme, Image, Heading, CardBody, Text, LinkBox, LinkOverlay, CardFooter} from "@chakra-ui/react";
+import { Card, Flex, useTheme, Image, Heading, CardBody, Text, LinkBox, LinkOverlay, CardFooter } from "@chakra-ui/react";
 
-function Recipes(){
-    const theme = useTheme();
-    const [recipes, setRecipes] = useState([]);
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const url = "recipe/public";
-          const { data: res } = await AxiosApi.get(url);
-          setRecipes(res);
-        } catch (error) {
-          if (
-            error.response &&
-            error.response.status >= 400 &&
-            error.response.status <= 500
-          ) {
-          }
+function Recipes() {
+  const theme = useTheme();
+  const [recipes, setRecipes] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = "recipe/public";
+        const { data: res } = await AxiosApi.get(url);
+        setRecipes(res);
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
         }
-      };
+      }
+    };
 
-      fetchData();
-    }, []);
-    return (
-        <>
-        <Heading textAlign='center' mt={10} color={theme.colors.primary}>Przepisy</Heading>
-        <Flex justify='center' textAlign='center' align='center' flexWrap='wrap' mb={100}>
+    fetchData();
+  }, []);
+  return (
+    <>
+      <Heading textAlign='center' mt={10} color={theme.colors.primary}>Przepisy</Heading>
+      <Flex justify='center' textAlign='center' align='center' flexWrap='wrap' mb={100}>
         {recipes.map((recipe) => (
-            <LinkBox
+          <LinkBox
             key={recipe.recipe_id}
             as={Card}
             display='flex'
@@ -46,7 +46,7 @@ function Recipes(){
           >
             <LinkOverlay href={`/przepisy/${recipe.recipe_id}`}>
               <CardBody>
-                <Image src={recipe.image}></Image>
+                <Image src={recipe.image} w='400px' h='200px' mx='auto' objectFit='cover'></Image>
                 <Text fontSize='2xl' mt='50px'>{recipe.name}</Text>
                 <Card
                   mt={4}
@@ -54,10 +54,10 @@ function Recipes(){
                   bg={theme.colors.secondary}
                   color={theme.colors.primary}
                   boxShadow={theme.cardStyle.boxShadow}>
-                  
+
                   <Flex as={CardBody} justifyContent={"space-between"}>
-                      <Text fontSize='2xl' ml='auto' mx={2}>Liczba porcji: {recipe.portions}</Text>
-                      <Text fontSize='2xl' ml='auto' mx={2}>Poziom trudności: {recipe.difficulty}</Text>
+                    <Text fontSize='2xl' ml='auto' mx={2}>Liczba porcji: {recipe.portions}</Text>
+                    <Text fontSize='2xl' ml='auto' mx={2}>Poziom trudności: {recipe.difficulty}</Text>
                   </Flex>
                   <Flex as={CardFooter} justifyContent={"space-between"}>
                     <Text fontSize='2xl' ml='auto' mx={2}>Kalorie: {recipe.calories}</Text>
@@ -67,14 +67,14 @@ function Recipes(){
               </CardBody>
             </LinkOverlay>
           </LinkBox>
-          
-          
-            
-            ))}
 
-        </Flex>
-        </>
-        
-    );
+
+
+        ))}
+
+      </Flex>
+    </>
+
+  );
 }
 export default Recipes;
