@@ -12,6 +12,9 @@ const activateUserService = require('./../services/activateUser')
 const changePasswordService = require('./../services/changePassword')
 //middlewares
 const authenticate = require('./../middlewares/AuthorizationJWT')
+const resetPasswordSendRequest = require('../services/resetPassword/sendRequest')
+const resetPasswordisTokenActive = require('../services/resetPassword/isTokenActive')
+const resetPassword = require('../services/resetPassword/resetPassword')
 
 //get all users
 router.get('/', async (req, res) => {
@@ -92,5 +95,26 @@ router.post('/changePassword', authenticate, async(req, res) => {
     
     changePasswordService(req, res)
 })
+
+//reset password
+router.post('/resetPassword/request', async (req, res) => {
+    // #swagger.tags = ['Reset Password']
+    // #swagger.summary = send email for reseting passwrd 
+    resetPasswordSendRequest(req, res)
+})
+
+router.get('/resetPassword/:token', async (req, res) => {
+    // #swagger.tags = ['Reset Password']
+    // #swagger.summary = check if token is active 
+    resetPasswordisTokenActive(req, res)
+})
+
+router.post('/resetPassword', async (req, res) => {
+
+    // #swagger.tags = ['Reset Password']
+    // #swagger.summary = reset password
+    resetPassword(req, res)
+}
+)
 
 module.exports = router

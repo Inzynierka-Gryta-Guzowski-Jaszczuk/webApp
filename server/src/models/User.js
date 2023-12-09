@@ -56,16 +56,12 @@ userSchema.methods.generateActivationToken = async function () {
 }
 
 userSchema.methods.generateResetPasswordToken = async function () {
-    await crypto.randomBytes(32, async (err, buffer) => {
-        if (err) {
-            console.log(err)
-        }
-        const token = buffer.toString('hex')
-        this.reset_password_token = token
-        await this.save()
-        return token
-    }
-    )
+    console.log("----------------------------------------------------------------------------------------------------->>>><<<<-------------------------------------------------------")
+    const buffer = crypto.randomBytes(32)
+    const token = buffer.toString('hex')
+    this.reset_password_token = token
+    await this.save()
+    return token
 }
 
 const User = mongoose.model('User', userSchema)

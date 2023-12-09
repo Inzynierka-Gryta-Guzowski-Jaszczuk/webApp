@@ -17,7 +17,8 @@ const validate = (data) => {
             'password.string.min': 'hasło powinno zawierać conajmniej 8 znaków',
             'string.min': `hasło powinno mieć przynajmniej 8 znaków`,
         }),
-        oldPassword: joi.string()
+        oldPassword: joi.string(),
+        token: joi.string()
     })
 
 
