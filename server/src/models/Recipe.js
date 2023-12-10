@@ -4,18 +4,10 @@ const commentSchema = require('./Comment')
 // const TAGS = ["ciasta", "zapiekanki", "pizzy", "makarony", "sushi", "sałatki", "burgery", "ryby", "lody", "desery", "kebaby", 'śniadanie', 'obiad', 'kolacja', 'desery', 'tajskie', 'greckie', 'włoskie', 'chińskie', 'meksykańskie', 'kurczak', ];
 
 const CategorizedTags = {
-    "desery": ["ciasta", "desery", "babeczki", "lody", "torty"],
-    "wege": ["wegetariańskie", "sałatki", "wege", "wegańskie"],
-    "przekąski": ["przekąski", "zapiekanki", "burgery", "kebaby"],
-    "śniadania": ["śniadanie"],
-    "owoce morza": ["ryby", "owoce morza", "krewetki", "łosoś", "tuńczyk"],
-    "orientalne": ["tajskie", "chińskie", "japońskie", "orientalne", "sushi"],
-    "zupy": ["zupy", "kremy", "zupa pomidorowa", "zupa krem z brokułów"],
-    "dania główne": ["dania główne", "mięsne", "rybne", "wegetariańskie", "wegańskie"],
-    "przyjęcie": ["przyjęcie", "kanapki", "sałatki partyjne", "przekąski na imprezę"],
-    "pieczywo": ["pieczywo", "chleb", "bułki", "bagietki", "płatki owsiane"],
-    "napoje": ["napoje", "koktajle", "soki", "herbata", "kawa"],
-    "grill": ["grill", "kotlety", "kiełbaski", "warzywa grillowane"]
+    "Posiłek": ["Śniadania", "Zupy", "Dania główne", "Desery", "Napoje", "Przekąski", "Sałatki", "Przetwory", "Dodatki", "Pieczywo", "Wędliny"],
+    "Okazje": ["Wielkanoc", "Boże Narodzenie", "Impreza", "Grill", "Sylwester", "Tłusty czwartek", "Walentynki", "Halloween", "Komunia", "Do pracy"],
+    "Kuchnie świata": ["Amerykańska", "Azjatycka", "Czeska", "Polska", "Włoska", "Meksykańska", "Indyjska", "Francuska", "Chińska", "Grecka", "Bałkańska", "Tajska", "Węgierska", "Śródziemnomorska", "Ukraińska", "Żydowska"],
+    "Dieta": ["Bez glutenu", "Bez laktozy", "Bez cukru", "Dla dzieci", "Dietetyczne", "Wegetariańskie", "Wegańskie", "Dla zdrowia", "Keto"],
 }
 
 const recipeSchema = new mongoose.Schema({
