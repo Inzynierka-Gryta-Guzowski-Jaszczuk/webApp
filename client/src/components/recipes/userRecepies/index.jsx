@@ -17,6 +17,7 @@ import {
 import { AddIcon, SettingsIcon } from '@chakra-ui/icons'
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import CardBox from "../../cardBox";
 
 function UserRecipes() {
   const theme = useTheme();
@@ -84,82 +85,83 @@ function UserRecipes() {
       </Link>
       <Flex justify='center' textAlign='center' align='center' flexWrap='wrap' mb={100} >
         {recipes.map((recipe) => (
-          <Card
-            key={recipe.recipe_id}
-            display='flex'
-            align='center'
-            size='lg'
-            mt={100}
-            w='800px'
-            minW='45%'
-            mx='2%'
-            pb={10}
-            variant='outline'
-            bg={theme.colors.secondary}
-            color={theme.colors.primary}
-            boxShadow={theme.cardStyle.boxShadow}
-          >
-            <CardHeader display='flex' justifyContent='end' align='end' width='100%'>
-              <Menu>
-                <MenuButton as={SettingsIcon}>
-                  
-                </MenuButton>
-                <MenuList>
-                  <MenuItem as={Button}
-                      variant='outline'
-                      onClick={() => {
-                       navigate(`/edytuj_przepis/${recipe.recipe_id}`);
-                      }}
-                    >
-                      Edytuj przepis
-                    
-                  </MenuItem>
-                  <MenuItem as={Button}
-                      variant='outline'
-                      onClick={() => {
-                        setRecipeIdToDelete(recipe.recipe_id);
-                        onOpen();
-                      }}
-                    >
-                      Usuń przepis
-                    
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+          <CardBox recipe={recipe} showUserRecipe={true}></CardBox>
+          // <Card
+          //   key={recipe.recipe_id}
+          //   display='flex'
+          //   align='center'
+          //   size='lg'
+          //   mt={100}
+          //   w='800px'
+          //   minW='45%'
+          //   mx='2%'
+          //   pb={10}
+          //   variant='outline'
+          //   bg={theme.colors.secondary}
+          //   color={theme.colors.primary}
+          //   boxShadow={theme.cardStyle.boxShadow}
+          // >
+          //   <CardHeader display='flex' justifyContent='end' align='end' width='100%'>
+          //     <Menu>
+          //       <MenuButton as={SettingsIcon}>
 
-            </CardHeader>
+          //       </MenuButton>
+          //       <MenuList>
+          //         <MenuItem as={Button}
+          //           variant='outline'
+          //           onClick={() => {
+          //             navigate(`/edytuj_przepis/${recipe.recipe_id}`);
+          //           }}
+          //         >
+          //           Edytuj przepis
 
-            <LinkBox
-              as={CardBody}
-              mx={2}
-              px='10%'
-              width='100%'
-              display='flex'
-              justifyContent='center'
-            >
-              <LinkOverlay href={`/przepisy/${recipe.recipe_id}`}>
-                <Image src={recipe.image}></Image>
-                <Text fontSize='2xl' mt='50px'>{recipe.name}</Text>
-                <Card
-                  mt={4}
-                  variant='outline'
-                  bg={theme.colors.secondary}
-                  color={theme.colors.primary}
-                  boxShadow={theme.cardStyle.boxShadow}>
+          //         </MenuItem>
+          //         <MenuItem as={Button}
+          //           variant='outline'
+          //           onClick={() => {
+          //             setRecipeIdToDelete(recipe.recipe_id);
+          //             onOpen();
+          //           }}
+          //         >
+          //           Usuń przepis
 
-                  <Flex as={CardBody} justifyContent={"space-between"}>
-                    <Text fontSize='2xl' ml='auto' mx={2}>Liczba porcji: {recipe.portions}</Text>
-                    <Text fontSize='2xl' ml='auto' mx={2}>Poziom trudności: {recipe.difficulty}</Text>
-                  </Flex>
-                  <Flex as={CardFooter} justifyContent={"space-between"}>
-                    <Text fontSize='2xl' ml='auto' mx={2}>Kalorie: {recipe.calories}</Text>
-                    <Text fontSize='2xl' ml='auto' mx={2}>Zapisano: #{recipe.saved_count}</Text>
-                  </Flex>
-                </Card>
-              </LinkOverlay>
-            </LinkBox>
+          //         </MenuItem>
+          //       </MenuList>
+          //     </Menu>
 
-          </Card>
+          //   </CardHeader>
+
+          //   <LinkBox
+          //     as={CardBody}
+          //     mx={2}
+          //     px='10%'
+          //     width='100%'
+          //     display='flex'
+          //     justifyContent='center'
+          //   >
+          //     <LinkOverlay href={`/przepisy/${recipe.recipe_id}`}>
+          //       <Image src={recipe.image} w='400px' h='200px' mx='auto' objectFit='cover'></Image>
+          //       <Text fontSize='2xl' mt='50px'>{recipe.name}</Text>
+          //       <Card
+          //         mt={4}
+          //         variant='outline'
+          //         bg={theme.colors.secondary}
+          //         color={theme.colors.primary}
+          //         boxShadow={theme.cardStyle.boxShadow}>
+
+          //         <Flex as={CardBody} justifyContent={"space-between"}>
+          //           <Text fontSize='2xl' ml='auto' mx={2}>Liczba porcji: {recipe.portions}</Text>
+          //           <Text fontSize='2xl' ml='auto' mx={2}>Poziom trudności: {recipe.difficulty}</Text>
+          //         </Flex>
+          //         <Flex as={CardFooter} justifyContent={"space-between"}>
+          //           <Text fontSize='2xl' ml='auto' mx={2}>Kalorie: {recipe.calories}</Text>
+          //           <Text fontSize='2xl' ml='auto' mx={2}>Zapisano: #{recipe.saved_count}</Text>
+          //         </Flex>
+          //       </Card>
+          //     </LinkOverlay>
+          //   </LinkBox>
+
+          // </Card>
 
 
 

@@ -1,4 +1,4 @@
-import { Flex, Link, useTheme, Menu, MenuButton, Avatar, MenuList, MenuItem, Button, MenuOptionGroup, MenuItemOption, MenuGroup, MenuDivider } from "@chakra-ui/react";
+import { Flex, Link, useTheme, Menu, MenuButton, Avatar, MenuList, MenuItem, Button, MenuOptionGroup, MenuItemOption, MenuGroup, MenuDivider, Heading } from "@chakra-ui/react";
 import AxiosApi from "../../services/axios.config";
 import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
@@ -29,17 +29,18 @@ function Nav() {
     return (
         <nav>
             <Flex justify='end'>
+                <Heading pr={4} m={2} color={theme.colors.primary}>eCooker</Heading>
                 <Flex pr={4} m={4} ml='auto' justifyContent='center' >
                     {token === null ? (
                         <>
                         </>
                     ) : (
                         <>
-                            <Link href="/" mr={4} >Książka Kucharska</Link>
+                            <Link href="/ksiazka_kucharska" mr={4} >Książka Kucharska</Link>
                             <Link href="/twoje_przepisy" mr={4}>Twoje przepisy</Link>
                         </>
                     )}
-                    <Link href="/" mr={4}>Twoja lodówka</Link>
+                    <Link href="/twoja_lodowka" mr={4}>Twoja lodówka</Link>
                     <Link href="/przepisy" mr={4}>Ranking przepisów</Link>
                     <Menu>
                         <MenuButton as={Link} mr={4}>

@@ -33,6 +33,8 @@ function AddRecipe() {
 
         const fetchData = async () => {
             const { data } = await AxiosApi.get('/recipe/tags');
+  
+        
             var tempTags = []
             for (const [key, value] of Object.entries(data)) {
                 tempTags = tempTags.concat(value)
@@ -61,10 +63,12 @@ function AddRecipe() {
                 const recepieUrl = "recipe/public/" + id;
                 const { data: recepie } = await AxiosApi.get(recepieUrl, config);
                 recepie.instructions = recepie.instructions.map(instruction => ({"name": instruction}));
+                recepie.ingredients = recepie.ingredients.map(ingredient => ({"name": ingredient.name, "ammount": ingredient.ammount, "unit": ingredient.unit}));
                 recepie.tags = recepie.tags.map(tag => {
                     return { "value": tag, "label": tag }
                 });
-                setRecipeData(recepie);
+                const { author,recipe_id, saved_count, rating, image , ...recepieFormData } = recepie;
+                setRecipeData(recepieFormData);
 
             } catch (error) {
                 if (
@@ -107,10 +111,9 @@ function AddRecipe() {
             }
             if (id) {
                 const url = `recipe`
-
                 const response = await AxiosApi.put(url, {...recipeData, id:id}, config)
                 if (image instanceof File) {
-                    const imgUrl = `image/recipe/${response.data}`
+                    const imgUrl = `image/recipe/${id}`
                     const imgResponse = await AxiosApi.post(imgUrl, formData, imageConfig)
                 }
             }
