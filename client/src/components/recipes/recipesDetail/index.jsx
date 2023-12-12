@@ -16,12 +16,34 @@ function RecipesDetails() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const [formDisabled, setFormDisabled] = useState(false);
-    const [ratingValue, setRatingValue] = useState(null);
+    const [ratingValue, setRatingValue] = useState(1);
     const [data, setData] = useState({
         comment: "",
     });
-    const ratingChanged = (newRating) => {
+    const ratingChanged = async (newRating) => {
         console.log(newRating);
+        try {
+            debugger;
+            const url = "rating/recipe/" + id;
+            token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': `Bearer ${token}`
+                }
+            };
+            const { data: res } = await AxiosApi.post(url, {rate: newRating}, config);
+            setRatingValue(newRating);
+
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                setMessage(error.response.data.message);
+            }
+        }
     };
     var token = localStorage.getItem('token');
     const handleChange = ({ currentTarget: input }) => {
@@ -53,6 +75,22 @@ function RecipesDetails() {
             }
         }
     }
+    const fetchRating = async () => {
+        try {
+            const recepieUrl = "rating/recipe/" + id;
+            const { data: rating } = await AxiosApi.get(recepieUrl);
+            debugger;
+            setRatingValue(rating.userRate);
+
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+            }
+        }
+    };
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
@@ -69,7 +107,7 @@ function RecipesDetails() {
                 }
             }
         };
-
+        fetchRating();
         fetchRecipe();
     }, []);
 
@@ -91,7 +129,7 @@ function RecipesDetails() {
         };
 
         fetchComments();
-    }, [comments]);
+    }, []);
     return (
         <>
             <Grid
@@ -232,16 +270,21 @@ function RecipesDetails() {
                     variant='outline'
                     bg={theme.colors.secondary}
                     color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
-                    {/* <Text fontSize='2xl' py={2} textAlign='center'>Gwiazdki tu będą</Text> */}
+                    boxShadow={theme.cardStyle.boxShadow}
+                    align='center'>
+                    {token ?(
                     <ReactStars
                         count={5}
                         onChange={ratingChanged}
                         size={24}
+                        value={ratingValue}
                         activeColor="#ffd700"
                         isHalf={true}
                     
-                    />,
+                    />) : (
+                        <></>
+                    )}
+                    <Text fontSize='2xl'>{recipe.rating}/5,0      {ratingValue}</Text>
 
                 </GridItem>
                 {token ? (
