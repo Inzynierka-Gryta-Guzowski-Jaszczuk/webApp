@@ -25,8 +25,7 @@ const FileUpload = ({ name, placeholder, acceptedFileTypes, control, label, isRe
         <input type='file' onChange={(e) => onChange(e.target.files[0])} accept={acceptedFileTypes} name={name} ref={inputRef} {...inputProps} inputRef={ref} style={{ display: 'none' }}></input>
         <Input
           placeholder={placeholder || "Your file ..."}
-          onClick={() => {inputRef.current.click()
-          debugger;}}
+          onClick={() => {inputRef.current.click()}}
           value={value?.name}
         />
       </InputGroup>
