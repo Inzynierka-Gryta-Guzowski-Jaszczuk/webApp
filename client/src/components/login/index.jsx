@@ -1,11 +1,14 @@
 import { React, useState } from 'react';
-import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link, useColorModeValue } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import AxiosApi from '../../services/axios.config';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const theme = useTheme();
+    const primaryColor = useColorModeValue(theme.colors.primary.light, theme.colors.primary.dark);
+    const secondaryColor = useColorModeValue(theme.colors.secondary.light, theme.colors.secondary.dark);
+    const boxShadow = useColorModeValue(theme.cardStyle.boxShadow.light, theme.cardStyle.boxShadow.dark);
     const [message, setMessage] = useState("");
     const [formDisabled,setFormDisabled] = useState(false);
     const navigate = useNavigate()
@@ -34,11 +37,11 @@ function Login() {
     console.log(errors)
     return (
         <Flex justify='center' textAlign='center' mb={100}>
-            <Card display='flex' align='center' size='md' mt={100} px={60} mx={40} pb={20} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary}  boxShadow={theme.cardStyle.boxShadow}>
+            <Card display='flex' align='center' size='md' mt={100} px={60} mx={40} pb={20} variant='outline' bg={secondaryColor} color={primaryColor}  boxShadow={boxShadow}>
                 <CardHeader>
                     <Heading>Zaloguj</Heading>
                 </CardHeader>
-                <CardBody mb={10} border='solid' borderColor={theme.colors.primary} borderRadius='20' px={40}>
+                <CardBody mb={10} border='solid' borderColor={primaryColor} borderRadius='20' px={40}>
                     <form onSubmit={handleSubmit(onSubmit)}>  
                         <FormControl isInvalid={errors.userName} px={10} h={100}>
                             <FormLabel>Nazwa użytkownika</FormLabel>

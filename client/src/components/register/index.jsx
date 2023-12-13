@@ -1,11 +1,14 @@
 import { React, useState } from 'react';
-import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link, useColorModeValue } from "@chakra-ui/react";
 import {Link as ReactRouterLink} from 'react-router-dom';
 import AxiosApi from '../../services/axios.config';
 
 
 function Register() {
     const theme = useTheme();
+    const primaryColor = useColorModeValue(theme.colors.primary.light, theme.colors.primary.dark);
+    const secondaryColor = useColorModeValue(theme.colors.secondary.light, theme.colors.secondary.dark);
+    const boxShadow = useColorModeValue(theme.cardStyle.boxShadow.light, theme.cardStyle.boxShadow.dark);
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -59,11 +62,11 @@ function Register() {
     }
     return (
         <Flex justify='center' textAlign='center'>
-            <Card display='flex' align='center' size='lg' mt={100} px={60} mx={40} pb={20} mb={100} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} boxShadow={theme.cardStyle.boxShadow}>
+            <Card display='flex' align='center' size='lg' mt={100} px={60} mx={40} pb={20} mb={100} variant='outline' bg={secondaryColor} color={primaryColor} boxShadow={boxShadow}>
                 <CardHeader>
                     <Heading>Zarejestruj</Heading>
                 </CardHeader>
-                <CardBody mb={10} border='solid' borderColor={theme.colors.primary} borderRadius='20' px={40}>
+                <CardBody mb={10} border='solid' borderColor={primaryColor} borderRadius='20' px={40}>
                     <form onSubmit={handleSubmit} >
                         <FormControl isInvalid={errors.userName} px={10}>
                             <FormLabel>Nazwa użytkownika</FormLabel>
