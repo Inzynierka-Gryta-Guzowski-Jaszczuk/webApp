@@ -1,6 +1,6 @@
 import AxiosApi from "../../../services/axios.config";
 import { React, useState, useEffect, useMemo } from 'react';
-import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link, Textarea, Select as SelectChakra, Box, Center } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link, Textarea, Select as SelectChakra, useColorModeValue } from "@chakra-ui/react";
 import { Link as ReactRouterLink, useParams } from 'react-router-dom';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
@@ -8,6 +8,9 @@ import FileUpload from "../../fileUpload";
 
 function AddRecipe() {
     const theme = useTheme();
+    const primaryColor = useColorModeValue(theme.colors.primary.light, theme.colors.primary.dark);
+    const secondaryColor = useColorModeValue(theme.colors.secondary.light, theme.colors.secondary.dark);
+    const boxShadow = useColorModeValue(theme.cardStyle.boxShadow.light, theme.cardStyle.boxShadow.dark);
     const [message, setMessage] = useState("");
     const [formDisabled, setFormDisabled] = useState(false);
     const [recipeData, setRecipeData] = useState(null);
@@ -149,7 +152,7 @@ function AddRecipe() {
     
     return (
         <Flex justify='center' mb={100}>
-            <Card display='flex' size='md' mt={100} px={10} mx={40} pb={20} variant='outline' bg={theme.colors.secondary} color={theme.colors.primary} boxShadow={theme.cardStyle.boxShadow}>
+            <Card display='flex' size='md' mt={100} px={10} mx={40} pb={20} variant='outline' bg={secondaryColor} color={primaryColor} boxShadow={boxShadow}>
                 <CardHeader>
                     <Heading textAlign='center'>Dodaj przepis</Heading>
                 </CardHeader>
@@ -231,7 +234,7 @@ function AddRecipe() {
                         }}>Dodaj składnik</Button>
                         {stepFields.map((field, index) => {
                             return (
-                                <Flex flexDirection="row" key={field.id} >
+                                <Flex flexDirection="row" key={field.id}  >
                                     <FormControl isInvalid={errors.instructions && errors?.instructions[index]?.name} px={2} py={2} minHeight={100}>
                                         <FormLabel>
                                             Krok
@@ -250,6 +253,9 @@ function AddRecipe() {
                                     {index !== 0 && (
 
                                         <Button mt={10} onClick={() => stepRemove(index)}>-</Button>
+                                    )}
+                                    {index === 0 && (
+                                        <Flex w='55px'></Flex>
                                     )}
                                 </Flex>
                             )

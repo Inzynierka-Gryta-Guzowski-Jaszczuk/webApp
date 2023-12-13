@@ -1,4 +1,4 @@
-import { Button, Grid, GridItem, useTheme, Text, Image, Card, CardHeader, Heading, CardBody, UnorderedList, ListItem, OrderedList, Box, Divider, CardFooter, useDisclosure, Drawer, DrawerContent, DrawerCloseButton, DrawerOverlay, DrawerBody, Textarea, DrawerHeader } from "@chakra-ui/react";
+import { Button, Grid, GridItem, useTheme, Text, Image, Card, CardHeader, Heading, CardBody, UnorderedList, ListItem, OrderedList, Box, Divider, CardFooter, useDisclosure, Drawer, DrawerContent, DrawerCloseButton, DrawerOverlay, DrawerBody, Textarea, DrawerHeader, useColorModeValue, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import AxiosApi from "../../../services/axios.config";
@@ -15,6 +15,9 @@ import bolt from '../../../assets/icons/bolt.svg';
 
 function RecipesDetails() {
     const theme = useTheme();
+    const primaryColor = useColorModeValue(theme.colors.primary.light, theme.colors.primary.dark);
+    const secondaryColor = useColorModeValue(theme.colors.secondary.light, theme.colors.secondary.dark);
+    const boxShadow = useColorModeValue(theme.cardStyle.boxShadow.light, theme.cardStyle.boxShadow.dark);
     const [recipe, setRecipe] = useState([]);
     const [comments, setComments] = useState([]);
     const { id } = useParams();
@@ -172,9 +175,9 @@ function RecipesDetails() {
                     rowSpan={5}
 
                     variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}>
                     <CardHeader align='center'>
                         <Heading>
                             {recipe.name}
@@ -194,10 +197,10 @@ function RecipesDetails() {
                     rowSpan={10}
 
                     variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
-                        <CardHeader align='center'>
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}>
+                    <CardHeader align='center'>
                         <Heading>Treść przepisu</Heading>
                     </CardHeader>
                     <Divider></Divider>
@@ -214,18 +217,40 @@ function RecipesDetails() {
                         </OrderedList>
 
                     </CardBody>
-                    
+
 
                 </GridItem>
+
+                <GridItem
+                    colSpan={4}
+                    py={2}
+                >
+                    <Flex wrap="wrap" gap="15px">
+                        {recipe.tags ? recipe.tags.map((tag) => (
+                            <Card
+                                variant='outline'
+                                bg={secondaryColor}
+                                color={primaryColor}
+                                boxShadow={boxShadow}
+                                padding="5px 10px"
+                                display="inline-flex"
+                                >
+                                <Text fontSize='xl'>{tag}</Text>
+                            </Card>
+                        )) : null}
+                    </Flex>
+
+                </GridItem>
+                
                 <GridItem
                     as={Card}
                     colSpan={2}
                     rowSpan={1}
                     py={2}
                     variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}>
                     <Box mx='auto'>
                         <Image src={getDifficultyImage(recipe.difficulty)} alt={`Poziom trudności`} title='Poziom trudności' w={10} h={10} mx='auto' />
                         <Text fontSize='2xl' >{difficultyMap[recipe.difficulty]}</Text>
@@ -237,9 +262,9 @@ function RecipesDetails() {
                     rowSpan={1}
                     pt={2}
                     variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}>
                     <Box mx='auto'>
                         <Image src={restaurant} alt={`Liczba porcji`} title='Liczba porcji' w={10} h={10} mx='auto' />
                         <Text fontSize='2xl'>{recipe.portions} porcje</Text>
@@ -247,44 +272,13 @@ function RecipesDetails() {
                 </GridItem>
                 <GridItem
                     as={Card}
-                    colSpan={2}
-                    rowSpan={1}
-                    py={2}
-                    variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
-                    <Box mx='auto'>
-                        <Image src={clock} alt={`Czas`} title='Czas' w={10} h={10} mx='auto' />
-                        <Text fontSize='2xl' >{recipe.time} minut</Text>
-                    </Box>
-                </GridItem>
-                <GridItem
-                    as={Card}
-                    colSpan={2}
-                    rowSpan={1}
-                    py={2}
-                    variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
-                    <Box mx='auto'>
-                        <Image src={bolt} alt={`Kalorie`} title='Kalorie' w={10} h={10} mx='auto' />
-                        <Text fontSize='2xl' >{recipe.calories}</Text>
-                    </Box>
-                    {/* <Text fontSize='2xl' py={2} textAlign='center'>Zapisano: #{recipe.saved_count}</Text> */}
-
-                </GridItem>
-
-                <GridItem
-                    as={Card}
                     colSpan={4}
                     rowSpan={5}
                     variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}>
-                        <CardHeader align='center'>
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}>
+                    <CardHeader align='center'>
                         <Heading>
                             Składniki
                         </Heading>
@@ -302,17 +296,49 @@ function RecipesDetails() {
 
                         </UnorderedList>
                     </CardBody>
-                  
+
 
                 </GridItem>
+                <GridItem
+                    as={Card}
+                    colSpan={2}
+                    rowSpan={1}
+                    py={2}
+                    variant='outline'
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}>
+                    <Box mx='auto'>
+                        <Image src={clock} alt={`Czas`} title='Czas' w={10} h={10} mx='auto' />
+                        <Text fontSize='2xl' >{recipe.time} minut</Text>
+                    </Box>
+                </GridItem>
+                <GridItem
+                    as={Card}
+                    colSpan={2}
+                    rowSpan={1}
+                    py={2}
+                    variant='outline'
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}>
+                    <Box mx='auto'>
+                        <Image src={bolt} alt={`Kalorie`} title='Kalorie' w={10} h={10} mx='auto' />
+                        <Text fontSize='2xl' >{recipe.calories}</Text>
+                    </Box>
+                    {/* <Text fontSize='2xl' py={2} textAlign='center'>Zapisano: #{recipe.saved_count}</Text> */}
+
+                </GridItem>
+
+
                 <GridItem
                     as={Card}
                     colSpan={4}
                     rowSpan={1}
                     variant='outline'
-                    bg={theme.colors.secondary}
-                    color={theme.colors.primary}
-                    boxShadow={theme.cardStyle.boxShadow}
+                    bg={secondaryColor}
+                    color={primaryColor}
+                    boxShadow={boxShadow}
                     align='center'>
                     {token ? (
                         <ReactStars
@@ -344,9 +370,9 @@ function RecipesDetails() {
             </Grid>
 
             <Card variant='outline'
-                bg={theme.colors.secondary}
-                color={theme.colors.primary}
-                boxShadow={theme.cardStyle.boxShadow}
+                bg={secondaryColor}
+                color={primaryColor}
+                boxShadow={boxShadow}
                 m={10}>
 
                 <CardHeader align='center'>
@@ -386,7 +412,7 @@ function RecipesDetails() {
                         finalFocusRef={btnRef}
                     >
                         <DrawerOverlay />
-                        <DrawerContent bg={theme.colors.secondary} color={theme.colors.primary}>
+                        <DrawerContent bg={secondaryColor} color={primaryColor}>
                             <DrawerHeader>
                                 <DrawerCloseButton />
                             </DrawerHeader>

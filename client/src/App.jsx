@@ -1,5 +1,5 @@
 import Nav from './components/nav'
-import darkTheme from './themes/darkTheme'
+import theme from './theme';
 import { ChakraProvider } from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom';
 import UserRoutes from './routes';
@@ -7,7 +7,7 @@ import UserRoutes from './routes';
 function App() {
   return (
     
-      <ChakraProvider theme={darkTheme}>
+      <ChakraProvider theme={theme}>
         <BrowserRouter>
           <Nav></Nav>
           <UserRoutes></UserRoutes>
