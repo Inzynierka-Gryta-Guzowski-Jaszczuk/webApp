@@ -24,7 +24,8 @@ function RecipesDetails() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const [formDisabled, setFormDisabled] = useState(false);
-    const [ratingValue, setRatingValue] = useState(1);
+    const [ratingValue, setRatingValue] = useState(0);
+    const [isSaved, setSaved] = useState(false);
     const difficultyMap = {
         easy: 'Łatwy',
         medium: 'Średni',
@@ -102,13 +103,53 @@ function RecipesDetails() {
             }
         }
     }
-    const fetchRating = async () => {
+    const saveUserRecipe = async (e) => {
+        e.preventDefault()
         try {
-            const recepieUrl = "rating/recipe/" + id;
-            const { data: rating } = await AxiosApi.get(recepieUrl);
+            token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': `Bearer ${token}`
+                }
+            };
             debugger;
-            setRatingValue(rating.userRate);
+            if (isSaved) {
+                const url = "recipe/saved/" + id;
+                const { data: res } = await AxiosApi.delete(url,config);
+            }
+            else {
+                const url = "recipe/saved";
+                const data = { recipeId: id};
+                const { data: res } = await AxiosApi.post(url, data, config); 
+            }
+            location.reload();
 
+        } catch (error) {
+            if (
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status <= 500
+            ) {
+                setMessage(error.response.data.message);
+            }
+        }
+    }
+    const fetchRecipeDetails = async () => {
+        try {
+            token = localStorage.getItem('token');
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': `Bearer ${token}`
+                }
+            };
+            const ratingUrl = "rating/recipe/" + id;
+            const { data: rating } = await AxiosApi.get(ratingUrl, config);
+            setRatingValue(rating.userRate);
+            const isSavedUrl = "recipe/saved/" + id;
+            const { data: isSaved } = await AxiosApi.get(isSavedUrl, config);
+            setSaved(isSaved);
         } catch (error) {
             if (
                 error.response &&
@@ -134,8 +175,8 @@ function RecipesDetails() {
                 }
             }
         };
-        fetchRating();
         fetchRecipe();
+        fetchRecipeDetails();
     }, []);
 
     useEffect(() => {
@@ -157,6 +198,7 @@ function RecipesDetails() {
 
         fetchComments();
     }, []);
+
     return (
         <>
             <Grid
@@ -326,8 +368,6 @@ function RecipesDetails() {
                         <Image src={bolt} alt={`Kalorie`} title='Kalorie' w={10} h={10} mx='auto' />
                         <Text fontSize='2xl' >{recipe.calories}</Text>
                     </Box>
-                    {/* <Text fontSize='2xl' py={2} textAlign='center'>Zapisano: #{recipe.saved_count}</Text> */}
-
                 </GridItem>
 
 
@@ -355,20 +395,28 @@ function RecipesDetails() {
                     <Text fontSize='2xl'>Ocena użytkowników: {ratingValue.toFixed(2)}</Text>
 
                 </GridItem>
-                {token ? (
+                {isSaved ? (
                     <GridItem
                         as={Button}
+                        onClick={saveUserRecipe}
+                        colStart={2}
+                        colSpan={2}
+                        rowSpan={1}
+                    >
+                        Usuń z zapisanych
+                    </GridItem>
+                ) : (
+                    <GridItem
+                        as={Button}
+                        onClick={saveUserRecipe}
                         colStart={2}
                         colSpan={2}
                         rowSpan={1}
                     >
                         Zapisz
                     </GridItem>
-                ) : (
-                    <></>
                 )}
             </Grid>
-
             <Card variant='outline'
                 bg={secondaryColor}
                 color={primaryColor}

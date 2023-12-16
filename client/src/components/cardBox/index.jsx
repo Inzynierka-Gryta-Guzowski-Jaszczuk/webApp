@@ -88,10 +88,11 @@ const CardBox = ({ recipe, showUserRecipe }) => {
             align='center'
             size='lg'
             mt={100}
-            pt={showUserRecipe ? 0 : '2%'}
-            w='800px'
-            minW='45%'
-            mx='2%'
+            // pt={showUserRecipe ? 0 : '2%'}
+            // w='450px'
+            // minW='45%'
+            px='2%'
+            mx='5%'
             pb={10}
             variant='outline'
             bg={secondaryColor}
@@ -104,7 +105,7 @@ const CardBox = ({ recipe, showUserRecipe }) => {
             as={CardBody}
             >
                 <LinkOverlay href={`/przepisy/${recipe.recipe_id}`}>
-                    <Image src={recipe.image} w='500px' h='250px' mx='auto' objectFit='cover' />
+                    <Image src={recipe.image} w='500px' h='300px' mx='auto' objectFit='cover' />
                     <Heading fontSize='4xl' mt='50px'>{recipe.name}</Heading>
                     <Card
                         mt={4}
@@ -113,8 +114,8 @@ const CardBox = ({ recipe, showUserRecipe }) => {
                         color={theme.colors.primary}
                         boxShadow={boxShadow}>
 
-                        <Flex as={CardBody} justifyContent="space-between">
-                            <Box mx='auto'>
+                        <Flex as={CardBody} justifyContent="space-between" mx={4}>
+                            <Box >
                                 <Image src={getDifficultyImage(recipe.difficulty)} alt={`Poziom trudności`} title='Poziom trudności' w={10} h={10} mx='auto' />
                                 <Text fontSize='2xl' >{difficultyMap[recipe.difficulty]}</Text>
                             </Box>
@@ -122,7 +123,7 @@ const CardBox = ({ recipe, showUserRecipe }) => {
                                 <Image src={restaurant} alt={`Liczba porcji`} title='Liczba porcji' w={10} h={10} mx='auto' />
                                 <Text fontSize='2xl'>{recipe.portions} porcje</Text>
                             </Box>
-                            <Box>
+                            <Box >
                                 <Image src={clock} alt={`Czas`} title='Czas' w={10} h={10} mx='auto' />
                                 <Text fontSize='2xl' >{recipe.time} minut</Text>
                             </Box>
