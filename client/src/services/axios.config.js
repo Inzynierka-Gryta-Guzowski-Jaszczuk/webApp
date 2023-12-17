@@ -25,7 +25,6 @@ AxiosApi.interceptors.response.use(
         if (error.response.status === 401) {
             if(error.response.data.message === 'Expired JWT Token' || error.response.data.message === 'Invalid JWT Token') {
                 localStorage.removeItem('token')
-                // window.dispatchEvent(new Event('storage'))
                 window.location.href = '/login'
                 return
             }

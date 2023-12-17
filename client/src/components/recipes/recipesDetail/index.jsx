@@ -116,12 +116,12 @@ function RecipesDetails() {
             debugger;
             if (isSaved) {
                 const url = "recipe/saved/" + id;
-                const { data: res } = await AxiosApi.delete(url,config);
+                const { data: res } = await AxiosApi.delete(url, config);
             }
             else {
                 const url = "recipe/saved";
-                const data = { recipeId: id};
-                const { data: res } = await AxiosApi.post(url, data, config); 
+                const data = { recipeId: id };
+                const { data: res } = await AxiosApi.post(url, data, config);
             }
             location.reload();
 
@@ -276,14 +276,14 @@ function RecipesDetails() {
                                 boxShadow={boxShadow}
                                 padding="5px 10px"
                                 display="inline-flex"
-                                >
+                            >
                                 <Text fontSize='xl'>{tag}</Text>
                             </Card>
                         )) : null}
                     </Flex>
 
                 </GridItem>
-                
+
                 <GridItem
                     as={Card}
                     colSpan={2}
@@ -392,30 +392,34 @@ function RecipesDetails() {
                         />) : (
                         <></>
                     )}
-                    <Text fontSize='2xl'>Ocena użytkowników: {ratingValue.toFixed(2)}</Text>
+                    <Text fontSize='2xl'>Ocena użytkowników: {recipe?.rating?.toFixed(2)}</Text>
 
                 </GridItem>
-                {isSaved ? (
-                    <GridItem
-                        as={Button}
-                        onClick={saveUserRecipe}
-                        colStart={2}
-                        colSpan={2}
-                        rowSpan={1}
-                    >
-                        Usuń z zapisanych
-                    </GridItem>
-                ) : (
-                    <GridItem
-                        as={Button}
-                        onClick={saveUserRecipe}
-                        colStart={2}
-                        colSpan={2}
-                        rowSpan={1}
-                    >
-                        Zapisz
-                    </GridItem>
-                )}
+                {token ? (
+                    isSaved ? (
+                        <GridItem
+                            as={Button}
+                            onClick={saveUserRecipe}
+                            colStart={2}
+                            colSpan={2}
+                            rowSpan={1}
+                        >
+                            Usuń z zapisanych
+                        </GridItem>
+                    ) : (
+                        <GridItem
+                            as={Button}
+                            onClick={saveUserRecipe}
+                            colStart={2}
+                            colSpan={2}
+                            rowSpan={1}
+                        >
+                            Zapisz
+                        </GridItem>
+                    )
+                ) : null}
+
+
             </Grid>
             <Card variant='outline'
                 bg={secondaryColor}

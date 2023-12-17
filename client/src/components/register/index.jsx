@@ -1,7 +1,10 @@
 import { React, useState } from 'react';
 import { Card, CardBody, CardHeader, CardFooter, Heading, FormControl, FormLabel, FormErrorMessage, Button, Input, useTheme, Flex, Text, Link, useColorModeValue } from "@chakra-ui/react";
-import {Link as ReactRouterLink} from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import AxiosApi from '../../services/axios.config';
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+
 
 
 function Register() {
@@ -9,47 +12,31 @@ function Register() {
     const primaryColor = useColorModeValue(theme.colors.primary.light, theme.colors.primary.dark);
     const secondaryColor = useColorModeValue(theme.colors.secondary.light, theme.colors.secondary.dark);
     const boxShadow = useColorModeValue(theme.cardStyle.boxShadow.light, theme.cardStyle.boxShadow.dark);
-    const [data, setData] = useState({
-        email: "",
-        password: "",
-        userName: "",
-        firstName: "",
-        lastName: ""
-    });
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ mode: 'onBlur' });
+    const navigate = useNavigate()
 
-    const [errors, setErrors] = useState({
-        email: false,
-        password: false,
-        userName: false,
-        firstName: false,
-        lastName: false
-    });
 
-    const [message, setMessage] = useState("");
-    const [formDisabled,setFormDisabled] = useState(false);
-
-    const handleChange = ({ currentTarget: input }) => {
-        setData({ ...data, [input.name]: input.value });
-        if (input.value === '') {
-            setErrors({ ...errors, [input.name]: true });
-        }
-        else {
-            setErrors({ ...errors, [input.name]: false });
+    const passwordValidation = {
+        required: "Hasło jest wymagane",
+        minLength: {
+            value: 8,
+            message: "Hasło musi zawierać co najmniej 8 znaków"
+        },
+        pattern: {
+            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            message: "Hasło musi zawierać wielką literę, cyfrę i znak specjalny"
         }
     };
 
+    const [test, setMessage] = useState("");
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const onSubmit = async (data) => {
         try {
             const url = "user/register";
             const { data: res } = await AxiosApi.post(url, data);
             setMessage(res.message);
-            setFormDisabled(true);
-            setTimeout(function() {
-                window.location = "/login";
-            },3000);
+            navigate('/login');
+
         } catch (error) {
             if (
                 error.response &&
@@ -67,59 +54,53 @@ function Register() {
                     <Heading>Zarejestruj</Heading>
                 </CardHeader>
                 <CardBody mb={10} border='solid' borderColor={primaryColor} borderRadius='20' px={40}>
-                    <form onSubmit={handleSubmit} >
-                        <FormControl isInvalid={errors.userName} px={10}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <FormControl isInvalid={errors.userName}>
                             <FormLabel>Nazwa użytkownika</FormLabel>
-                            <Input name='userName' width='md' value={data.userName} onChange={handleChange} required/>
-                            {!errors.userName ? (
-                                <div><br></br></div>
-                            ) : (
-                                <FormErrorMessage>Nazwa użytkownika jest wymagana</FormErrorMessage>
-                            )}
+                            <Input {...register('userName', { required: 'Nazwa użytkownika jest wymagana' })} width='md' />
+                            <FormErrorMessage>
+                                {errors.userName && errors.userName.message}
+                            </FormErrorMessage>
                         </FormControl>
-                        <FormControl isInvalid={errors.firstName} px={10}>
+
+                        <FormControl isInvalid={errors.firstName}>
                             <FormLabel>Imię</FormLabel>
-                            <Input name='firstName' width='md' value={data.firstName} onChange={handleChange} required/>
-                            {!errors.firstName ? (
-                                <div><br></br></div>
-                            ) : (
-                                <FormErrorMessage>Imię jest wymagane</FormErrorMessage>
-                            )}
+                            <Input {...register('firstName', { required: 'Imię jest wymagane' })} width='md' />
+                            <FormErrorMessage>
+                                {errors.firstName && errors.firstName.message}
+                            </FormErrorMessage>
                         </FormControl>
-                        <FormControl isInvalid={errors.lastName} px={10}>
+
+                        <FormControl isInvalid={errors.lastName}>
                             <FormLabel>Nazwisko</FormLabel>
-                            <Input name='lastName' width='md' value={data.lastName} onChange={handleChange} required/>
-                            {!errors.lastName ? (
-                                <div><br></br></div>
-                            ) : (
-                                <FormErrorMessage>Nazwisko użytkownika jest wymagane</FormErrorMessage>
-                            )}
+                            <Input {...register('lastName', { required: 'Nazwisko użytkownika jest wymagane' })} width='md' />
+                            <FormErrorMessage>
+                                {errors.lastName && errors.lastName.message}
+                            </FormErrorMessage>
                         </FormControl>
-                        <FormControl isInvalid={errors.email} px={10}>
+
+                        <FormControl isInvalid={errors.email}>
                             <FormLabel>Email</FormLabel>
-                            <Input name='email' type='email' width='md' value={data.email} onChange={handleChange} required/>
-                            {!errors.email ? (
-                                <div><br></br></div>
-                            ) : (
-                                <FormErrorMessage>Email jest wymagany</FormErrorMessage>
-                            )}
+                            <Input {...register('email', { required: 'Email jest wymagany', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "Nieprawidłowy format email" } })} type='email' width='md' />
+                            <FormErrorMessage>
+                                {errors.email && errors.email.message}
+                            </FormErrorMessage>
                         </FormControl>
-                        <FormControl isInvalid={errors.password} px={10} py={2}>
+
+                        <FormControl isInvalid={errors.password}>
                             <FormLabel>Hasło</FormLabel>
-                            <Input name='password' type='password' value={data.password} onChange={handleChange} required/>
-                            {!errors.password ? (
-                                <div><br></br></div>
-                            ) : (
-                                <FormErrorMessage >Hasło jest wymagane</FormErrorMessage>
-                            )}
+                            <Input {...register('password', passwordValidation)} type='password' width='md' />
+                            <FormErrorMessage>
+                                {errors.password && errors.password.message}
+                            </FormErrorMessage>
                         </FormControl>
-                        <Button mt={4} type="submit" isDisabled={formDisabled}>Zarejestruj</Button>
-                        {message !== '' ?(
-                            <Text>{message}</Text>
-                        ): ( 
+                        <Button mt={4} type="submit" >Zarejestruj</Button>
+                        {test !== '' ? (
+                            <Text>{test}</Text>
+                        ) : (
                             <div><br></br></div>
                         )}
-                        
+
                     </form>
 
                 </CardBody>
