@@ -1,9 +1,9 @@
-const joi = require('joi')
+import joi from 'joi';
 const Recipe = require('../models/Recipe')
 
-const TAGS = Recipe.getPossibleTags()
+const TAGS = Recipe.Recipe.getPossibleTags()
 
-const validate = (data) => {
+const validate = (data: any) => {
     const ingredientSchema = joi.object({
         name: joi.string().required(),
         ammount: joi.number().required(),

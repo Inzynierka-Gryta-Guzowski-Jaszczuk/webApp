@@ -1,6 +1,25 @@
+import { HydratedDocument, ObjectId } from 'mongoose';
+import { RecipeDocument } from './../../models/Recipe';
 
-const recipeToDTO = (recipe) => {
-  let averageRating = 0
+interface RecipeDTO {
+  author: ObjectId;
+  recipe_id: string;
+  name: string;
+  tags?: string[];
+  image: string;
+  ingredients: any[]; // Adjust this type based on your Ingredient model
+  description?: string;
+  instructions: string[];
+  difficulty?: 'easy' | 'medium' | 'hard';
+  calories?: number;
+  portions?: number;
+  saved_count: number;
+  rating: number | null;
+  time?: number;
+}
+
+const recipeToDTO = (recipe: HydratedDocument<RecipeDocument>): RecipeDTO => {
+  let averageRating: number | null = 0
   const rating = recipe.rating
   if(rating.length !== 0) {
     const sum = rating.reduce((total, rating) => total + rating.rate, 0);

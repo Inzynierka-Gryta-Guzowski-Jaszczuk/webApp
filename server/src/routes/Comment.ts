@@ -1,21 +1,26 @@
-const express = require('express')
-router = express.Router()
+import express, { Request, Response } from 'express';
+import { HydratedDocument } from 'mongoose';
+import { RecipeDocument } from '../models/Recipe';
+import CommentDocument from '../models/Comment';
+import { UserDocument } from '../models/User';
+const router = express.Router()
 const authenticate = require('./../middlewares/AuthorizationJWT')
 const User = require('./../models/User')
 const Recipe = require('./../models/Recipe')
 
-const commentsToDTO = (comments) => {
+const commentsToDTO = (comments : CommentDocument[]) => {
     return comments.map(comment => {
+        const user = comment.user as UserDocument
         return {
             commentId: comment._id,
             comment: comment.comment,
-            user: comment.user.userName,
-            userId: comment.user._id
+            user: user.userName,
+            userId: user._id
         }
     })
 } 
 
-router.get('/recipe/:id', async (req, res) => {
+router.get('/recipe/:id', async (req: Request<{id: 'string'}>, res: Response) => {
     // #swagger.tags = ['Comments']
     // #swagger.summary = 'Get comments for recipe'
     /* #swagger.responses[200] = {
@@ -25,7 +30,7 @@ router.get('/recipe/:id', async (req, res) => {
     if(!req.params.id){
         return res.status(400).send("Brak id przepisu")
     }
-    const recipe = await Recipe.findById(req.params.id).populate('comments.user')
+    const recipe: HydratedDocument<RecipeDocument> | null = await Recipe.findById(req.params.id).populate('comments.user')
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")
     }
@@ -46,6 +51,7 @@ router.post('/recipe/:id', authenticate, async (req, res) => {
     if (!comment) {
         return res.status(400).send("Brak komentarza")
     }
+    //@ts-ignore
     const user = await User.findById(req.user._id)
     recipe.comments.push({
         comment: comment,
@@ -64,6 +70,7 @@ router.put('/recipe/:id/comment/:comment_id', authenticate, async (req, res) => 
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")
     }
+    //@ts-ignore
     const user = await User.findById(req.user._id)
     // const comment = recipe.comments.id(req.params.comment_id)[0]
     const comment = recipe.comments.id(req.params.comment_id)
@@ -89,6 +96,7 @@ router.delete('/recipe/:id/comment/:comment_id', authenticate, async (req, res) 
     if (!recipe) {
         return res.status(404).send("Przepis nie istnieje")
     }
+    //@ts-ignore
     const user = await User.findById(req.user._id)
     const comment = recipe.comments.id(req.params.comment_id)
     if (!comment) {
