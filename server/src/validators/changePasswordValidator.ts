@@ -1,9 +1,9 @@
-const joi = require('joi')
+import joi from 'joi';
 const { joiPasswordExtendCore } = require('joi-password');
 const joiPassword = joi.extend(joiPasswordExtendCore);
 
 
-const validate = (data) => {
+const validate = (data: any) => {
     const schema = joi.object({
         newPassword: joiPassword.string().min(8).minOfLowercase(1).minOfUppercase(1).minOfNumeric(1).minOfSpecialCharacters(1).required().label("nowe hasło").messages({
             'password.minOfUppercase': 'hasło powinno zawierać conajmniej jedną wielką literę',

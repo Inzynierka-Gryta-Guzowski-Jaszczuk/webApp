@@ -1,6 +1,8 @@
-const mongoose = require('mongoose')
-const commentSchema = require('./Comment')
-
+import mongoose, {Document, Schema, Model} from 'mongoose'
+// const mongoose = require('mongoose')
+// const commentSchema = require('./Comment')
+import CommentDocument from './Comment';
+import {IngredientDocument} from './Ingredient'
 // const TAGS = ["ciasta", "zapiekanki", "pizzy", "makarony", "sushi", "sałatki", "burgery", "ryby", "lody", "desery", "kebaby", 'śniadanie', 'obiad', 'kolacja', 'desery', 'tajskie', 'greckie', 'włoskie', 'chińskie', 'meksykańskie', 'kurczak', ];
 
 const CategorizedTags = {
@@ -10,14 +12,41 @@ const CategorizedTags = {
     "Dieta": ["Bez glutenu", "Bez laktozy", "Bez cukru", "Dla dzieci", "Dietetyczne", "Wegetariańskie", "Wegańskie", "Dla zdrowia", "Keto"],
 }
 
-const recipeSchema = new mongoose.Schema({
+interface Rating {
+    rate: number;
+    user: mongoose.Schema.Types.ObjectId;
+}
+
+interface RecipeDocument extends Document {
+    author: mongoose.Schema.Types.ObjectId;
+    name: string;
+    image: string;
+    ingredients: IngredientDocument[];
+    description?: string;
+    instructions: string[];
+    difficulty?: 'easy' | 'medium' | 'hard';
+    tags?: string[];
+    calories?: number;
+    portions?: number;
+    comments: CommentDocument[];
+    saved_count: number;
+    rating: Rating[];
+    time?: number;
+}
+
+interface RecipeModel extends Model<RecipeDocument> {
+    getPossibleTags(): string[];
+    getCategorizedTags(): typeof CategorizedTags;
+}
+
+const recipeSchema = new Schema<RecipeDocument, RecipeModel>({
     author: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     name: {type: String, required: true},
     image: {type: String, required: true},
     ingredients: [{
-        name:{type: String, required: true}, 
-        ammount: {type: Number, required: true},
-        unit: {type: String, required: true}
+        type: Schema.Types.ObjectId,
+        ref: 'Ingredient',
+        required: true
     }],
     description: {type: String, require: false},
     instructions: [
@@ -27,7 +56,7 @@ const recipeSchema = new mongoose.Schema({
     tags: [{type: String, required: false}],
     calories: {type: Number, required: false},
     portions: {type: Number, required: false},
-    comments: [commentSchema],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     saved_count: {type: Number, required: true},
     rating: [
         {
@@ -41,7 +70,7 @@ const recipeSchema = new mongoose.Schema({
 
 recipeSchema.statics.getPossibleTags = function() {
     const subcategories = Object.values(CategorizedTags)
-    const tags = []
+    const tags: string[] = []
     subcategories.forEach(subcategory => {
         subcategory.forEach(tag => {
             tags.push(tag)
@@ -57,4 +86,4 @@ recipeSchema.statics.getCategorizedTags = function() {
 
 const Recipe = mongoose.model('Recipe', recipeSchema)
 
-module.exports = Recipe
+export {RecipeDocument, RecipeModel, Rating, Recipe}

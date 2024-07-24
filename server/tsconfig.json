@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "typeRoots": [
+      "@types", 
+      "./node_modules/@types"
+    ],
+  },
+  "include": ["src/**/*.ts", "src/routes/Rating.ts", "src/models/Comment.js", "src/models/Recipe.js", "src/models/Recipe.js"], 
+  "exclude": ["node_modules"]
+}

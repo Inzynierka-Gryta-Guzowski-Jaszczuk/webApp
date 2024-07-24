@@ -1,6 +1,6 @@
-const joi = require('joi')
+import joi from 'joi';
 
-const validate = (data) => {
+const validate = (data: any) => {
     const schema = joi.object({
         userName: joi.string().required().label("Username"),
         password: joi.string().required().label("Password"),

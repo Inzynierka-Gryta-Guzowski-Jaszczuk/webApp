@@ -119,6 +119,10 @@ const doc = {
         "$email": "example@example.com",
         "$password": "password123"
       },
+      "Login": {
+        userName: "",
+        password: ""
+      },
       EditUser: {
         userName: "User1",
         firstName: "Kamil",
@@ -143,6 +147,6 @@ const doc = {
   
 
 const outputFile = './swagger_output.json'
-const endpointsFiles = ['./index.js']
+const endpointsFiles = ['./index.ts']
 
 swaggerAutogen(outputFile, endpointsFiles, doc)

@@ -1,5 +1,5 @@
-const express = require('express')
-router = express.Router()
+import express, { Request, Response } from 'express';
+const router = express.Router()
 const authenticate = require('./../middlewares/AuthorizationJWT')
 const addRecipeService = require('./../services/recipes/addRecipe')
 const getUserRecipesService = require('../services/recipes/getUserRecipes')
@@ -16,35 +16,35 @@ const getSavedRecipesService = require('./../services/recipes/getSavedRecipes')
 const isRecipeSavedService = require('./../services/recipes/isRecipeSaved')
 const Recipe = require('../models/Recipe')
 //for not authorized users
-router.get('/public/', (req, res) => {
+router.get('/public/', (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Get all recipes'
     getAllRecipesService(req, res)
 })
 
 //search by ingredients
-router.get('/public/search/fridge', (req, res) => {
+router.get('/public/search/fridge', (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Search by ingredients'
     // #swagger.description = 'write ingredients after comas'
     getFilteredRecipesFridgeService(req, res)
 })
 
-router.get('/public/search', (req, res) => {
+router.get('/public/search', (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Search by name and tags'
     getFilteredRecipesService(req, res)
 })
 
 //get specific recipe by id
-router.get('/public/:id', (req, res) => {
+router.get('/public/:id', (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Get specific recipe by id'
     getRecipeService(req, res)
 })
 
 //get all recipes of specific user
-router.get('/public/user/:id', (req, res) => {
+router.get('/public/user/:id', (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Get all recipes of specific user'
     getUserRecipesService(req, res)
@@ -53,14 +53,14 @@ router.get('/public/user/:id', (req, res) => {
 //for authorized users
 
 //get all recipes of logged user
-router.get('/all', authenticate, (req, res) => {
+router.get('/all', authenticate, (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Get all recipes of logged user'
     getMyRecipesService(req, res)
 })
 
 //ad recipe
-router.post('/add', authenticate, (req, res) => {
+router.post('/add', authenticate, (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Add recipe'
    /* #swagger.requestBody = {
@@ -76,14 +76,14 @@ router.post('/add', authenticate, (req, res) => {
 })
 
 //delete recipe 
-router.delete('/:id',authenticate, (req, res) => {
+router.delete('/:id',authenticate, (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Delete recipe'
     deleteRecipeService(req, res)
 })
 
 //edit recipe
-router.put('/',authenticate, (req, res) => {
+router.put('/',authenticate, (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Edit recipe'
      /* #swagger.requestBody = {
@@ -99,7 +99,7 @@ router.put('/',authenticate, (req, res) => {
 })
 
 //get tags
-router.get('/tags', (req, res) => {
+router.get('/tags', (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Get tags'
     res.send(Recipe.getCategorizedTags())
@@ -107,28 +107,28 @@ router.get('/tags', (req, res) => {
 
 //saved recipes
 
-router.get('/saved/:id', authenticate, (req, res) => {
+router.get('/saved/:id', authenticate, (req: Request<{id: 'string'}>, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Check if recipe is saved'
     isRecipeSavedService(req, res)
 })
 
 //get all saved recipes of logged user
-router.get('/saved', authenticate, (req, res) => {
+router.get('/saved', authenticate, (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Get all saved recipes of logged user'
     getSavedRecipesService(req, res)
 })
 
 //add recipe to saved
-router.post('/saved', authenticate, (req, res) => {
+router.post('/saved', authenticate, (req: Request, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Add recipe to saved'
     addRecipeToSavedService(req, res)
 })
 
 //delete recipe from saved
-router.delete('/saved/:id', authenticate, (req, res) => {
+router.delete('/saved/:id', authenticate, (req: Request<{id: 'string'}>, res: Response) => {
     // #swagger.tags = ['Recipes']
     // #swagger.summary = 'Delete recipe from saved'
     deleteRecipeFromSavedService(req, res)
